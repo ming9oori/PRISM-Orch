@@ -74,3 +74,5 @@ python test_client.py
 ```
 
 클라이언트는 실행 중인 서버에 샘플 요청을 보내고, 받은 응답을 터미널에 출력합니다.
+
+![api 서버 실행 화면](assets/api_docs.png)
