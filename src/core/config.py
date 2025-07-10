@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     .env 파일이나 환경 변수로부터 값을 불러옵니다.
     """
     # API Keys
-    OPENAI_API_KEY: str
+    OPENAI_API_KEY: str = "dummy-key-not-used-in-mock-mode"
 
     # Database Paths
     VECTOR_DB_PATH: str = str(project_root / "data" / "vector_db")
