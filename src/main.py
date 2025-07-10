@@ -43,11 +43,11 @@ async def read_root():
 if __name__ == "__main__":
     """
     개발 환경에서 uvicorn을 사용하여 서버를 직접 실행합니다.
+    이 스크립트는 'python -m src.main' 명령어로 실행되어야 합니다.
     """
     uvicorn.run(
-        "main:app",
+        "src.main:app",  # 애플리케이션 경로를 명확하게 지정
         host=settings.APP_HOST,
         port=settings.APP_PORT,
-        reload=settings.RELOAD,
-        app_dir="src" # 'python src/main.py'가 아닌 'python -m src.main'으로 실행될 경우를 대비
+        reload=settings.RELOAD
     ) 
