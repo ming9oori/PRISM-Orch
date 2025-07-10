@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+langchain
+langchain-community
+langchain-openai
+transformers
+torch
+sentence-transformers
+chromadb
+numpy
+websockets
+requests # API 테스트 클라이언트를 위한 라이브러리 
