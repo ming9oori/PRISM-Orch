@@ -1,0 +1,41 @@
+# 지원 모델 설정
+
+models:
+  # 소형 모델 (개발/테스트용)
+  small:
+    name: "microsoft/DialoGPT-medium"
+    tensor_parallel_size: 1
+    max_model_len: 2048
+    gpu_memory_utilization: 0.7
+    description: "개발 및 테스트용 소형 모델"
+
+  # 중형 모델 (일반 운영용)  
+  medium:
+    name: "microsoft/DialoGPT-large"
+    tensor_parallel_size: 1
+    max_model_len: 4096
+    gpu_memory_utilization: 0.9
+    description: "일반 운영용 중형 모델"
+
+  # 대형 모델 (고성능 요구시)
+  large:
+    name: "meta-llama/Llama-2-13b-chat-hf"
+    tensor_parallel_size: 2
+    max_model_len: 4096
+    gpu_memory_utilization: 0.95
+    description: "고성능 대형 모델"
+
+  # 초대형 모델 (최고 성능)
+  xlarge:
+    name: "meta-llama/Llama-2-70b-chat-hf"
+    tensor_parallel_size: 4
+    max_model_len: 4096
+    gpu_memory_utilization: 0.95
+    description: "최고 성능 초대형 모델"
+
+# 에이전트별 권장 모델
+agent_recommendations:
+  orchestration: "medium"    # 복잡한 계획 수립
+  monitoring: "small"        # 빠른 분석 응답
+  prediction: "large"        # 정확한 예측 해석
+  control: "medium"          # 안전한 제어 결정 

@@ -1,0 +1,68 @@
+# 성능 최적화 설정
+
+# vLLM 엔진 최적화
+engine_optimization:
+  # 메모리 최적화
+  gpu_memory_utilization: 0.9
+  swap_space: 4  # GB
+  cpu_offload_gb: 0
+  
+  # 배치 처리 최적화
+  max_num_seqs: 256
+  max_num_batched_tokens: 8192
+  max_paddings: 256
+  
+  # CUDA 최적화
+  enforce_eager: false  # CUDA 그래프 사용
+  use_v2_block_manager: true
+  enable_prefix_caching: true
+  
+  # 토큰 생성 최적화
+  disable_log_stats: true
+  disable_log_requests: false
+
+# 시스템 최적화
+system_optimization:
+  # 프로세스 설정
+  worker_use_ray: false
+  max_parallel_loading_workers: 4
+  
+  # 네트워크 최적화
+  served_model_name: null
+  chat_template: null
+  response_role: "assistant"
+  
+  # 로깅 설정
+  log_level: "INFO"
+  log_requests: true
+  log_stats_interval: 10
+
+# 하드웨어별 권장 설정
+hardware_profiles:
+  # 단일 A100 80GB
+  single_a100_80gb:
+    tensor_parallel_size: 1
+    gpu_memory_utilization: 0.95
+    max_model_len: 8192
+    max_num_seqs: 512
+    
+  # 듀얼 A100 80GB  
+  dual_a100_80gb:
+    tensor_parallel_size: 2
+    gpu_memory_utilization: 0.95
+    max_model_len: 8192
+    max_num_seqs: 1024
+    
+  # 4x A100 80GB
+  quad_a100_80gb:
+    tensor_parallel_size: 4
+    gpu_memory_utilization: 0.95
+    max_model_len: 8192
+    max_num_seqs: 2048
+    
+  # RTX 4090 (개발용)
+  rtx_4090:
+    tensor_parallel_size: 1
+    gpu_memory_utilization: 0.85
+    max_model_len: 4096
+    max_num_seqs: 128 
