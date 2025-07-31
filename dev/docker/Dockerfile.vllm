@@ -1,0 +1,38 @@
+FROM nvidia/cuda:12.1-devel-ubuntu22.04
+
+WORKDIR /app
+
+# 시스템 패키지 설치
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-dev \
+    git \
+    wget \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Python 패키지 설치
+COPY requirements-vllm.txt .
+RUN pip3 install --no-cache-dir -r requirements-vllm.txt
+
+# 애플리케이션 코드 복사
+COPY src/ ./src/
+COPY config/ ./config/
+
+# 로그 디렉토리 생성
+RUN mkdir -p /app/logs
+
+# 모델 캐시 디렉토리
+ENV HF_HOME=/root/.cache/huggingface
+ENV TRANSFORMERS_CACHE=/root/.cache/huggingface
+
+# 포트 노출
+EXPOSE 8000
+
+# 헬스체크
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# 서버 실행
+CMD ["python3", "-m", "src.main", "--host", "0.0.0.0", "--port", "8000"] 
