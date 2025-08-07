@@ -224,5 +224,7 @@ coverage-reports/
 .python-version
 
 
-# pyc files
-*.pyc
+# pycache files in directories that may exist in the project
+**/__pycache__/
+**/*.py[cod]
+**/*.pyo
