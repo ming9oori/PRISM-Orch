@@ -7,49 +7,48 @@ rule_files:
   # - "second_rules.yml"
 
 scrape_configs:
-  # Prometheus 자체 메트릭
+  # Prometheus 자체 모니터링
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
 
-  # PostgreSQL 메트릭 (postgres_exporter 사용)
-  - job_name: 'postgresql'
+  # PRISM 오케스트레이션 에이전트 메트릭스
+  - job_name: 'prism-orchestration'
     static_configs:
-      - targets: ['postgres-exporter:9187']
-    scrape_interval: 30s
+      - targets: ['host.docker.internal:8000']  # 오케스트레이션 서비스
+    scrape_interval: 5s
     metrics_path: /metrics
 
-  # Redis 메트릭 (redis_exporter 사용)
+  # PostgreSQL 메트릭스 (postgres_exporter 사용 시)
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['host.docker.internal:9187']
+    scrape_interval: 30s
+
+  # Redis 메트릭스 (redis_exporter 사용 시)
   - job_name: 'redis'
     static_configs:
-      - targets: ['redis-exporter:9121']
+      - targets: ['host.docker.internal:9121']
     scrape_interval: 30s
-    metrics_path: /metrics
 
-  # Kafka 메트릭 (JMX exporter 사용)
+  # Kafka 메트릭스 (kafka_exporter 사용 시)
   - job_name: 'kafka'
     static_configs:
-      - targets: ['kafka-exporter:9308']
+      - targets: ['host.docker.internal:9308']
     scrape_interval: 30s
-    metrics_path: /metrics
 
-  # Weaviate 메트릭 (내장 메트릭 사용)
-  - job_name: 'weaviate'
+  # AI 에이전트 개별 메트릭스
+  - job_name: 'monitoring-agent'
     static_configs:
-      - targets: ['orch_weaviate:8080']
-    scrape_interval: 30s
-    metrics_path: /v1/metrics
+      - targets: ['host.docker.internal:8001']
+    scrape_interval: 10s
 
-  # Docker 컨테이너 메트릭 (cAdvisor 사용)
-  - job_name: 'cadvisor'
+  - job_name: 'prediction-agent'
     static_configs:
-      - targets: ['cadvisor:8080']
-    scrape_interval: 30s
-    metrics_path: /metrics
+      - targets: ['host.docker.internal:8002']
+    scrape_interval: 10s
 
-  # Node exporter (시스템 메트릭)
-  - job_name: 'node'
+  - job_name: 'control-agent'
     static_configs:
-      - targets: ['node-exporter:9100']
-    scrape_interval: 30s
-    metrics_path: /metrics
+      - targets: ['host.docker.internal:8003']
+    scrape_interval: 10s

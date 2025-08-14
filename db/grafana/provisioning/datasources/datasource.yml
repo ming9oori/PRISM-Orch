@@ -7,4 +7,32 @@ datasources:
     url: http://prometheus:9090
     isDefault: true
     editable: true
-    basicAuth: false
+
+  - name: PostgreSQL
+    type: postgres
+    access: proxy
+    url: postgres:5432
+    database: prism_orchestration
+    user: prism_user
+    secureJsonData:
+      password: prism_password
+    jsonData:
+      sslmode: disable
+      maxOpenConns: 0
+      maxIdleConns: 2
+      connMaxLifetime: 14400
+    editable: true
+
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    database: prism-metrics
+    user: prism_user
+    secureJsonData:
+      password: prism_password
+    jsonData:
+      version: Flux
+      organization: prism-org
+      defaultBucket: prism-metrics
+    editable: true
