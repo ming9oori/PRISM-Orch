@@ -42,11 +42,14 @@
 git clone <repository-url>
 cd PRISM-Orch/db
 
-# 한 번에 배포 (권장)
-./scripts/deploy.sh
+# 모니터링 대시보드 포함 배포 (권장)
+./scripts/setup_monitoring.sh
 
 # 또는 수동 실행
 docker-compose up -d
+
+# 더미 데이터 생성 (대시보드 테스트용)
+python3 scripts/generate_dashboard_dummy_data.py
 
 # 초기화 스크립트 실행
 python3 kafka/create_topics.py
@@ -85,13 +88,13 @@ DOCKER_INFLUXDB_INIT_BUCKET: prism-metrics
 
 | 서비스 | 포트 | 접속 정보 |
 |--------|------|-----------|
-| PostgreSQL | 5432 | `prism_user` / `prism_password` |
-| Redis | 6379 | 패스워드 없음 (로컬만) |
-| Weaviate | 8080 | http://localhost:8080 |
-| Kafka | 9092 | localhost:9092 |
-| InfluxDB | 8086 | http://localhost:8086 |
-| Prometheus | 9090 | http://localhost:9090 |
-| Grafana | 3000 | `admin` / `admin123` |
+| PostgreSQL | 15432 | `prism_user` / `prism_password` |
+| Redis | 16379 | 패스워드 없음 (로컬만) |
+| Weaviate | 18080 | http://localhost:18080 |
+| Kafka | 19092 | localhost:19092 |
+| InfluxDB | 18086 | http://localhost:18086 |
+| Prometheus | 19090 | http://localhost:19090 |
+| Grafana | 13000 | `admin` / `admin123` |
 
 ## 데이터베이스 스키마
 
@@ -118,13 +121,40 @@ DOCKER_INFLUXDB_INIT_BUCKET: prism-metrics
 
 ### 대시보드
 
-Grafana 대시보드 (`http://localhost:3000`)에서 다음 메트릭을 모니터링할 수 있습니다:
+Grafana 대시보드 (`http://localhost:13000`)에서 통합 모니터링이 가능합니다:
 
-- 태스크 처리 현황 및 성공률
-- 에이전트별 성능 지표
-- 시스템 리소스 사용량
-- 제약조건 위반 통계
-- 사용자 만족도 점수
+#### 🚀 메인 오버뷰 대시보드
+- 전체 인프라 상태 실시간 모니터링
+- 서비스별 헬스체크 및 성능 지표
+- 태스크 실행 상태 및 성공률 트렌드
+- 에이전트별 성능 요약 테이블
+- DB별 전용 대시보드로의 직접 링크
+
+#### 🐘 PostgreSQL 모니터링
+- 데이터베이스 연결 상태 및 기본 정보
+- 테이블별 크기 및 활동 통계
+- 실시간 쿼리 성능 및 활성 세션
+- 데이터베이스 성능 메트릭
+
+#### 🔴 Redis 모니터링  
+- 메모리 사용량 및 연결된 클라이언트
+- 명령어 처리율 및 네트워크 I/O
+- 캐시 히트율 및 키 분포
+- 실시간 성능 트렌드
+
+#### 🔄 Kafka 모니터링
+- 브로커 상태 및 토픽/파티션 수
+- 메시지 처리량 및 컨슈머 랙
+- JVM 메모리 사용량 및 성능 지표
+- 요청 처리 성능
+
+#### 🏭 AI Manufacturing 대시보드
+- 제조라인별 효율성 및 품질 점수
+- 에이전트 유형별 활동 현황
+- 생산 처리량 및 리소스 활용률
+- 에이전트 성공률 및 태스크 소요시간
+
+**로그인 정보**: `admin` / `admin123`
 
 ### 로그 관리
 
@@ -172,19 +202,19 @@ from kafka import KafkaProducer
 
 # PostgreSQL 연결
 conn = psycopg2.connect(
-    host="localhost", port=5432, 
+    host="localhost", port=15432, 
     database="prism_orchestration",
     user="prism_user", password="prism_password"
 )
 
 # Redis 연결
-r = redis.Redis(host='localhost', port=6379)
+r = redis.Redis(host='localhost', port=16379)
 
 # Weaviate 연결
-client = weaviate.Client("http://localhost:8080")
+client = weaviate.Client("http://localhost:18080")
 
 # Kafka 프로듀서
-producer = KafkaProducer(bootstrap_servers=['localhost:9092'])
+producer = KafkaProducer(bootstrap_servers=['localhost:19092'])
 ```
 
 ---

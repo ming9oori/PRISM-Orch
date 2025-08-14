@@ -12,43 +12,43 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  # PRISM 오케스트레이션 에이전트 메트릭스
-  - job_name: 'prism-orchestration'
-    static_configs:
-      - targets: ['host.docker.internal:8000']  # 오케스트레이션 서비스
-    scrape_interval: 5s
-    metrics_path: /metrics
+  # PRISM 오케스트레이션 에이전트 메트릭스 (현재 비활성화 - 실제 서비스가 없음)
+  # - job_name: 'prism-orchestration'
+  #   static_configs:
+  #     - targets: ['localhost:8000']
+  #   scrape_interval: 5s
+  #   metrics_path: /metrics
 
-  # PostgreSQL 메트릭스 (postgres_exporter 사용 시)
-  - job_name: 'postgres'
-    static_configs:
-      - targets: ['host.docker.internal:9187']
-    scrape_interval: 30s
+  # PostgreSQL 메트릭스 (postgres_exporter 필요 - 현재 비활성화)
+  # - job_name: 'postgres'
+  #   static_configs:
+  #     - targets: ['localhost:9187']
+  #   scrape_interval: 30s
 
-  # Redis 메트릭스 (redis_exporter 사용 시)
-  - job_name: 'redis'
-    static_configs:
-      - targets: ['host.docker.internal:9121']
-    scrape_interval: 30s
+  # Redis 메트릭스 (redis_exporter 필요 - 현재 비활성화)
+  # - job_name: 'redis'
+  #   static_configs:
+  #     - targets: ['localhost:9121']
+  #   scrape_interval: 30s
 
-  # Kafka 메트릭스 (kafka_exporter 사용 시)
-  - job_name: 'kafka'
-    static_configs:
-      - targets: ['host.docker.internal:9308']
-    scrape_interval: 30s
+  # Kafka 메트릭스 (kafka_exporter 필요 - 현재 비활성화)
+  # - job_name: 'kafka'
+  #   static_configs:
+  #     - targets: ['localhost:9308']
+  #   scrape_interval: 30s
 
-  # AI 에이전트 개별 메트릭스
-  - job_name: 'monitoring-agent'
-    static_configs:
-      - targets: ['host.docker.internal:8001']
-    scrape_interval: 10s
+  # AI 에이전트 개별 메트릭스 (현재 비활성화 - 실제 서비스가 없음)
+  # - job_name: 'monitoring-agent'
+  #   static_configs:
+  #     - targets: ['localhost:8001']
+  #   scrape_interval: 10s
 
-  - job_name: 'prediction-agent'
-    static_configs:
-      - targets: ['host.docker.internal:8002']
-    scrape_interval: 10s
+  # - job_name: 'prediction-agent'
+  #   static_configs:
+  #     - targets: ['localhost:8002']
+  #   scrape_interval: 10s
 
-  - job_name: 'control-agent'
-    static_configs:
-      - targets: ['host.docker.internal:8003']
-    scrape_interval: 10s
+  # - job_name: 'control-agent'
+  #   static_configs:
+  #     - targets: ['localhost:8003']
+  #   scrape_interval: 10s
