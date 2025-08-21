@@ -17,6 +17,11 @@ services:
       - APP_PORT=8000
     depends_on:
       - weaviate
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
 
   weaviate:
     image: semitechnologies/weaviate:1.21.3

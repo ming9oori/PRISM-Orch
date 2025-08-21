@@ -1,11 +1,25 @@
 import requests
 from typing import List, Dict, Any
 import os
+import time
 
 BASE_URL = os.getenv("APP_BASE_URL", "http://localhost:8000")
 
 RESEARCH_CLASS = "ResearchDocs"
 MEMORY_CLASS = "AgentMemory"
+
+
+def wait_for(url: str, timeout_s: int = 90) -> None:
+    start = time.time()
+    while time.time() - start < timeout_s:
+        try:
+            r = requests.get(url, timeout=3)
+            if r.status_code < 500:
+                return
+        except Exception:
+            pass
+        time.sleep(2)
+    raise RuntimeError(f"Timeout waiting for {url}")
 
 
 def create_index(base_url: str, class_name: str, description: str, vector_dim: int, encoder_model: str) -> None:
@@ -41,6 +55,9 @@ def add_documents(base_url: str, class_name: str, docs: List[Dict[str, Any]]) ->
 
 
 def seed() -> None:
+    # Wait for app
+    wait_for(f"{BASE_URL}/")
+
     # 1) Create indices (assume 384-dim sentence-transformers)
     create_index(BASE_URL, RESEARCH_CLASS, "External research knowledge", 384, "sentence-transformers/all-MiniLM-L6-v2")
     create_index(BASE_URL, MEMORY_CLASS, "Agent interaction memory", 384, "sentence-transformers/all-MiniLM-L6-v2")
