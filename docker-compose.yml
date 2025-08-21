@@ -1,7 +1,10 @@
 version: '3.8'
 services:
   app:
-    build: .
+    build:
+      context: .
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
     container_name: prism-orch-app
     ports:
       - "8000:8000"
@@ -29,7 +32,10 @@ services:
       CLUSTER_HOSTNAME: 'node1'
 
   seed:
-    build: .
+    build:
+      context: .
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
     container_name: prism-orch-seed
     environment:
       - APP_BASE_URL=http://app:8000
@@ -38,6 +44,6 @@ services:
       - app
 
 # Usage:
-# 1) docker compose up -d --build weaviate app
+# 1) export GITHUB_TOKEN=...; docker compose up -d --build weaviate app
 # 2) docker compose run --rm seed
-# 3) (optional) docker compose down 
+# 3) docker compose down 

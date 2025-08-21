@@ -31,6 +31,4 @@ httpx
 pytest==7.4.0
 pytest-asyncio==0.21.1
 
-# PRISM Core (vector db APIs, tools, etc.)
-# Pin to tag
-git+https://github.com/PRISM-System/prism-core@v0.1.2
+# prism-core installed in Dockerfile via build-arg GITHUB_TOKEN
