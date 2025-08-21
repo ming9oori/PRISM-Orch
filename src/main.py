@@ -31,7 +31,9 @@ app = FastAPI(
 # --- 라우터 포함 ---
 app.include_router(orchestration.router, prefix="/api/v1/orchestrate", tags=["Orchestration"])
 app.include_router(vector_db_endpoints.research_router, prefix="/api/v1/research", tags=["Research Vector DB"]) 
-app.include_router(vector_db_endpoints.memory_router, prefix="/api/v1/memory", tags=["Memory Vector DB"])
+app.include_router(vector_db_endpoints.memory_router, prefix="/api/v1/memory", tags=["Memory Vector DB"]) 
+from .api.endpoints import vector_db_tools as vector_db_tools_endpoints
+app.include_router(vector_db_tools_endpoints.router, prefix="/api/v1/tools", tags=["Vector DB Tools"])
 # app.include_router(agent_management.router, prefix="/api/v1/agents", tags=["Agent Management"])
 
 
