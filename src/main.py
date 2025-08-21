@@ -33,7 +33,9 @@ app.include_router(orchestration.router, prefix="/api/v1/orchestrate", tags=["Or
 app.include_router(vector_db_endpoints.research_router, prefix="/api/v1/research", tags=["Research Vector DB"]) 
 app.include_router(vector_db_endpoints.memory_router, prefix="/api/v1/memory", tags=["Memory Vector DB"]) 
 from .api.endpoints import vector_db_tools as vector_db_tools_endpoints
-app.include_router(vector_db_tools_endpoints.router, prefix="/api/v1/tools", tags=["Vector DB Tools"])
+app.include_router(vector_db_tools_endpoints.router, prefix="/api/v1/tools", tags=["Vector DB Tools"]) 
+from .api.endpoints import fc_search as fc_search_endpoints
+app.include_router(fc_search_endpoints.router, prefix="/api/v1", tags=["Function Calling Search"])
 # app.include_router(agent_management.router, prefix="/api/v1/agents", tags=["Agent Management"])
 
 
