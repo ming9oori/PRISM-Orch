@@ -1,7 +1,8 @@
 import requests
 from typing import List, Dict, Any
+import os
 
-BASE_URL = "http://localhost:8000"
+BASE_URL = os.getenv("APP_BASE_URL", "http://localhost:8000")
 
 RESEARCH_CLASS = "ResearchDocs"
 MEMORY_CLASS = "AgentMemory"

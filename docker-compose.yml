@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: prism-orch-app
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - RESEARCH_WEAVIATE_URL=http://weaviate:8080
+      - MEMORY_WEAVIATE_URL=http://weaviate:8080
+      - APP_HOST=0.0.0.0
+      - APP_PORT=8000
+    depends_on:
+      - weaviate
+
+  weaviate:
+    image: semitechnologies/weaviate:1.21.3
+    container_name: prism-weaviate
+    ports:
+      - "18080:8080"
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'none'
+      ENABLE_MODULES: ''
+      CLUSTER_HOSTNAME: 'node1'
+
+  seed:
+    build: .
+    container_name: prism-orch-seed
+    environment:
+      - APP_BASE_URL=http://app:8000
+    entrypoint: ["python", "dev/seed_vector_dbs.py"]
+    depends_on:
+      - app
+
+# Usage:
+# 1) docker compose up -d --build weaviate app
+# 2) docker compose run --rm seed
+# 3) (optional) docker compose down 
