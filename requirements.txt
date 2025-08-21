@@ -31,4 +31,8 @@ requests
 
 # Development and testing
 pytest==7.4.0
-pytest-asyncio==0.21.1 
+pytest-asyncio==0.21.1
+
+# PRISM Core (vector db APIs, tools, etc.)
+# You can pin to a tag (e.g., v0.1.2) or a commit hash
+git+https://github.com/PRISM-System/prism-core@v0.1.2 

@@ -14,7 +14,13 @@ class Settings(BaseSettings):
     # API Keys
     OPENAI_API_KEY: str = "dummy-key-not-used-in-mock-mode"
 
-    # Database Paths
+    # Vector DB endpoints (prism-core Weaviate)
+    RESEARCH_WEAVIATE_URL: str = "http://localhost:8080"
+    RESEARCH_WEAVIATE_API_KEY: str = ""
+    MEMORY_WEAVIATE_URL: str = "http://localhost:8080"
+    MEMORY_WEAVIATE_API_KEY: str = ""
+
+    # Local storage paths
     VECTOR_DB_PATH: str = str(project_root / "data" / "vector_db")
     AGENT_MEMORY_DB_PATH: str = str(project_root / "data" / "agent_memory.db")
     LOG_FILE_PATH: str = str(project_root / "logs" / "orchestration.log")

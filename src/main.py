@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 import uvicorn
 from .core.config import settings
 from .api.endpoints import orchestration # 라우터 임포트
+from .api.endpoints import vector_db as vector_db_endpoints
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -29,6 +30,8 @@ app = FastAPI(
 
 # --- 라우터 포함 ---
 app.include_router(orchestration.router, prefix="/api/v1/orchestrate", tags=["Orchestration"])
+app.include_router(vector_db_endpoints.research_router, prefix="/api/v1/research", tags=["Research Vector DB"]) 
+app.include_router(vector_db_endpoints.memory_router, prefix="/api/v1/memory", tags=["Memory Vector DB"])
 # app.include_router(agent_management.router, prefix="/api/v1/agents", tags=["Agent Management"])
 
 
