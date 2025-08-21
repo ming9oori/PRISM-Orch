@@ -2,7 +2,8 @@ from typing import Dict, Any, List
 from pydantic import BaseModel
 
 from core.llm.tools import Tool, HttpEndpoint, ToolRegistry as HttpToolRegistry
-from core.llm.openai_compat_service import OpenAICompatService
+from core.llm.tool_orchestrator import ToolOrchestrator
+from .openai_llm_service import OpenAIChatLLMService
 
 
 class FunctionCallingSearch(BaseModel):
@@ -50,43 +51,21 @@ class FunctionCallingSearch(BaseModel):
         ]
 
     def run(self, prompt: str) -> str:
-        # Register tools
-        registry = HttpToolRegistry()
-        for tool in self._build_tools():
-            registry.register_tool(self.client_id, tool)
+        # Prepare LLM and tool orchestrator
+        llm = OpenAIChatLLMService(base_url=self.openai_base_url, api_key=self.api_key, model=self.model_name)
+        tools_registry = HttpToolRegistry()
+        tools = self._build_tools()
+        for tool in tools:
+            tools_registry.register_tool(self.client_id, tool)
 
-        # Build OpenAI tool specs
-        tools_for_openai: List[Dict[str, Any]] = []
-        for t in registry.list_tools(self.client_id):
-            tools_for_openai.append({
-                "name": t.name,
-                "description": t.description,
-                "parameters": t.input_schema,
-            })
-
-        # OpenAI-compatible chat loop with tool execution
-        oa = OpenAICompatService(base_url=self.openai_base_url, api_key=self.api_key, model_name=self.model_name)
-        messages: List[Dict[str, Any]] = [
-            {"role": "system", "content": "You are a helpful manufacturing assistant. Use tools when helpful."},
-            {"role": "user", "content": prompt},
-        ]
-
-        while True:
-            text = oa.chat_complete_with_tools(
-                messages=messages,
-                tools=tools_for_openai,
-                temperature=0.3,
-                max_tokens=512,
-                tool_choice="auto",
-            )
-
-            if text != "__TOOL_CALLS__":
-                return text
-
-            # The last assistant message contains tool_calls; extract and execute
-            last = messages[-1]
-            # We need to call OpenAI API again to get actual tool_calls structure; to avoid modifying the
-            # prism-core service, fetch tool_calls from last assistant step via a direct minimal call.
-            # As a workaround, simply break to return current content if tool_calls aren't accessible.
-            # In production, extend OpenAICompatService to return both text and tool_calls.
-            return text 
+        orchestrator = ToolOrchestrator(llm_service=llm, tool_registry=tools_registry)
+        text = orchestrator.generate_with_tools(
+            base_prompt=prompt,
+            client_id=self.client_id,
+            tools=tools,
+            max_tool_calls=3,
+            max_tokens=512,
+            temperature=0.3,
+            stop=None,
+        )
+        return text 

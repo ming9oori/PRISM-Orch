@@ -1,6 +1,7 @@
 import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pathlib import Path
+from typing import Optional
 
 # 이 파일의 위치가 .../PRISM-Orch/src/core/config.py 이므로,
 # 프로젝트 루트 디렉토리는 3단계 상위 경로가 됩니다.
@@ -13,6 +14,7 @@ class Settings(BaseSettings):
     """
     # API Keys
     OPENAI_API_KEY: str = "dummy-key-not-used-in-mock-mode"
+    OPENAI_BASE_URL: Optional[str] = None
 
     # Vector DB endpoints (prism-core Weaviate)
     RESEARCH_WEAVIATE_URL: str = "http://localhost:8080"
