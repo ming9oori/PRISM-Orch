@@ -33,13 +33,17 @@ class TaskInfo(BaseModel):
     """오케스트레이터에 의해 생성되고 관리되는 과업(Task)의 정보 모델"""
     id: str = Field(..., description="과업의 고유 ID", example="task_98765")
     name: str = Field(..., description="과업의 이름", example="A-1 라인 압력 이상 원인 분석")
+    description: Optional[str] = Field(None, description="과업의 상세 설명")
     intent: str = Field(..., description="사용자 질의로부터 추론된 의도", example="root_cause_analysis")
     assigned_agent_id: Optional[str] = Field(None, description="과업에 할당된 에이전트의 ID")
     dependencies: List[str] = Field(
         default_factory=list,
         description="이 과업이 의존하는 다른 과업들의 ID 목록"
     )
+    priority: str = Field("medium", description="과업의 우선순위 (high, medium, low)")
     status: str = Field("pending", description="과업의 현재 상태 (pending, running, completed, failed)")
+    estimated_duration: Optional[str] = Field(None, description="예상 소요 시간")
+    original_query: Optional[str] = Field(None, description="원본 사용자 쿼리")
 
 class OrchestrationResponse(BaseModel):
     """오케스트레이션 최종 결과를 사용자에게 반환하기 위한 모델"""

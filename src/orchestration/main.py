@@ -10,6 +10,7 @@ from ..modules.agent_manager import AgentManager
 from ..modules.rag_system import RAGSystem
 from ..modules.nlp_processor import NLPProcessor
 from ..modules.constraint_manager import ConstraintManager
+from ..modules.task_planner import TaskPlanner
 
 
 class OrchestrationAgent:
@@ -30,6 +31,7 @@ class OrchestrationAgent:
         self.rag_system = RAGSystem()
         self.nlp = NLPProcessor()
         self.constraints = ConstraintManager()
+        self.task_planner = TaskPlanner()
 
         # Placeholders for future vector DB adapters (prism-core integration)
         # self.research_vector_client = WeaviateClient(...)
@@ -65,58 +67,24 @@ class OrchestrationAgent:
 
     # --- Step 4: Planning and reflection ---
     def build_initial_plan(self, task_friendly: Dict[str, Any]) -> List[TaskInfo]:
-        intent = task_friendly.get("intent", "unknown")
-        entities = task_friendly.get("entities", {})
-        tasks: List[TaskInfo] = []
-
-        # Define canonical agent roles (ids should match AgentManager mock setup)
-        monitoring_agent = "agent_monitor_001"
-        prediction_agent = "agent_analysis_002"
-        control_agent = "agent_control_003"
-
-        # Minimal pipeline depending on intent
-        monitoring_task = TaskInfo(
-            id=f"task_{uuid.uuid4()}",
-            name=f"모니터링 데이터 수집: {entities}",
-            intent="data_retrieval",
-            assigned_agent_id=monitoring_agent,
-            status="pending",
-        )
-        tasks.append(monitoring_task)
-
-        if intent in ("root_cause_analysis", "unknown"):
-            prediction_task = TaskInfo(
-                id=f"task_{uuid.uuid4()}",
-                name="원인 분석 수행",
-                intent="root_cause_analysis",
-                assigned_agent_id=prediction_agent,
-                dependencies=[monitoring_task.id],
-                status="pending",
-            )
-            tasks.append(prediction_task)
-
-        # Control task gated; often depends on prediction
-        control_task = TaskInfo(
-            id=f"task_{uuid.uuid4()}",
-            name="자율 제어 계획 수립 및 적용",
-            intent="autonomous_control",
-            assigned_agent_id=control_agent,
-            dependencies=[tasks[-1].id] if tasks else [],
-            status="pending",
-        )
-        tasks.append(control_task)
-
+        """
+        RAG 기반의 Task Decomposition and Planning을 수행합니다.
+        """
+        original_query = task_friendly.get("original", "")
+        user_id = task_friendly.get("user_id")
+        
+        # TaskPlanner를 사용하여 RAG 기반 작업 계획 수립
+        tasks = self.task_planner.decompose_and_plan(original_query, user_id)
+        
         return tasks
 
-    def reflect_and_adjust_plan(self, tasks: List[TaskInfo], context_docs: List[str]) -> List[TaskInfo]:
-        # Placeholder reflection: if context suggests safety concerns, ensure control happens last
-        safety_flags = [d for d in context_docs if "safety" in d.lower() or "limit" in d.lower()]
-        if safety_flags:
-            # Ensure control task is last and marked for manual confirmation
-            for t in tasks:
-                if t.intent == "autonomous_control":
-                    t.name += " (안전 검토 필요)"
-        return tasks
+    def reflect_and_adjust_plan(self, tasks: List[TaskInfo], agent_results: Dict[str, Any]) -> List[TaskInfo]:
+        """
+        에이전트 결과를 바탕으로 작업 계획을 반영하고 조정합니다.
+        """
+        # TaskPlanner의 refine_plan 메서드를 사용하여 계획 수정
+        refined_tasks = self.task_planner.refine_plan(tasks, agent_results)
+        return refined_tasks
 
     # --- Step 5: Incorporate agent responses into plan ---
     def update_plan_with_agent_result(self, tasks: List[TaskInfo], task_id: str, agent_output: str) -> None:
@@ -165,15 +133,22 @@ class OrchestrationAgent:
 
         # 4) Build plan and reflect
         tasks = self.build_initial_plan(rewritten)
-        tasks = self.reflect_and_adjust_plan(tasks, context_docs=research_docs + memory_docs)
-
-        # Validate constraints (mocked always valid)
-        _ = self.constraints.check_plan_is_valid([t.model_dump() for t in tasks])
-
-        # 5) Simulate agent execution (placeholder)
+        
+        # 초기 계획 수립 후 에이전트 실행 시뮬레이션
+        agent_results = {}
         for t in tasks:
             mock_agent_output = f"{t.intent} 결과"
             self.update_plan_with_agent_result(tasks, t.id, mock_agent_output)
+            agent_results[t.assigned_agent_id] = {
+                "success": True,
+                "output": mock_agent_output
+            }
+        
+        # 에이전트 결과를 바탕으로 계획 조정
+        tasks = self.reflect_and_adjust_plan(tasks, agent_results)
+
+        # Validate constraints (mocked always valid)
+        _ = self.constraints.check_plan_is_valid([t.model_dump() for t in tasks])
 
         # 6) Final synthesis
         final_answer = self.synthesize_final_answer(
