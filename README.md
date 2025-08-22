@@ -1,37 +1,72 @@
 # PRISM-Orch
 
-**PRISM-Core 기반 AI 에이전트 오케스트레이션 시스템**
+PRISM-Core를 기반으로 한 AI 에이전트 오케스트레이션 시스템입니다.
+[Mem0](https://github.com/mem0ai/mem0)를 통한 장기 기억과 개인화된 상호작용을 지원합니다.
+LLM을 통한 지능형 규정 준수 분석을 제공합니다.
 
-PRISM-Orch는 PRISM-Core의 LLM 서비스와 Vector DB를 활용하여 복잡한 제조 업무를 수행하는 AI 에이전트들을 오케스트레이션하는 시스템입니다. 사용자의 자연어 질의를 받아 적절한 에이전트들을 선택하고, 작업을 분해하여 순차적으로 실행한 후 최종 결과를 종합하여 제공합니다.
+## 📋 목차
 
-## 🚀 주요 기능
+1. [개요](#개요)
+2. [시스템 아키텍처](#시스템-아키텍처)
+3. [프로젝트 구조](#프로젝트-구조)
+4. [주요 구성 요소](#주요-구성-요소)
+5. [설치 및 실행](#설치-및-실행)
+6. [사용법](#사용법)
+7. [Mem0 통합](#mem0-통합)
+8. [LLM 기반 규정 준수 분석](#llm-기반-규정-준수-분석)
+9. [개발 가이드](#개발-가이드)
+10. [API 문서](#api-문서)
+11. [테스트](#테스트)
+12. [기여하기](#기여하기)
 
-- **자연어 기반 작업 분해**: 사용자 질의를 분석하여 세부 작업으로 분해
-- **에이전트 오케스트레이션**: 여러 AI 에이전트의 협업을 통한 복합 작업 수행
-- **RAG 기반 지식 검색**: 연구 문서, 사용자 이력, 규정 준수 정보 검색
-- **규정 준수 검증**: 안전 규정 및 법규 준수 여부 자동 검증
-- **실시간 모니터링**: 작업 진행 상황 및 결과 추적
+## 🎯 개요
+
+PRISM-Orch는 PRISM-Core의 강력한 기능들을 활용하여 복잡한 AI 에이전트 오케스트레이션을 수행하는 시스템입니다. 
+
+### 주요 특징
+
+- **모듈화된 아키텍처**: 기능별로 분리된 모듈 구조로 유지보수성 향상
+- **PRISM-Core 기반**: 벡터 DB, LLM 서비스, Tool 시스템 등 PRISM-Core의 모든 기능 활용
+- **Mem0 통합**: 장기 기억과 개인화된 상호작용을 위한 범용 메모리 레이어
+- **LLM 기반 규정 준수**: 지능형 안전 규정 및 법규 준수 분석
+- **다양한 Tool 지원**: RAG 검색, 규정 준수 검증, 사용자 이력 검색 등
+- **워크플로우 관리**: 복잡한 작업을 단계별로 정의하고 실행
+- **에이전트 생명주기 관리**: 에이전트 등록, 설정, 모니터링
 
 ## 🏗️ 시스템 아키텍처
 
 ```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   사용자 질의    │    │   PRISM-Orch    │    │   PRISM-Core    │
-│                 │    │                 │    │                 │
-│ 자연어 입력     │───►│ 오케스트레이터   │───►│ LLM 서비스      │
-│                 │    │                 │    │   Vector DB     │
-│                 │    │                 │    │   Tool 시스템   │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                                │
-                                ▼
-                       ┌─────────────────┐
-                       │   에이전트 풀   │
-                       │                 │
-                       │ • 분석 에이전트  │
-                       │ • 모니터링 에이전트│
-                       │ • 제어 에이전트  │
-                       │ • 보고서 에이전트│
-                       └─────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                    PRISM-Orch                               │
+├─────────────────────────────────────────────────────────────┤
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │   Tools     │  │   Agents    │  │ Workflows   │        │
+│  │   Module    │  │   Module    │  │   Module    │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘        │
+├─────────────────────────────────────────────────────────────┤
+│                 PrismOrchestrator                           │
+│              (Main Coordinator)                             │
+├─────────────────────────────────────────────────────────────┤
+│                    PRISM-Core                               │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │ Vector DB   │  │ LLM Service │  │ Tool System │        │
+│  │ (Weaviate)  │  │   (vLLM)    │  │             │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘        │
+├─────────────────────────────────────────────────────────────┤
+│                      Mem0                                   │
+│              (Memory Layer)                                │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │ User Memory │  │ Session     │  │ Agent       │        │
+│  │             │  │ Memory      │  │ Memory      │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘        │
+├─────────────────────────────────────────────────────────────┤
+│                   LLM Analysis                             │
+│              (Compliance & Safety)                         │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │ Compliance  │  │ Risk        │  │ Safety      │        │
+│  │ Analysis    │  │ Assessment  │  │ Guidelines  │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘        │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ## 📁 프로젝트 구조
@@ -39,93 +74,165 @@ PRISM-Orch는 PRISM-Core의 LLM 서비스와 Vector DB를 활용하여 복잡한
 ```
 PRISM-Orch/
 ├── src/
-│   ├── main.py                    # FastAPI 애플리케이션 진입점
-│   ├── api/
-│   │   ├── endpoints/
-│   │   │   └── orchestration.py   # 오케스트레이션 API 엔드포인트
-│   │   └── schemas.py             # API 요청/응답 스키마
-│   ├── core/
-│   │   └── config.py              # 애플리케이션 설정 관리
-│   ├── orchestration/
-│   │   └── prism_orchestrator.py  # 핵심 오케스트레이터 클래스
-│   └── utils/                     # 유틸리티 함수들
-├── data/                          # 데이터 저장소
-├── logs/                          # 로그 파일
-├── test_comprehensive.py          # 종합 테스트 스크립트
-├── requirements.txt               # Python 의존성
-├── docker-compose.yml             # Docker 설정
-└── README.md                      # 프로젝트 문서
+│   ├── orchestration/           # 오케스트레이션 핵심 모듈
+│   │   ├── __init__.py
+│   │   ├── prism_orchestrator.py # 메인 오케스트레이터
+│   │   ├── agent_manager.py     # 에이전트 관리
+│   │   ├── workflow_manager.py  # 워크플로우 관리
+│   │   └── tools/               # Tool 모듈들
+│   │       ├── __init__.py
+│   │       ├── rag_search_tool.py    # RAG 검색 Tool
+│   │       ├── compliance_tool.py    # 규정 준수 Tool (LLM 기반)
+│   │       └── memory_search_tool.py # 사용자 이력 Tool (Mem0 통합)
+│   ├── api/                     # API 엔드포인트
+│   ├── core/                    # 핵심 설정 및 유틸리티
+│   └── main.py                  # 애플리케이션 진입점
+├── tests/                       # 테스트 파일들
+├── example_modular_usage.py     # 모듈화된 구조 사용 예제
+├── example_mem0_integration.py  # Mem0 통합 예제
+├── example_compliance_llm.py    # LLM 기반 규정 준수 분석 예제
+├── test_comprehensive.py        # 종합 테스트
+└── README.md
 ```
 
-## 🔧 핵심 구성 요소
+## 🔧 주요 구성 요소
 
-### 1. PrismOrchestrator 클래스
+### 1. PrismOrchestrator (메인 오케스트레이터)
 
-`src/orchestration/prism_orchestrator.py`에 위치한 핵심 오케스트레이터입니다.
+PRISM-Orch의 핵심 클래스로, 모든 구성 요소를 통합 관리합니다.
 
 ```python
-class PrismOrchestrator:
-    """
-    PRISM-Core의 PrismLLMService를 활용한 고수준 오케스트레이터
-    
-    주요 역할:
-    - PrismLLMService 초기화 (OpenAI 호환 vLLM 클라이언트 + PRISM-Core API 클라이언트)
-    - 기본 도구들과 메인 오케스트레이션 에이전트 등록
-    - 작업 분해를 첫 단계로 수행 (에이전트 측), 그 후 도구들과 함께 실행
-    """
+from src.orchestration import PrismOrchestrator
+
+# 오케스트레이터 초기화
+orchestrator = PrismOrchestrator()
+
+# 개인화된 오케스트레이션 수행
+response = await orchestrator.orchestrate(
+    "A-1 라인에서 압력 이상이 발생했습니다. 어떻게 대응해야 할까요?",
+    user_id="engineer_kim"  # 사용자별 개인화
+)
 ```
 
-#### 주요 메서드:
+**주요 기능:**
+- PRISM-Core LLM 서비스 연동
+- Mem0를 통한 장기 기억 관리
+- LLM 기반 규정 준수 분석
+- 기본 Tool 자동 등록
+- 오케스트레이션 에이전트 관리
+- 워크플로우 실행
 
-- **`__init__()`**: 오케스트레이터 초기화 및 기본 도구 등록
-- **`invoke()`**: 사용자 질의를 받아 오케스트레이션 실행
-- **`register_default_tools()`**: RAG 검색, 규정 준수 등 기본 도구 등록
+### 2. Tools Module (도구 모듈)
 
-### 2. RAGSearchTool
-
-지식 베이스에서 관련 정보를 검색하는 도구입니다.
+#### RAGSearchTool
+지식 베이스에서 관련 정보를 검색하는 Tool입니다.
 
 ```python
-class RAGSearchTool(BaseTool):
-    def __init__(self):
-        super().__init__(
-            name="rag_search",
-            description="지식 베이스에서 관련 정보를 검색합니다",
-            parameters_schema={
-                "type": "object",
-                "properties": {
-                    "query": {"type": "string", "description": "검색할 쿼리"},
-                    "top_k": {"type": "integer", "description": "반환할 문서 수", "default": 3},
-                    "domain": {"type": "string", "enum": ["research", "history"], 
-                              "description": "검색 도메인", "default": "research"}
-                },
-                "required": ["query"]
-            }
-        )
+from src.orchestration.tools import RAGSearchTool
+
+rag_tool = RAGSearchTool()
+# 연구 문서, 사용자 이력, 규정 문서 검색 지원
 ```
 
-#### 지원하는 검색 도메인:
+**지원 도메인:**
+- `research`: 연구/기술 문서
+- `history`: 사용자 수행 이력  
+- `compliance`: 안전 규정 및 법규
 
-- **OrchResearch**: 연구/기술 문서 (논문, 매뉴얼 등)
-- **OrchHistory**: 사용자 수행 이력 (과거 작업 기록)
-- **OrchCompliance**: 안전 규정 및 법규 (LOTO, 보호구 등)
-
-### 3. API 엔드포인트
-
-`src/api/endpoints/orchestration.py`에 정의된 REST API입니다.
+#### ComplianceTool (LLM 기반)
+안전 규정 및 법규 준수 여부를 검증하는 Tool입니다.
 
 ```python
-@router.post("/", response_model=OrchestrationResponse)
-async def run_orchestration(query: UserQueryInput) -> OrchestrationResponse:
-    """
-    사용자 질의 기반 오케스트레이션 실행
-    
-    입력: 자연어 질의
-    출력: 오케스트레이션 결과 (답변, 근거 문서, 규정 준수 정보 등)
-    """
+from src.orchestration.tools import ComplianceTool
+
+compliance_tool = ComplianceTool()
+# LLM을 통한 지능형 안전성 검증
 ```
 
-## 🚀 사용 방법
+**LLM 기반 기능:**
+- 지능형 규정 준수 분석
+- 위험 수준 자동 평가
+- 맥락 기반 권장사항 생성
+- 업계별 특화 규정 적용
+
+#### MemorySearchTool (Mem0 통합)
+사용자의 과거 상호작용 기록을 검색하는 Tool입니다.
+
+```python
+from src.orchestration.tools import MemorySearchTool
+
+memory_tool = MemorySearchTool()
+# Mem0를 통한 장기 기억과 개인화된 상호작용
+```
+
+**Mem0 기능:**
+- 사용자별 장기 기억 관리
+- 세션별 컨텍스트 유지
+- 개인화된 응답 생성
+- 적응형 학습 및 기억 강화
+
+### 3. AgentManager (에이전트 관리자)
+
+에이전트의 생명주기를 관리하는 클래스입니다.
+
+```python
+from src.orchestration import AgentManager
+
+agent_manager = AgentManager()
+
+# 에이전트 등록
+agent_manager.register_agent(agent)
+
+# Tool 할당
+agent_manager.assign_tools_to_agent("agent_name", ["tool1", "tool2"])
+
+# 상태 조회
+status = agent_manager.get_agent_status("agent_name")
+```
+
+**주요 기능:**
+- 에이전트 등록/삭제
+- Tool 권한 관리
+- 에이전트 상태 모니터링
+- 설정 관리
+
+### 4. WorkflowManager (워크플로우 관리자)
+
+복잡한 작업을 단계별로 정의하고 실행하는 클래스입니다.
+
+```python
+from src.orchestration import WorkflowManager
+
+workflow_manager = WorkflowManager()
+
+# 워크플로우 정의
+workflow_steps = [
+    {
+        "name": "데이터_검색",
+        "type": "tool_call",
+        "tool_name": "rag_search",
+        "parameters": {"query": "{{search_query}}", "domain": "research"}
+    },
+    {
+        "name": "규정_검증", 
+        "type": "tool_call",
+        "tool_name": "compliance_check",
+        "parameters": {"action": "{{proposed_action}}"}
+    }
+]
+
+workflow_manager.define_workflow("압력_이상_대응", workflow_steps)
+
+# 워크플로우 실행
+result = await workflow_manager.execute_workflow("압력_이상_대응", context)
+```
+
+**지원 단계 타입:**
+- `tool_call`: Tool 호출
+- `agent_call`: 에이전트 호출
+- `condition`: 조건 평가
+
+## 🚀 설치 및 실행
 
 ### 1. 환경 설정
 
@@ -134,318 +241,515 @@ async def run_orchestration(query: UserQueryInput) -> OrchestrationResponse:
 git clone https://github.com/PRISM-System/PRISM-Orch.git
 cd PRISM-Orch
 
-# 환경 변수 설정
-cp .env.example .env
-# .env 파일에서 PRISM-Core URL 등 설정 수정
+# 가상환경 생성 및 활성화
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# 또는 venv\Scripts\activate  # Windows
 
 # 의존성 설치
 pip install -r requirements.txt
 ```
 
-### 2. PRISM-Core 서버 시작
+### 2. 환경 변수 설정
 
 ```bash
-# PRISM-Core 디렉토리로 이동
-cd ../prism-core
+# .env 파일 생성
+cp .env.example .env
 
-# Docker 서비스 시작
-docker-compose up -d
+# 필요한 설정 수정
+PRISM_CORE_BASE_URL=http://localhost:8000
+OPENAI_BASE_URL=http://localhost:8001/v1
+VLLM_MODEL=Qwen/Qwen3-0.6B
+```
 
-# 서비스 상태 확인
+### 3. PRISM-Core 서버 시작
+
+```bash
+# PRISM-Core 서버가 실행 중인지 확인
 curl http://localhost:8000/
 ```
 
-### 3. PRISM-Orch 서버 시작
+### 4. PRISM-Orch 실행
 
 ```bash
-# PRISM-Orch 디렉토리로 돌아가기
-cd ../PRISM-Orch
+# 개발 모드로 실행
+uv run python -m src.main
 
-# 서버 시작
-python -m src.main
+# 또는 직접 실행
+uv run python src/main.py
 ```
 
-### 4. API 호출 예시
+## 📖 사용법
+
+### 1. 기본 오케스트레이션
 
 ```python
-import requests
+import asyncio
+from src.orchestration import PrismOrchestrator
 
-# 오케스트레이션 API 호출
-response = requests.post(
-    "http://localhost:8000/api/v1/orchestrate/",
-    json={
-        "query": "A-1 라인 압력에 이상이 생긴 것 같은데, 원인이 뭐야?",
-        "user_id": "engineer_kim",
-        "session_id": "session_123"
+async def main():
+    orchestrator = PrismOrchestrator()
+    
+    response = await orchestrator.orchestrate(
+        "A-1 라인에서 압력 이상이 발생했습니다. 어떻게 대응해야 할까요?"
+    )
+    
+    print(f"응답: {response.text}")
+    print(f"사용된 Tools: {response.tools_used}")
+
+asyncio.run(main())
+```
+
+### 2. 개인화된 오케스트레이션 (Mem0 활용)
+
+```python
+import asyncio
+from src.orchestration import PrismOrchestrator
+
+async def main():
+    orchestrator = PrismOrchestrator()
+    
+    # 사용자별 개인화된 대화
+    user_id = "engineer_kim"
+    
+    # 첫 번째 대화
+    response1 = await orchestrator.orchestrate(
+        "압력 이상 대응 방법을 알려주세요.",
+        user_id=user_id
+    )
+    
+    # 두 번째 대화 (이전 대화를 기억)
+    response2 = await orchestrator.orchestrate(
+        "이전에 말씀하신 대로 했는데, 다음 단계는 무엇인가요?",
+        user_id=user_id
+    )
+    
+    # 사용자 메모리 요약 조회
+    summary = await orchestrator.get_user_memory_summary(user_id)
+    print(f"사용자 메모리: {summary}")
+
+asyncio.run(main())
+```
+
+### 3. LLM 기반 규정 준수 검증
+
+```python
+import asyncio
+from src.orchestration.tools import ComplianceTool
+from core.tools import ToolRequest
+
+async def main():
+    compliance_tool = ComplianceTool()
+    
+    # 규정 준수 검증
+    request = ToolRequest(
+        tool_name="compliance_check",
+        parameters={
+            "action": "고온 배관 점검",
+            "context": "온도 300도 배관 시스템 점검 작업"
+        }
+    )
+    
+    response = await compliance_tool.execute(request)
+    
+    if response.success:
+        result = response.result
+        print(f"준수 상태: {result['compliance_status']}")
+        print(f"위험 수준: {result['risk_level']}")
+        print(f"권장사항: {result['recommendations']}")
+        print(f"분석 근거: {result['reasoning']}")
+
+asyncio.run(main())
+```
+
+### 4. 커스텀 에이전트 생성
+
+```python
+from src.orchestration import AgentManager
+from core.llm.schemas import Agent
+
+agent_manager = AgentManager()
+
+# 에이전트 생성
+custom_agent = Agent(
+    name="data_analyst",
+    description="데이터 분석 전문가",
+    role_prompt="당신은 제조 공정 데이터를 분석하는 전문가입니다.",
+    tools=["rag_search", "compliance_check"]
+)
+
+# 에이전트 등록
+agent_manager.register_agent(custom_agent)
+```
+
+### 5. 워크플로우 정의 및 실행
+
+```python
+from src.orchestration import WorkflowManager
+
+workflow_manager = WorkflowManager()
+
+# 워크플로우 정의
+steps = [
+    {
+        "name": "상황_분석",
+        "type": "tool_call",
+        "tool_name": "rag_search",
+        "parameters": {"query": "{{user_query}}", "domain": "research"}
+    },
+    {
+        "name": "안전성_검증",
+        "type": "tool_call",
+        "tool_name": "compliance_check", 
+        "parameters": {"action": "{{proposed_action}}"}
+    }
+]
+
+workflow_manager.define_workflow("종합_분석", steps)
+
+# 워크플로우 실행
+context = {"user_query": "압력 이상 대응", "proposed_action": "센서 교체"}
+result = await workflow_manager.execute_workflow("종합_분석", context)
+```
+
+### 6. Tool 직접 사용
+
+```python
+from src.orchestration.tools import RAGSearchTool
+from core.tools import ToolRequest
+
+# Tool 인스턴스 생성
+rag_tool = RAGSearchTool()
+
+# Tool 실행
+request = ToolRequest(
+    tool_name="rag_search",
+    parameters={
+        "query": "압력 이상 대응 방법",
+        "domain": "research",
+        "top_k": 3
     }
 )
 
-result = response.json()
-print(f"답변: {result['final_answer']}")
-print(f"근거 문서: {result['supporting_documents']}")
-print(f"규정 준수: {result['compliance_checked']}")
+response = await rag_tool.execute(request)
+print(f"검색 결과: {response.result}")
 ```
 
-## 🔧 새로운 에이전트 개발 가이드
+## 🧠 Mem0 통합
 
-PRISM-Core를 활용하여 새로운 에이전트를 개발하는 방법을 설명합니다.
+PRISM-Orch는 [Mem0](https://github.com/mem0ai/mem0)를 통합하여 강력한 장기 기억과 개인화된 상호작용을 제공합니다.
 
-### 1. 기본 에이전트 구조
+### Mem0 설치
 
-```python
-from core.llm.prism_llm_service import PrismLLMService
-from core.tools import BaseTool, ToolRegistry
-
-class CustomAgent:
-    def __init__(self, agent_name: str = "custom_agent"):
-        self.agent_name = agent_name
-        
-        # PRISM-Core LLM 서비스 초기화
-        self.llm = PrismLLMService(
-            model_name="Qwen/Qwen3-0.6B",
-            tool_registry=ToolRegistry(),
-            llm_service_url="http://localhost:8000",
-            agent_name=self.agent_name,
-            openai_base_url="http://localhost:8001/v1"
-        )
-        
-        # 커스텀 도구 등록
-        self.register_custom_tools()
-    
-    def register_custom_tools(self):
-        """커스텀 도구들을 등록합니다."""
-        # 예: 데이터베이스 조회 도구
-        db_tool = DatabaseQueryTool()
-        self.llm.tool_registry.register_tool(db_tool)
-        
-        # 예: 외부 API 호출 도구
-        api_tool = ExternalAPITool()
-        self.llm.tool_registry.register_tool(api_tool)
-    
-    async def process_request(self, query: str):
-        """사용자 요청을 처리합니다."""
-        response = await self.llm.invoke(
-            prompt=query,
-            max_tokens=1000,
-            temperature=0.3
-        )
-        return response
+```bash
+pip install mem0ai>=0.1.116
 ```
 
-### 2. 커스텀 도구 개발
+### Mem0 기능
+
+#### 1. 장기 기억 관리
+```python
+# 사용자별 메모리 검색
+memories = await orchestrator.search_user_memories(
+    query="압력 이상 대응",
+    user_id="engineer_kim",
+    top_k=3
+)
+```
+
+#### 2. 개인화된 응답
+```python
+# 사용자 선호도 학습
+response = await orchestrator.orchestrate(
+    "저는 항상 안전을 최우선으로 생각합니다.",
+    user_id="engineer_kim"
+)
+```
+
+#### 3. 메모리 요약
+```python
+# 사용자 메모리 요약 조회
+summary = await orchestrator.get_user_memory_summary("engineer_kim")
+print(f"총 메모리 수: {summary['total_memories']}")
+```
+
+#### 4. 다중 사용자 지원
+```python
+# 여러 사용자의 개인화된 대화
+users = ["engineer_kim", "technician_lee", "supervisor_park"]
+
+for user_id in users:
+    response = await orchestrator.orchestrate(
+        "압력 이상 대응 방법을 알려주세요.",
+        user_id=user_id
+    )
+```
+
+### Mem0 사용 예제
 
 ```python
+# example_mem0_integration.py 실행
+uv run python example_mem0_integration.py
+```
+
+## 🔍 LLM 기반 규정 준수 분석
+
+PRISM-Orch는 LLM을 활용하여 지능형 규정 준수 분석을 제공합니다.
+
+### LLM 기반 분석 기능
+
+#### 1. 지능형 준수 상태 판단
+```python
+# LLM을 통한 규정 준수 분석
+compliance_result = await compliance_tool.execute(ToolRequest(
+    tool_name="compliance_check",
+    parameters={
+        "action": "고압 가스 배관 누출 수리",
+        "context": "운영 중인 고압 가스 배관에서 누출이 발생하여 긴급 수리가 필요한 상황"
+    }
+))
+```
+
+#### 2. 위험 수준 자동 평가
+- **Low**: 안전한 작업
+- **Medium**: 주의가 필요한 작업
+- **High**: 위험한 작업 (특별 승인 필요)
+
+#### 3. 맥락 기반 권장사항
+```python
+# 분석 결과에서 권장사항 추출
+recommendations = compliance_result.result['recommendations']
+for rec in recommendations:
+    print(f"권장사항: {rec}")
+```
+
+#### 4. 업계별 특화 규정
+- 화학 공업: 독성 물질 취급 규정
+- 전력 산업: 고전압 안전 규정
+- 제철 산업: 고온 작업 안전 규정
+
+### 준수 상태 분류
+
+- **compliant**: 규정 준수
+- **conditional**: 조건부 준수
+- **requires_review**: 검토 필요
+- **non_compliant**: 미준수
+
+### LLM 기반 분석 예제
+
+```python
+# example_compliance_llm.py 실행
+uv run python example_compliance_llm.py
+```
+
+### 분석 결과 예시
+
+```json
+{
+    "compliance_status": "requires_review",
+    "risk_level": "high",
+    "recommendations": [
+        "안전 관리자 승인 필요",
+        "보호구 착용 필수",
+        "작업 전 안전 점검 수행",
+        "응급 대응 계획 수립"
+    ],
+    "reasoning": "고압 가스 배관 작업은 높은 위험도를 가지므로 특별한 안전 조치가 필요합니다..."
+}
+```
+
+## 🛠️ 개발 가이드
+
+### 1. 새로운 Tool 개발
+
+```python
+from core.tools import BaseTool, ToolRequest, ToolResponse
+
 class CustomTool(BaseTool):
     def __init__(self):
         super().__init__(
             name="custom_tool",
-            description="커스텀 기능을 수행하는 도구",
+            description="커스텀 Tool 설명",
             parameters_schema={
                 "type": "object",
                 "properties": {
-                    "parameter1": {
-                        "type": "string",
-                        "description": "첫 번째 매개변수"
-                    },
-                    "parameter2": {
-                        "type": "integer",
-                        "description": "두 번째 매개변수"
-                    }
+                    "param1": {"type": "string", "description": "매개변수 설명"}
                 },
-                "required": ["parameter1"]
+                "required": ["param1"]
             }
         )
     
     async def execute(self, request: ToolRequest) -> ToolResponse:
-        """도구 실행 로직"""
+        # Tool 로직 구현
         params = request.parameters
         
         # 실제 작업 수행
-        result = self._perform_custom_operation(params)
+        result = {"output": "작업 결과"}
         
         return ToolResponse(
             success=True,
-            result=result,
-            metadata={"execution_time": "1.2s"}
+            result=result
         )
-    
-    def _perform_custom_operation(self, params):
-        """실제 커스텀 작업 수행"""
-        # 여기에 실제 비즈니스 로직 구현
-        return {"status": "success", "data": "작업 완료"}
 ```
 
-### 3. Vector DB 활용
+### 2. 새로운 에이전트 타입 개발
 
 ```python
-class VectorDBTool(BaseTool):
-    def __init__(self):
-        super().__init__(
-            name="vector_search",
-            description="Vector DB에서 관련 정보 검색",
-            parameters_schema={
-                "type": "object",
-                "properties": {
-                    "query": {"type": "string", "description": "검색 쿼리"},
-                    "class_name": {"type": "string", "description": "검색할 클래스명"},
-                    "limit": {"type": "integer", "description": "반환할 문서 수"}
-                },
-                "required": ["query", "class_name"]
-            }
-        )
-        self.base_url = "http://localhost:8000"
+from src.orchestration import AgentManager
+from core.llm.schemas import Agent
+
+def create_specialized_agent():
+    agent = Agent(
+        name="specialized_agent",
+        description="전문 에이전트",
+        role_prompt="전문 역할 프롬프트",
+        tools=["custom_tool", "rag_search"]
+    )
     
-    async def execute(self, request: ToolRequest) -> ToolResponse:
-        params = request.parameters
-        
-        # PRISM-Core Vector DB API 호출
-        response = requests.post(
-            f"{self.base_url}/api/vector-db/search/{params['class_name']}",
-            json={
-                "query": params["query"],
-                "limit": params.get("limit", 5)
-            }
-        )
-        
-        if response.status_code == 200:
-            documents = response.json()
-            return ToolResponse(
-                success=True,
-                result={"documents": documents}
-            )
-        else:
-            return ToolResponse(
-                success=False,
-                error=f"검색 실패: {response.status_code}"
-            )
+    agent_manager = AgentManager()
+    agent_manager.register_agent(agent)
+    
+    return agent
 ```
 
-### 4. 에이전트 통합
+### 3. 워크플로우 확장
 
 ```python
-# 새로운 에이전트를 오케스트레이터에 통합
-class ExtendedPrismOrchestrator(PrismOrchestrator):
-    def __init__(self):
-        super().__init__()
-        self.register_custom_agents()
+def create_advanced_workflow():
+    steps = [
+        # 기존 단계들...
+        {
+            "name": "결과_검증",
+            "type": "condition",
+            "condition": "context.get('result_quality') > 0.8"
+        },
+        {
+            "name": "보고서_생성",
+            "type": "agent_call",
+            "agent_name": "report_generator",
+            "prompt_template": "{{analysis_result}}를 바탕으로 보고서를 작성하세요."
+        }
+    ]
     
-    def register_custom_agents(self):
-        """커스텀 에이전트들을 등록합니다."""
-        # 분석 에이전트 등록
-        analysis_agent = AnalysisAgent()
-        self.llm.tool_registry.register_tool(analysis_agent.get_tool())
-        
-        # 모니터링 에이전트 등록
-        monitoring_agent = MonitoringAgent()
-        self.llm.tool_registry.register_tool(monitoring_agent.get_tool())
+    return steps
+```
+
+### 4. Mem0 확장
+
+```python
+from src.orchestration.tools import MemorySearchTool
+
+class CustomMemoryTool(MemorySearchTool):
+    async def custom_memory_analysis(self, user_id: str) -> Dict[str, Any]:
+        """사용자 메모리 커스텀 분석"""
+        # 커스텀 분석 로직 구현
+        pass
+```
+
+### 5. LLM 기반 분석 확장
+
+```python
+from src.orchestration.tools import ComplianceTool
+
+class CustomComplianceTool(ComplianceTool):
+    async def industry_specific_analysis(self, action: str, industry: str) -> Dict[str, Any]:
+        """업계별 특화 규정 준수 분석"""
+        # 업계별 특화 분석 로직 구현
+        pass
+```
+
+## 📚 API 문서
+
+### 오케스트레이션 API
+
+- `POST /api/v1/orchestrate/`: 메인 오케스트레이션 엔드포인트
+- `GET /api/v1/agents/`: 등록된 에이전트 목록 조회
+- `POST /api/v1/agents/`: 새 에이전트 등록
+- `GET /api/v1/workflows/`: 워크플로우 목록 조회
+- `POST /api/v1/workflows/`: 새 워크플로우 정의
+
+### 메모리 API
+
+- `GET /api/v1/memory/{user_id}/summary`: 사용자 메모리 요약
+- `POST /api/v1/memory/{user_id}/search`: 메모리 검색
+- `POST /api/v1/memory/{user_id}/add`: 메모리 추가
+
+### 규정 준수 API
+
+- `POST /api/v1/compliance/check`: 규정 준수 검증
+- `GET /api/v1/compliance/rules`: 관련 규정 조회
+- `POST /api/v1/compliance/analysis`: 상세 규정 준수 분석
+
+### 요청 예시
+
+```bash
+# 오케스트레이션 요청
+curl -X POST "http://localhost:8000/api/v1/orchestrate/" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "A-1 라인 압력 이상 대응 방법",
+    "user_id": "engineer_001"
+  }'
+
+# 메모리 검색 요청
+curl -X POST "http://localhost:8000/api/v1/memory/engineer_001/search" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "압력 이상 대응",
+    "top_k": 3
+  }'
+
+# 규정 준수 검증 요청
+curl -X POST "http://localhost:8000/api/v1/compliance/check" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "action": "고온 배관 점검",
+    "context": "온도 300도 배관 시스템 점검"
+  }'
 ```
 
 ## 🧪 테스트
 
-### 종합 테스트 실행
+### 1. 종합 테스트 실행
 
 ```bash
-# 종합 테스트 스크립트 실행
-python test_comprehensive.py
-
-# 테스트 결과 확인
-cat test_report_*.json
+# 종합 테스트 실행
+uv run python test_comprehensive.py
 ```
 
-### 개별 기능 테스트
+### 2. 모듈화된 구조 테스트
 
-```python
-# 오케스트레이션 테스트
-import requests
-
-# 기본 오케스트레이션 테스트
-response = requests.post(
-    "http://localhost:8000/api/v1/orchestrate/",
-    json={"query": "테스트 질의입니다."}
-)
-print(response.json())
-
-# Vector DB 검색 테스트
-response = requests.post(
-    "http://localhost:8000/api/vector-db/search/OrchResearch",
-    json={"query": "압력 이상", "limit": 3}
-)
-print(response.json())
+```bash
+# 모듈화된 구조 사용 예제 실행
+uv run python example_modular_usage.py
 ```
 
-## 📊 API 스키마
+### 3. Mem0 통합 테스트
 
-### 요청 스키마 (UserQueryInput)
-
-```python
-{
-    "query": "사용자의 자연어 질의",
-    "session_id": "세션 식별자 (선택사항)",
-    "user_id": "사용자 식별자 (선택사항)",
-    "user_preferences": {
-        "mode": "conservative"  # 사용자 선호도
-    }
-}
+```bash
+# Mem0 통합 예제 실행
+uv run python example_mem0_integration.py
 ```
 
-### 응답 스키마 (OrchestrationResponse)
+### 4. LLM 기반 규정 준수 테스트
 
-```python
-{
-    "session_id": "세션 ID",
-    "final_answer": "최종 답변",
-    "final_markdown": "마크다운 형태 리포트",
-    "supporting_documents": ["근거 문서 1", "근거 문서 2"],
-    "tools_used": ["rag_search", "compliance_check"],
-    "tool_results": [{"tool": "rag_search", "result": {...}}],
-    "compliance_checked": true,
-    "compliance_evidence": ["규정 준수 근거"],
-    "task_history": [...]
-}
+```bash
+# LLM 기반 규정 준수 분석 예제 실행
+uv run python example_compliance_llm.py
 ```
 
-## 🔧 설정 옵션
+### 5. 개별 모듈 테스트
 
-### 환경 변수 (.env)
+```bash
+# Tool 테스트
+uv run python -m pytest tests/test_tools.py
 
-```env
-# PRISM-Core 연결 설정
-PRISM_CORE_BASE_URL=http://localhost:8000
+# 에이전트 관리 테스트
+uv run python -m pytest tests/test_agent_manager.py
 
-# LLM 서비스 설정
-OPENAI_BASE_URL=http://localhost:8001/v1
-VLLM_MODEL=Qwen/Qwen3-0.6B
-
-# Vector DB 설정
-VECTOR_ENCODER_MODEL=sentence-transformers/all-MiniLM-L6-v2
-VECTOR_DIM=384
-
-# 애플리케이션 설정
-APP_HOST=0.0.0.0
-APP_PORT=8000
+# 워크플로우 테스트
+uv run python -m pytest tests/test_workflow_manager.py
 ```
-
-## 📚 개발 가이드
-
-### 1. 새로운 도구 추가
-
-1. `BaseTool`을 상속하는 새 도구 클래스 생성
-2. `parameters_schema` 정의
-3. `execute` 메서드 구현
-4. 오케스트레이터에 등록
-
-### 2. 새로운 에이전트 추가
-
-1. `PrismLLMService`를 활용하는 에이전트 클래스 생성
-2. 필요한 도구들을 등록
-3. `invoke` 메서드로 요청 처리
-4. 오케스트레이터에 통합
-
-### 3. Vector DB 활용
-
-1. PRISM-Core의 Vector DB API 활용
-2. 문서 인덱싱 및 검색
-3. 임베딩 자동 생성 및 검증
 
 ## 🤝 기여하기
 
@@ -455,16 +759,28 @@ APP_PORT=8000
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+### 개발 가이드라인
+
+- **코드 스타일**: PEP 8 준수
+- **문서화**: 모든 함수와 클래스에 docstring 작성
+- **테스트**: 새로운 기능에 대한 테스트 코드 작성
+- **타입 힌트**: Python 타입 힌트 사용
+
 ## 📄 라이선스
 
-이 프로젝트는 MIT 라이선스 하에 배포됩니다.
+이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
 
 ## 🆘 지원
 
-- **Issues**: [GitHub Issues](https://github.com/PRISM-System/PRISM-Orch/issues)
-- **문서**: [PRISM-Core Client Guide](../prism-core/client.md)
-- **API 문서**: http://localhost:8000/docs
+- **이슈 리포트**: [GitHub Issues](https://github.com/PRISM-System/PRISM-Orch/issues)
+- **문서**: [Wiki](https://github.com/PRISM-System/PRISM-Orch/wiki)
+- **이메일**: support@prism-system.com
+
+## 🙏 감사의 말
+
+- [Mem0](https://github.com/mem0ai/mem0) - AI 에이전트를 위한 범용 메모리 레이어
+- [PRISM-Core](https://github.com/PRISM-System/prism-core) - 핵심 AI 인프라
 
 ---
 
-**PRISM-Orch** - 지능형 제조를 위한 AI 에이전트 오케스트레이션 플랫폼 🚀
+**PRISM-Orch** - AI 에이전트 오케스트레이션의 새로운 표준 🚀
