@@ -31,4 +31,5 @@ httpx
 pytest==7.4.0
 pytest-asyncio==0.21.1
 
-# prism-core installed in Dockerfile via build-arg GITHUB_TOKEN
+# PRISM Core dependency
+git+https://github.com/PRISM-System/prism-core.git@v0.2.0

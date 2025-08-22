@@ -3,9 +3,7 @@ import time
 import subprocess
 import requests
 
-BASE_URL = os.getenv("APP_BASE_URL", "http://localhost:8000")
-OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "http://147.47.39.144:8100/v1")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+BASE_URL = os.getenv("APP_BASE_URL", "http://localhost:8100")
 
 
 def up_weaviate():
@@ -32,18 +30,17 @@ def seed():
     subprocess.run(["bash", "-lc", "python dev/seed_vector_dbs.py"], check=True)
 
 
-def fc_search(prompt: str):
-    print("[e2e] Running function-calling search...")
+def run_orchestration(prompt: str):
+    print("[e2e] Running orchestration invoke...")
     payload = {
-        "prompt": prompt,
-        "base_url": BASE_URL,
-        "model_name": "gpt-4o-mini",
-        "openai_base_url": OPENAI_BASE_URL,
-        "api_key": OPENAI_API_KEY,
+        "query": prompt,
+        "session_id": "e2e_session",
+        "user_id": "e2e_user",
     }
-    r = requests.post(f"{BASE_URL}/api/v1/fc/search", json=payload, timeout=120)
+    r = requests.post(f"{BASE_URL}/api/v1/orchestrate/", json=payload, timeout=180)
     r.raise_for_status()
-    print("[e2e] FC search response:\n", r.json().get("text", "<no text>"))
+    data = r.json()
+    print("[e2e] Orchestration final_answer:\n", data.get("final_answer", "<no text>"))
 
 
 def main():
@@ -51,7 +48,7 @@ def main():
     wait_for("http://localhost:18080/v1/.well-known/ready")
     wait_for(f"{BASE_URL}/")
     seed()
-    fc_search("A-1 라인 압력 불안정 원인을 자료와 과거 기록에서 찾아 요약해줘")
+    run_orchestration("A-1 라인 압력 불안정 원인을 자료와 과거 기록에서 찾아 요약해줘")
 
 
 if __name__ == "__main__":

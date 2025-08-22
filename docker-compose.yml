@@ -7,18 +7,18 @@ services:
         GITHUB_TOKEN: ${GITHUB_TOKEN}
     container_name: prism-orch-app
     ports:
-      - "8000:8000"
+      - "8100:8100"
     environment:
       - OPENAI_BASE_URL=${OPENAI_BASE_URL}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - RESEARCH_WEAVIATE_URL=http://weaviate:8080
       - MEMORY_WEAVIATE_URL=http://weaviate:8080
       - APP_HOST=0.0.0.0
-      - APP_PORT=8000
+      - APP_PORT=8100
     depends_on:
       - weaviate
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      test: ["CMD", "curl", "-f", "http://localhost:8100/"]
       interval: 10s
       timeout: 5s
       retries: 12
@@ -43,7 +43,7 @@ services:
         GITHUB_TOKEN: ${GITHUB_TOKEN}
     container_name: prism-orch-seed
     environment:
-      - APP_BASE_URL=http://app:8000
+      - APP_BASE_URL=http://app:8100
     entrypoint: ["python", "dev/seed_vector_dbs.py"]
     depends_on:
       - app

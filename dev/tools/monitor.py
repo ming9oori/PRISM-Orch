@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 
 
-async def monitor_server(base_url: str = "http://localhost:8000"):
+async def monitor_server(base_url: str = "http://localhost:8100"):
     """서버 모니터링"""
     print("🔍 vLLM Server Monitoring Started...")
     

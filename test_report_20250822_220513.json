@@ -1,0 +1,107 @@
+{
+  "connections": {
+    "weaviate": true,
+    "prism_core": true,
+    "prism_orch": true,
+    "vllm": true
+  },
+  "vector_db": {
+    "success": true,
+    "classes": [
+      "OrchHistory",
+      "OrchCompliance",
+      "OrchResearch"
+    ],
+    "counts": {
+      "OrchHistory": 1,
+      "OrchCompliance": 1,
+      "OrchResearch": 1
+    }
+  },
+  "search": {
+    "OrchResearch": {
+      "success": true,
+      "count": 3,
+      "score": 0.8614082932472229
+    },
+    "OrchHistory": {
+      "success": true,
+      "count": 3,
+      "score": 0.8565778136253357
+    },
+    "OrchCompliance": {
+      "success": true,
+      "count": 0,
+      "score": 0
+    }
+  },
+  "orchestration": {
+    "기술 문헌 검색": {
+      "success": true,
+      "doc_count": 3,
+      "tools_used": [
+        "rag_search",
+        "rag_search",
+        "rag_search",
+        "rag_search"
+      ],
+      "answer_length": 1640
+    },
+    "과거 경험 검색": {
+      "success": true,
+      "doc_count": 5,
+      "tools_used": [
+        "rag_search",
+        "rag_search",
+        "rag_search",
+        "rag_search"
+      ],
+      "answer_length": 1344
+    },
+    "안전 규정 검색": {
+      "success": true,
+      "doc_count": 5,
+      "tools_used": [
+        "rag_search",
+        "rag_search",
+        "rag_search"
+      ],
+      "answer_length": 1549
+    }
+  },
+  "validation": {
+    "OrchResearch": {
+      "total": 5,
+      "with_embeddings": 0,
+      "without_embeddings": 5,
+      "embedding_rate": 0.0,
+      "all_valid": false
+    },
+    "OrchHistory": {
+      "total": 5,
+      "with_embeddings": 0,
+      "without_embeddings": 5,
+      "embedding_rate": 0.0,
+      "all_valid": false
+    },
+    "OrchCompliance": {
+      "total": 5,
+      "with_embeddings": 0,
+      "without_embeddings": 5,
+      "embedding_rate": 0.0,
+      "all_valid": false
+    }
+  },
+  "workflow": {
+    "success": true,
+    "answer_length": 1637,
+    "doc_count": 0,
+    "tools_used": [
+      "rag_search",
+      "rag_search",
+      "rag_search",
+      "rag_search"
+    ],
+    "tool_results_count": 4
+  }
+}

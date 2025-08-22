@@ -1,92 +1,216 @@
-# PRISM-Orch: AI 에이전트 오케스트레이션
+# PRISM-Orch
 
-`PRISM-Orch`는 [PRISM-AGI](../README.md) 플랫폼의 핵심 구성 요소로, 여러 AI 에이전트들의 작업을 조율하고 관리하는 오케스트레이션 에이전트입니다.
+자율 제조 구현을 위한 AI 에이전트 오케스트레이션 모듈
 
-## 1. 주요 기능
+## 개요
 
-### 멀티 에이전트 관리 시스템
-- 에이전트의 등록, 상태 조회 및 관리를 위한 레지스트리
-- 비동기 작업 처리를 위한 작업 큐 및 스케줄링 시스템
-- 에이전트 간 통신 프로토콜 정의 및 표준화
-- 작업 분배 및 우선순위 관리를 위한 알고리즘
+PRISM-Orch는 PRISM-Core의 LLM 서비스와 Vector DB를 활용하여 사용자의 자연어 질의를 분석하고, 적절한 도구들을 조합하여 지능적인 응답을 제공하는 오케스트레이션 시스템입니다.
 
-### 검색 증강 생성 (RAG) 시스템
-- **prism-core Vector DB 통합**: 외부 지식베이스 접근을 위한 벡터 DB 구축 및 관리
-- **에이전트 메모리 관리**: 에이전트의 작업 기억을 위한 메모리 DB 설계
-- **외부 LLM 기반 작업 분해**: 사용자 지시를 명확하게 재구성하고 체계적인 작업 계획 수립
-- **동적 계획 조정**: 에이전트 결과를 바탕으로 작업 계획을 실시간으로 수정 및 개선
+## 주요 기능
 
-### 제약 조건 관리
-- 제조 공정의 물리적, 운영적 제약 조건 위반 탐지 시스템
-- 리워드 모델을 통한 에이전트 행동의 예상 보정 에러율 관리
-- 작업자의 선호도 및 공정 제약 조건을 반영하는 알고리즘
+- **작업 분해**: 사용자 요청을 분석하여 실행 가능한 하위 작업으로 분해
+- **지식 검색**: 연구/기술 문헌, 과거 수행 내역, 안전 규정 등 다양한 도메인에서 관련 정보 검색
+- **규정 준수 검증**: 제안된 조치가 안전 규정 및 사내 규정을 준수하는지 검증
+- **자동 임베딩 검증**: Vector DB의 문서 임베딩 상태를 자동으로 검증하고 재생성
 
-### 자연어 인터페이스
-- 대형 언어 모델(LLM)을 활용한 사용자 질의 이해 및 처리
-- 사용자 의도를 파악하고 실행 가능한 작업으로 변환하는 모듈
-- 에이전트가 더 잘 이해할 수 있도록 지시를 수정하고 명료화하는 기능
+## 시스템 요구사항
 
-## 2. 성능 목표
+- Python 3.10+
+- PRISM-Core 서비스 (Vector DB, LLM 서비스)
+- vLLM 서비스
+- Weaviate Vector Database
 
-| 기능 | 지표 | 목표 |
-| --- | --- | --- |
-| **RAG 시스템** | 재작성 인스트럭션 검색 개선율 | 70% |
-| | 검색 증강 생성 정합성 | 10% 향상 |
-| **제약 조건 관리** | 제약 상황 위반 탐지 정확도 | 90% |
-| | 예상 보정 에러율 (ECE) | 0.0078 |
-
-## 3. 실행 방법
+## 설치 및 실행
 
 ### 1. 의존성 설치
 
-프로젝트에 필요한 라이브러리를 설치합니다.
-
 ```bash
+# uv를 사용한 설치
+uv sync
+
+# 또는 pip를 사용한 설치
 pip install -r requirements.txt
 ```
 
 ### 2. 환경 변수 설정
 
-`.env.example` 파일을 복사하여 `.env` 파일을 생성하고, 필요한 환경 변수(예: `OPENAI_API_KEY`)를 설정합니다.
+`.env` 파일을 생성하고 다음 설정을 추가하세요:
 
-```bash
-cp .env.example .env
-# nano .env 또는 다른 편집기를 사용하여 .env 파일 수정
+```env
+# PRISM-Core API 주소
+PRISM_CORE_BASE_URL=http://localhost:8000
+
+# vLLM 서비스 주소
+OPENAI_BASE_URL=http://localhost:8001/v1
+OPENAI_API_KEY=EMPTY
+VLLM_MODEL=Qwen/Qwen3-0.6B
+
+# Vector DB 설정
+VECTOR_ENCODER_MODEL=sentence-transformers/all-MiniLM-L6-v2
+VECTOR_DIM=384
+
+# 서버 설정
+APP_HOST=0.0.0.0
+APP_PORT=8100
+RELOAD=true
 ```
 
-### 3. 서버 실행
-
-FastAPI 웹 서버를 실행합니다.
+### 3. 서비스 실행
 
 ```bash
-python -m src.main
+# PRISM-Core 서비스 시작 (별도 터미널에서)
+cd ../prism-core
+docker-compose up -d
+
+# PRISM-Orch 서버 시작
+uv run python -m src.main
 ```
 
-서버가 정상적으로 실행되면, 터미널에서 `Application startup...` 와 같은 메시지를 확인할 수 있습니다.
-API 문서는 서버 실행 후 `http://127.0.0.1:8000/docs` 에서 확인할 수 있습니다.
+## API 사용법
 
-### 4. RAG 기반 Task Planning 테스트
-
-RAG 시스템과 Task Planner의 기능을 테스트합니다.
+### 오케스트레이션 API
 
 ```bash
-python test_rag_planning.py
+curl -X POST "http://localhost:8100/api/v1/orchestrate/" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "A-1 라인 압력에 이상이 생긴 것 같은데, 원인이 뭐야?",
+    "user_id": "user123"
+  }'
 ```
 
-이 테스트는 다음 기능들을 검증합니다:
-- prism-core Vector DB를 통한 지식 검색
-- 외부 LLM을 활용한 작업 분해 및 계획 수립
-- 에이전트 메모리 검색 및 관리
-- 통합 워크플로우 테스트
+### 응답 형식
 
-### 5. 테스트 클라이언트 실행
+```json
+{
+  "session_id": "session_xxx",
+  "final_answer": "# 오케스트레이션 결과 요약\n\n**요청**: ...",
+  "final_markdown": "...",
+  "supporting_documents": ["0.861 | 제조 공정 최적화 기술 문서 1: ..."],
+  "tools_used": ["rag_search", "memory_search"],
+  "tool_results": [...],
+  "compliance_checked": true,
+  "compliance_evidence": [...],
+  "compliance_verdict": null
+}
+```
 
-**새로운 터미널**을 열고, 아래 명령어를 실행하여 API가 정상적으로 동작하는지 테스트합니다.
+## 테스트
+
+### 종합 테스트 실행
+
+모든 기능을 한 번에 테스트하려면 종합 테스트 스크립트를 실행하세요:
 
 ```bash
-python test_client.py
+uv run python test_comprehensive.py
 ```
 
-클라이언트는 실행 중인 서버에 샘플 요청을 보내고, 받은 응답을 터미널에 출력합니다.
+이 테스트는 다음 항목들을 검증합니다:
 
-![api 서버 실행 화면](assets/api_docs.png)
+1. **서비스 연결 상태**: Weaviate, PRISM-Core, PRISM-Orch, vLLM 연결 확인
+2. **Vector DB 스키마**: 클래스 및 문서 수 확인
+3. **검색 기능**: 각 도메인별 벡터 검색 성능 테스트
+4. **오케스트레이션 API**: 다양한 쿼리에 대한 응답 테스트
+5. **임베딩 검증**: 문서 임베딩 상태 확인
+6. **전체 워크플로우**: 복합 쿼리에 대한 전체 처리 과정 테스트
+
+### 테스트 결과
+
+테스트 실행 후 다음과 같은 정보를 확인할 수 있습니다:
+
+- 각 서비스의 연결 상태
+- Vector DB의 클래스별 문서 수
+- 검색 성능 (결과 수, 유사도 점수)
+- 오케스트레이션 성능 (답변 길이, 지원 문서 수)
+- 임베딩 완료율
+- 전체 성공률
+
+테스트 결과는 `test_report_YYYYMMDD_HHMMSS.json` 파일로 저장됩니다.
+
+## 아키텍처
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   PRISM-Orch    │    │   PRISM-Core    │    │     Weaviate    │
+│                 │    │                 │    │   Vector DB     │
+│ ┌─────────────┐ │    │ ┌─────────────┐ │    │                 │
+│ │Orchestrator │◄┼────┼►│ LLM Service │ │    │ ┌─────────────┐ │
+│ └─────────────┘ │    │ └─────────────┘ │    │ │OrchResearch │ │
+│                 │    │                 │    │ │OrchHistory  │ │
+│ ┌─────────────┐ │    │ ┌─────────────┐ │    │ │OrchCompliance│ │
+│ │RAG Search   │◄┼────┼►│Vector DB API│◄┼────┼►└─────────────┘ │
+│ └─────────────┘ │    │ └─────────────┘ │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │
+         │                       │
+         ▼                       ▼
+┌─────────────────┐    ┌─────────────────┐
+│     vLLM        │    │   PostgreSQL    │
+│   (LLM API)     │    │   (Metadata)    │
+└─────────────────┘    └─────────────────┘
+```
+
+## 주요 컴포넌트
+
+### PrismOrchestrator
+- 사용자 요청을 분석하고 작업을 분해
+- 적절한 도구들을 조합하여 응답 생성
+- 규정 준수 검증 수행
+
+### RAGSearchTool
+- Vector DB에서 관련 문서 검색
+- 자동 임베딩 검증 및 재생성
+- 도메인별 검색 (Research, History, Compliance)
+
+### MemorySearchTool
+- 사용자의 과거 상호작용 기록 검색
+- 개인화된 응답 제공
+
+## 개발 가이드
+
+### 새로운 도구 추가
+
+1. `BaseTool`을 상속받는 새로운 도구 클래스 생성
+2. `register_default_tools()` 메서드에 도구 등록
+3. 에이전트의 `tools` 리스트에 도구명 추가
+
+### 임베딩 검증 로직
+
+`_validate_and_regenerate_embeddings()` 메서드는 다음을 수행합니다:
+
+1. 각 클래스의 문서들을 조회
+2. `vectorWeights`가 `null`인 문서들을 감지
+3. 문제가 있는 문서들을 삭제
+4. 올바른 임베딩과 함께 문서들을 재생성
+
+## 문제 해결
+
+### "0개 문서 반환" 문제
+
+이 문제는 주로 Vector DB의 문서들이 벡터 임베딩 없이 저장되어 있을 때 발생합니다. 
+
+**해결 방법:**
+1. PRISM-Orch 서버를 재시작하여 자동 임베딩 검증 실행
+2. 또는 수동으로 `test_comprehensive.py` 실행하여 임베딩 상태 확인
+
+### 서비스 연결 실패
+
+각 서비스가 정상적으로 실행 중인지 확인하세요:
+
+```bash
+# Weaviate 상태 확인
+curl http://localhost:8080/v1/meta
+
+# PRISM-Core 상태 확인
+curl http://localhost:8000/
+
+# PRISM-Orch 상태 확인
+curl http://localhost:8100/
+
+# vLLM 상태 확인
+curl http://localhost:8001/v1/models
+```
+
+## 라이선스
+
+이 프로젝트는 MIT 라이선스 하에 배포됩니다.

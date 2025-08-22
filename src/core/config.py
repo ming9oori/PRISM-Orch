@@ -15,6 +15,10 @@ class Settings(BaseSettings):
     # API Keys
     OPENAI_API_KEY: str = "dummy-key-not-used-in-mock-mode"
     OPENAI_BASE_URL: Optional[str] = None
+    VLLM_MODEL: Optional[str] = None
+
+    # PRISM-Core base URL (Orch -> Core HTTP API)
+    PRISM_CORE_BASE_URL: str = "http://localhost:8000"
 
     # Vector DB endpoints (prism-core Weaviate)
     RESEARCH_WEAVIATE_URL: str = "http://localhost:8080"
@@ -22,6 +26,10 @@ class Settings(BaseSettings):
     MEMORY_WEAVIATE_URL: str = "http://localhost:8080"
     MEMORY_WEAVIATE_API_KEY: str = ""
 
+    # Vector encoder configuration (used by RAGSearchTool and seeding)
+    VECTOR_ENCODER_MODEL: str = "sentence-transformers/all-MiniLM-L6-v2"
+    VECTOR_DIM: int = 384
+    
     # Local storage paths
     VECTOR_DB_PATH: str = str(project_root / "data" / "vector_db")
     AGENT_MEMORY_DB_PATH: str = str(project_root / "data" / "agent_memory.db")

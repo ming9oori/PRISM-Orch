@@ -1,12 +1,12 @@
 import uuid
 from fastapi import APIRouter, Body
-from typing import Dict, Any
+from typing import Dict, Any, List
 
-from ..schemas import UserQueryInput, OrchestrationResponse, TaskInfo
-from ...orchestration.main import OrchestrationAgent
+from ..schemas import UserQueryInput, OrchestrationResponse
+from ...orchestration.prism_orchestrator import PrismOrchestrator
 
 router = APIRouter()
-agent = OrchestrationAgent()
+orchestrator = PrismOrchestrator()
 
 @router.post(
     "/",
@@ -26,4 +26,49 @@ async def run_orchestration(
         },
     )
 ) -> OrchestrationResponse:
-    return agent.run(query) 
+    session_id = query.session_id or f"session_{uuid.uuid4()}"
+
+    # Invoke high-level orchestrator (includes LLM-based decomposition, tool calls, RAG + compliance)
+    agent_resp = await orchestrator.invoke(
+        prompt=query.query,
+        user_id=query.user_id,
+        max_tokens=1000,
+        temperature=0.3,
+        extra_body={"tool_choice": "auto"},
+    )
+
+    # Supporting docs (extract from tool_results best-effort)
+    supporting_docs: List[str] = []
+    for tr in agent_resp.tool_results:
+        result = tr.get("result") if isinstance(tr, dict) else None
+        if isinstance(result, dict):
+            docs = result.get("documents") or result.get("memories")
+            if isinstance(docs, list):
+                supporting_docs.extend([str(d) for d in docs])
+
+    # Compliance evidence (best-effort from tool_results domain=compliance)
+    compliance_evidence: List[str] = []
+    for tr in agent_resp.tool_results:
+        if isinstance(tr, dict):
+            result = tr.get("result")
+            if result:
+                domain = result.get("domain") if isinstance(result, dict) else None
+                if domain == "compliance":
+                    docs = result.get("documents")
+                    if isinstance(docs, list):
+                        compliance_evidence.extend([str(d) for d in docs])
+
+    return OrchestrationResponse(
+        session_id=session_id,
+        final_answer=agent_resp.text,
+        final_markdown=agent_resp.text,
+        flow_chart_data={"nodes": [], "edges": []},
+        supporting_documents=supporting_docs,
+        task_history=[],
+        tools_used=list(agent_resp.tools_used or []),
+        tool_results=list(agent_resp.tool_results or []),
+        compliance_checked=bool((agent_resp.metadata or {}).get("compliance_checked", False)),
+        compliance_evidence=compliance_evidence,
+        compliance_verdict=None,
+        decomposition=None,
+    ) 

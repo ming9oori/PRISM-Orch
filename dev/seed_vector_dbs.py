@@ -3,10 +3,11 @@ from typing import List, Dict, Any
 import os
 import time
 
-BASE_URL = os.getenv("APP_BASE_URL", "http://localhost:8000")
+CORE_BASE_URL = os.getenv("PRISM_CORE_BASE_URL", "http://localhost:8000")
 
-RESEARCH_CLASS = "ResearchDocs"
-MEMORY_CLASS = "AgentMemory"
+RESEARCH_CLASS = "OrchResearch"
+HISTORY_CLASS = "OrchHistory"
+COMPLIANCE_CLASS = "OrchCompliance"
 
 
 def wait_for(url: str, timeout_s: int = 90) -> None:
@@ -22,85 +23,55 @@ def wait_for(url: str, timeout_s: int = 90) -> None:
     raise RuntimeError(f"Timeout waiting for {url}")
 
 
-def create_index(base_url: str, class_name: str, description: str, vector_dim: int, encoder_model: str) -> None:
-    url = f"{base_url}/api/v1/research/vector-db/indices"
-    if class_name == MEMORY_CLASS:
-        url = f"{base_url}/api/v1/memory/vector-db/indices"
+def create_index(class_name: str, description: str) -> None:
+    url = f"{CORE_BASE_URL}/api/vector-db/indices"
     payload = {
         "class_name": class_name,
         "description": description,
-        "vector_dimension": vector_dim,
-        "encoder_model": encoder_model,
-        "properties": [
-            {"name": "content", "dataType": ["text"], "description": "Document content"},
-            {"name": "title", "dataType": ["string"], "description": "Title"},
-            {"name": "source", "dataType": ["string"], "description": "Source"},
-            {"name": "created_at", "dataType": ["date"], "description": "Creation time"}
-        ],
-        "vectorizer": "none",
-        "distance_metric": "cosine"
+        "properties": {"text": {"type": "text"}},
+        "encoder_model": None,
     }
-    r = requests.post(url, json=payload, timeout=30)
+    r = requests.post(url, json=payload, params={"client_id": "orch", "encoder_model": None}, timeout=30)
     r.raise_for_status()
-    print(f"create_index {class_name}: {r.json()}")
+    print(f"create_index {class_name}: {r.status_code}")
 
 
-def add_documents(base_url: str, class_name: str, docs: List[Dict[str, Any]]) -> None:
-    url = f"{base_url}/api/v1/research/vector-db/documents/{class_name}/batch"
-    if class_name == MEMORY_CLASS:
-        url = f"{base_url}/api/v1/memory/vector-db/documents/{class_name}/batch"
-    r = requests.post(url, json=docs, timeout=60)
+def add_documents(class_name: str, docs: List[Dict[str, Any]]) -> None:
+    url = f"{CORE_BASE_URL}/api/vector-db/documents/{class_name}/batch"
+    r = requests.post(url, json=docs, params={"client_id": "orch", "encoder_model": None}, timeout=60)
     r.raise_for_status()
-    print(f"add_documents {class_name}: {r.json()}")
+    print(f"add_documents {class_name}: {len(docs)} docs -> {r.status_code}")
 
 
 def seed() -> None:
-    # Wait for app
-    wait_for(f"{BASE_URL}/")
+    # Wait for core API
+    wait_for(f"{CORE_BASE_URL}/")
 
-    # 1) Create indices (assume 384-dim sentence-transformers)
-    create_index(BASE_URL, RESEARCH_CLASS, "External research knowledge", 384, "sentence-transformers/all-MiniLM-L6-v2")
-    create_index(BASE_URL, MEMORY_CLASS, "Agent interaction memory", 384, "sentence-transformers/all-MiniLM-L6-v2")
+    # 1) Create indices
+    create_index(RESEARCH_CLASS, "Papers/technical docs knowledge base")
+    create_index(HISTORY_CLASS, "All users' past execution logs")
+    create_index(COMPLIANCE_CLASS, "Safety/legal/company compliance rules")
 
     # 2) Insert research docs
     research_docs = [
-        {
-            "content": "CMP process instability root causes include pad wear, slurry flow anomalies, and temperature drift.",
-            "title": "CMP Root Causes",
-            "metadata": {"tags": ["cmp", "rca", "process"]},
-            "source": "internal_wiki",
-        },
-        {
-            "content": "Pressure control loop tuning improves stability; recommended PID values: P=0.8, I=0.1, D=0.05 for line A-1.",
-            "title": "Pressure Loop Tuning",
-            "metadata": {"line": "A-1"},
-            "source": "eng_notes",
-        },
-        {
-            "content": "Valve B-3 degradation observed after 2k cycles; monitor for leakage and hysteresis.",
-            "title": "Valve B-3 Degradation",
-            "metadata": {"component": "B-3", "action": "monitor"},
-            "source": "maintenance_db",
-        },
+        {"title": f"Paper {i+1}", "text": f"제조 공정 최적화 기술 문서 {i+1}: 공정 제어, 안전 규정, 예지 정비, 데이터 기반 분석."}
+        for i in range(10)
     ]
-    add_documents(BASE_URL, RESEARCH_CLASS, research_docs)
+    add_documents(RESEARCH_CLASS, research_docs)
 
-    # 3) Insert memory docs
-    memory_docs = [
-        {
-            "content": "2024-08-10: Investigated A-1 pressure spike. Likely caused by B-3 valve sticking.",
-            "title": "Session note A-1 spike",
-            "metadata": {"session": "user123_session456"},
-            "source": "agent_memory",
-        },
-        {
-            "content": "2024-08-12: After tuning, pressure variance reduced by 15% on A-1.",
-            "title": "Follow-up tuning result",
-            "metadata": {"line": "A-1"},
-            "source": "agent_memory",
-        },
+    # 3) Insert history docs
+    history_docs = [
+        {"title": f"History {i+1}", "text": f"사용자 수행 내역 {i+1}: 압력 이상 대응, 점검 절차 수행, 원인 분석 리포트, 후속 조치 완료."}
+        for i in range(10)
     ]
-    add_documents(BASE_URL, MEMORY_CLASS, memory_docs)
+    add_documents(HISTORY_CLASS, history_docs)
+
+    # 4) Insert compliance docs
+    compliance_docs = [
+        {"title": f"Rule {i+1}", "text": f"안전 법규 및 사내 규정 {i+1}: 잠금/표시 절차(LOTO), 보호구 착용, 위험물 취급, 점검 기록 보관, 승인 절차 준수."}
+        for i in range(10)
+    ]
+    add_documents(COMPLIANCE_CLASS, compliance_docs)
 
 
 if __name__ == "__main__":

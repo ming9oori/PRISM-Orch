@@ -12,7 +12,7 @@ from typing import List, Dict
 
 
 class VLLMBenchmark:
-    def __init__(self, base_url: str = "http://localhost:8000"):
+    def __init__(self, base_url: str = "http://localhost:8100"):
         self.base_url = base_url
         self.results = []
     

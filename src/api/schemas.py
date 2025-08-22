@@ -13,6 +13,11 @@ class UserQueryInput(BaseModel):
         description="사용자 세션을 식별하기 위한 ID",
         example="user123_session456"
     )
+    user_id: Optional[str] = Field(
+        None,
+        description="사용자 식별자(메모리 검색 등 개인화에 사용)",
+        example="engineer_kim"
+    )
     user_preferences: Optional[Dict[str, Any]] = Field(
         default_factory=dict,
         description="사용자 선호도 (예: {'mode': 'conservative'})"
@@ -43,6 +48,7 @@ class TaskInfo(BaseModel):
     priority: str = Field("medium", description="과업의 우선순위 (high, medium, low)")
     status: str = Field("pending", description="과업의 현재 상태 (pending, running, completed, failed)")
     estimated_duration: Optional[str] = Field(None, description="예상 소요 시간")
+    estimated_time: Optional[str] = Field(None, description="예상 소요 시간(LLM 분해 결과 호환용 필드)")
     original_query: Optional[str] = Field(None, description="원본 사용자 쿼리")
 
 class OrchestrationResponse(BaseModel):
@@ -53,6 +59,11 @@ class OrchestrationResponse(BaseModel):
         description="사용자에게 제공되는 최종 답변 (자연어)",
         example="A-1 라인 압력 이상은 밸브 B-3의 노후화 때문으로 분석됩니다."
     )
+    # 선택적으로 마크다운 형태의 종합 리포트를 함께 반환할 수 있음
+    final_markdown: Optional[str] = Field(
+        default=None,
+        description="마크다운 형태의 종합 리포트(선택)"
+    )
     flow_chart_data: Dict[str, Any] = Field(
         ...,
         description="에이전트 협업 과정을 시각화한 플로우 차트 데이터 (UI에서 렌더링)"
@@ -62,3 +73,21 @@ class OrchestrationResponse(BaseModel):
         description="답변의 근거가 되는 외부 문헌/지식 출처 목록"
     )
     task_history: List[TaskInfo] = Field(..., description="이번 요청으로 수행된 과업들의 히스토리") 
+
+    # 도구 사용 내역(선택)
+    tools_used: List[str] = Field(default_factory=list, description="이번 응답 생성에 사용된 도구 목록")
+    tool_results: List[Dict[str, Any]] = Field(default_factory=list, description="도구 실행 결과(요약)")
+
+    # 규정 준수 결과(선택)
+    compliance_checked: bool = Field(default=False, description="규정 준수 사전검토 수행 여부")
+    compliance_evidence: List[str] = Field(default_factory=list, description="규정 준수 매칭 근거(요약) 목록")
+    compliance_verdict: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="규정 준수 판단 상세(JSON): {pass: bool, reasons:[], required_actions:[]}"
+    )
+
+    # 참고용 분해 요약(선택)
+    decomposition: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="작업 분해 결과 요약(JSON): {tasks: [...], analysis: {...}}"
+    ) 
