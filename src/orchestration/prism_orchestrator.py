@@ -104,6 +104,8 @@ class PrismOrchestrator:
                 description="PRISM-Orch의 메인 오케스트레이션 에이전트",
                 role_prompt="""당신은 PRISM-Orch의 메인 오케스트레이션 에이전트입니다.
 
+**중요: 항상 사용 가능한 도구들을 적극적으로 활용하세요!**
+
 주요 역할:
 1. 사용자 요청을 분석하여 적절한 도구들을 선택하고 사용
 2. 복잡한 작업을 단계별로 분해하여 실행
@@ -111,10 +113,33 @@ class PrismOrchestrator:
 4. 안전하고 효율적인 작업 수행을 위한 가이드 제공
 5. 사용자의 과거 상호작용을 기억하여 개인화된 응답 제공
 
-사용 가능한 도구들:
-- rag_search: 지식 베이스에서 관련 정보 검색
-- compliance_check: 안전 규정 및 법규 준수 여부 검증
-- memory_search: 사용자의 과거 상호작용 기록 검색 (Mem0 기반)
+**사용 가능한 도구들 (반드시 활용하세요):**
+
+1. **rag_search**: 지식 베이스에서 관련 정보 검색
+   - 기술 문서, 연구 자료, 사용자 이력, 규정 문서 검색
+   - 사용 시: 기술적 질문, 문서 검색이 필요한 경우
+   - 예시: "압력 센서 원리", "고온 배관 점검", "화학 물질 취급"
+
+2. **compliance_check**: 안전 규정 및 법규 준수 여부 검증
+   - 제안된 조치의 안전성 및 규정 준수 여부 검증
+   - 사용 시: 안전 관련 질문, 규정 준수 확인이 필요한 경우
+   - 예시: "고압 가스 배관 누출 대응", "독성 물질 취급", "방사성 물질 작업"
+
+3. **memory_search**: 사용자의 과거 상호작용 기록 검색 (Mem0 기반)
+   - 사용자별 개인화된 이력 및 경험 검색
+   - 사용 시: 사용자 ID가 제공된 경우, 이전 대화 참조가 필요한 경우
+   - 예시: "이전에 말씀하신...", "사용자 경험", "개인화된 조언"
+
+**도구 사용 가이드라인:**
+- 기술적 질문 → rag_search 사용
+- 안전/규정 관련 질문 → compliance_check 사용
+- 사용자별 개인화 → memory_search 사용
+- 복합적 질문 → 여러 도구 조합 사용
+
+**응답 형식:**
+1. 도구를 사용하여 관련 정보 수집
+2. 수집된 정보를 바탕으로 종합적인 답변 제공
+3. 안전하고 실용적인 조언 제시
 
 항상 안전하고 규정을 준수하는 방식으로 작업을 수행하세요.
 사용자의 개인화된 경험을 위해 과거 상호작용을 적극적으로 활용하세요.""",
@@ -162,11 +187,13 @@ class PrismOrchestrator:
                 temperature=0.3
             )
 
-            # Invoke agent with tools
-            response = await self.llm.invoke_agent_with_tools(request)
+            # Invoke agent with tools using the correct method
+            response = await self.llm.invoke_agent(self._agent, request)
             
-            # Add context information
-            response.context = context
+            # Add context information to metadata
+            if response.metadata is None:
+                response.metadata = {}
+            response.metadata.update(context)
             
             # Save conversation to memory if user_id is provided
             if user_id and self._memory_tool:
@@ -175,10 +202,17 @@ class PrismOrchestrator:
             return response
 
         except Exception as e:
+            # Create error response with proper AgentResponse structure
             return AgentResponse(
                 text=f"오케스트레이션 중 오류가 발생했습니다: {str(e)}",
-                success=False,
-                error_message=str(e)
+                tools_used=[],
+                tool_results=[],
+                metadata={
+                    "error": str(e),
+                    "user_id": user_id,
+                    "prompt": prompt,
+                    "timestamp": self._get_timestamp()
+                }
             )
 
     async def _save_conversation_to_memory(self, user_id: str, user_prompt: str, assistant_response: str) -> None:
@@ -262,7 +296,7 @@ class PrismOrchestrator:
 
     def list_tools(self) -> List[str]:
         """등록된 Tool 목록 조회"""
-        return list(self.llm.tool_registry.tools.keys())
+        return list(self.llm.tool_registry._tools.keys())
 
     def _get_timestamp(self) -> str:
         """타임스탬프 생성"""

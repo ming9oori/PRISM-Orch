@@ -70,10 +70,10 @@ class MemorySearchTool(BaseTool):
         """Mem0 초기화"""
         try:
             # OpenAI 클라이언트 초기화 (Mem0에서 사용)
-            self._openai_client = OpenAI(
-                base_url=settings.OPENAI_BASE_URL or "http://localhost:8001/v1",
-                api_key=settings.OPENAI_API_KEY
-            )
+            # self._openai_client = OpenAI(
+            #     base_url=settings.OPENAI_BASE_URL or "http://localhost:8001/v1",
+            #     api_key=settings.OPENAI_API_KEY
+            # )
             
             # Mem0 메모리 인스턴스 생성
             self._memory = Memory()

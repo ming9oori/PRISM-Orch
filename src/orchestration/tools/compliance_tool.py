@@ -59,6 +59,8 @@ class ComplianceTool(BaseTool):
                 base_url=settings.OPENAI_BASE_URL or "http://localhost:8001/v1",
                 api_key=settings.OPENAI_API_KEY
             )
+            # 모델명을 설정에서 가져오기
+            self._model_name = settings.VLLM_MODEL or "Qwen/Qwen3-0.6B"
             print("✅ OpenAI 클라이언트 초기화 완료")
         except Exception as e:
             print(f"⚠️  OpenAI 클라이언트 초기화 실패: {str(e)}")
@@ -158,7 +160,7 @@ JSON 형식으로 응답하세요:
 
             # LLM 호출
             response = self._openai_client.chat.completions.create(
-                model="gpt-4o-mini",  # 또는 설정된 모델
+                model=self._model_name,
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
