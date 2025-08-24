@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   app:
     build:
@@ -6,12 +7,17 @@ services:
       args:
         GITHUB_TOKEN: ${GITHUB_TOKEN}
     container_name: prism-orch-app
+    env_file:
+      - .env
     ports:
       - "8100:8100"
     environment:
       - OPENAI_BASE_URL=${OPENAI_BASE_URL}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - WEAVIATE_URL=http://weaviate:8080
+      - WEAVIATE_API_KEY=${WEAVIATE_API_KEY}
+      - VECTOR_ENCODER_MODEL=${VECTOR_ENCODER_MODEL}
+      - VECTOR_DIM=${VECTOR_DIM}
       - APP_HOST=0.0.0.0
       - APP_PORT=8100
     depends_on:
@@ -23,17 +29,36 @@ services:
       retries: 12
 
   weaviate:
-    image: semitechnologies/weaviate:1.21.3
+    image: semitechnologies/weaviate:1.24.1
     container_name: prism-weaviate
+    env_file:
+      - .env
     ports:
-      - "18080:8080"
+      - "${WEAVIATE_PORT:-18080}:8080"
+    # 호스트에서 접근할 때는 localhost:18080, 컨테이너 내부에서는 weaviate:8080
     environment:
       QUERY_DEFAULTS_LIMIT: 25
       AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
       PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
       DEFAULT_VECTORIZER_MODULE: 'none'
-      ENABLE_MODULES: ''
+      ENABLE_MODULES: 'text2vec-transformers'
+      TRANSFORMERS_INFERENCE_API: 'http://t2v-transformers:8080'
       CLUSTER_HOSTNAME: 'node1'
+      # API Key 설정 (필요한 경우)
+      AUTHENTICATION_APIKEY_ENABLED: '${WEAVIATE_API_KEY_ENABLED:-false}'
+      AUTHENTICATION_APIKEY_ALLOWED_KEYS: '${WEAVIATE_API_KEY:-}'
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+    restart: unless-stopped
+    depends_on:
+      - t2v-transformers
+
+  t2v-transformers:
+    image: semitechnologies/transformers-inference:sentence-transformers-multi-qa-MiniLM-L6-cos-v1
+    container_name: prism-t2v-transformers
+    environment:
+      ENABLE_CUDA: '0'
+    restart: unless-stopped
 
   seed:
     build:
@@ -41,11 +66,16 @@ services:
       args:
         GITHUB_TOKEN: ${GITHUB_TOKEN}
     container_name: prism-orch-seed
+    env_file:
+      - .env
     environment:
       - APP_BASE_URL=http://app:8100
     entrypoint: ["python", "dev/seed_vector_dbs.py"]
     depends_on:
       - app
+
+volumes:
+  weaviate_data:
 
 # Usage:
 # 1) export GITHUB_TOKEN=...; docker compose up -d --build weaviate app
