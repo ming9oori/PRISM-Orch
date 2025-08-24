@@ -15,4 +15,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-prism_core = { git = "https://github.com/PRISM-System/prism-core.git", tag = "v0.2.2" }
+prism_core = { url = "https://github.com/PRISM-System/prism-core/archive/refs/tags/v0.2.2.tar.gz" }
