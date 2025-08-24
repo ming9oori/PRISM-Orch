@@ -16,7 +16,6 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = "dummy-key-not-used-in-mock-mode"
     OPENAI_BASE_URL: Optional[str] = None
     VLLM_MODEL: Optional[str] = None
-    MODEL_NAME: Optional[str] = None  # MODEL_NAME도 지원
 
     # PRISM-Core base URL (Orch -> Core HTTP API)
     PRISM_CORE_BASE_URL: str = "http://localhost:8000"

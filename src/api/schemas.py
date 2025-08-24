@@ -22,6 +22,37 @@ class UserQueryInput(BaseModel):
         default_factory=dict,
         description="사용자 선호도 (예: {'mode': 'conservative'})"
     )
+    # LLM 생성 파라미터들
+    max_tokens: Optional[int] = Field(
+        default=1024,
+        description="최대 토큰 수",
+        example=1024
+    )
+    temperature: Optional[float] = Field(
+        default=0.7,
+        description="생성 온도 (0.0 ~ 2.0)",
+        example=0.7
+    )
+    stop: Optional[List[str]] = Field(
+        default=None,
+        description="중단 시퀀스 목록",
+        example=["\n\n", "END"]
+    )
+    use_tools: Optional[bool] = Field(
+        default=True,
+        description="도구 사용 여부",
+        example=True
+    )
+    max_tool_calls: Optional[int] = Field(
+        default=3,
+        description="최대 도구 호출 수",
+        example=3
+    )
+    extra_body: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="추가 OpenAI 호환 옵션 (예: tool_choice, repetition_penalty)",
+        example={"tool_choice": "auto"}
+    )
 
 class AgentInfo(BaseModel):
     """시스템에 등록된 AI 에이전트 정보를 나타내는 모델"""

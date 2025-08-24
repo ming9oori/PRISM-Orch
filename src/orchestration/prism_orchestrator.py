@@ -51,7 +51,7 @@ class PrismOrchestrator:
         
         # Initialize LLM service
         self.llm = PrismLLMService(
-            model_name=settings.VLLM_MODEL or settings.MODEL_NAME,
+            model_name=settings.VLLM_MODEL,
             simulate_delay=False,
             tool_registry=ToolRegistry(),
             llm_service_url=core_api,
@@ -155,13 +155,29 @@ class PrismOrchestrator:
         except Exception as e:
             print(f"❌ 에이전트 등록 실패: {str(e)}")
 
-    async def orchestrate(self, prompt: str, user_id: Optional[str] = None) -> AgentResponse:
+    async def orchestrate(
+        self, 
+        prompt: str, 
+        user_id: Optional[str] = None,
+        max_tokens: int = 1024,
+        temperature: float = 0.7,
+        stop: Optional[List[str]] = None,
+        use_tools: bool = True,
+        max_tool_calls: int = 3,
+        extra_body: Optional[Dict[str, Any]] = None
+    ) -> AgentResponse:
         """
         메인 오케스트레이션 메서드
         
         Args:
             prompt: 사용자 요청
             user_id: 사용자 ID (선택사항)
+            max_tokens: 최대 토큰 수 (기본값: 1024)
+            temperature: 생성 온도 (기본값: 0.7)
+            stop: 중단 시퀀스 (기본값: None)
+            use_tools: 도구 사용 여부 (기본값: True)
+            max_tool_calls: 최대 도구 호출 수 (기본값: 3)
+            extra_body: 추가 OpenAI 호환 옵션 (기본값: None)
             
         Returns:
             AgentResponse: 오케스트레이션 결과
@@ -178,13 +194,16 @@ class PrismOrchestrator:
                 "timestamp": self._get_timestamp()
             }
 
-            # Create agent invoke request
+            # Create agent invoke request with all parameters
             request = AgentInvokeRequest(
                 prompt=prompt,
-                use_tools=True,
-                max_tool_calls=5,
-                max_tokens=1000,
-                temperature=0.3
+                user_id=user_id,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                stop=stop,
+                use_tools=use_tools,
+                max_tool_calls=max_tool_calls,
+                extra_body=extra_body
             )
 
             # Invoke agent with tools using the correct method

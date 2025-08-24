@@ -32,9 +32,12 @@ async def run_orchestration(
     agent_resp = await orchestrator.orchestrate(
         prompt=query.query,
         user_id=query.user_id,
-        max_tokens=1000,
-        temperature=0.3,
-        extra_body={"tool_choice": "auto"},
+        max_tokens=query.max_tokens,
+        temperature=query.temperature,
+        stop=query.stop,
+        use_tools=query.use_tools,
+        max_tool_calls=query.max_tool_calls,
+        extra_body=query.extra_body,
     )
 
     # Supporting docs (extract from tool_results best-effort)
