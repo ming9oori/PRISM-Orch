@@ -51,7 +51,7 @@ class PrismOrchestrator:
         
         # Initialize LLM service
         self.llm = PrismLLMService(
-            model_name=settings.VLLM_MODEL,
+            model_name=settings.VLLM_MODEL or settings.MODEL_NAME,
             simulate_delay=False,
             tool_registry=ToolRegistry(),
             llm_service_url=core_api,

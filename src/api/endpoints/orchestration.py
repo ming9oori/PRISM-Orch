@@ -29,7 +29,7 @@ async def run_orchestration(
     session_id = query.session_id or f"session_{uuid.uuid4()}"
 
     # Invoke high-level orchestrator (includes LLM-based decomposition, tool calls, RAG + compliance)
-    agent_resp = await orchestrator.invoke(
+    agent_resp = await orchestrator.orchestrat(
         prompt=query.query,
         user_id=query.user_id,
         max_tokens=1000,

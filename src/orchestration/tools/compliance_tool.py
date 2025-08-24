@@ -60,7 +60,7 @@ class ComplianceTool(BaseTool):
                 api_key=settings.OPENAI_API_KEY
             )
             # 모델명을 설정에서 가져오기
-            self._model_name = settings.VLLM_MODEL or "Qwen/Qwen3-0.6B"
+            self._model_name = settings.VLLM_MODEL or settings.MODEL_NAME or "Qwen/Qwen3-0.6B"
             print("✅ OpenAI 클라이언트 초기화 완료")
         except Exception as e:
             print(f"⚠️  OpenAI 클라이언트 초기화 실패: {str(e)}")
