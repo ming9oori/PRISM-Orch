@@ -9,15 +9,12 @@ from typing import Any, Dict, List, Optional
 import json
 import requests
 
-from core.llm.prism_llm_service import PrismLLMService
-from core.llm.schemas import Agent, AgentInvokeRequest, AgentResponse, LLMGenerationRequest
-from core.tools import BaseTool, ToolRequest, ToolResponse, ToolRegistry
+from prism_core.core.llm.prism_llm_service import PrismLLMService
+from prism_core.core.llm.schemas import Agent, AgentInvokeRequest, AgentResponse, LLMGenerationRequest
+from prism_core.core.tools import BaseTool, ToolRequest, ToolResponse, ToolRegistry
 
-from .tools.rag_search_tool import RAGSearchTool
-from .tools.compliance_tool import ComplianceTool
-from .tools.memory_search_tool import MemorySearchTool
-from .agent_manager import AgentManager
-from .workflow_manager import WorkflowManager
+from .tools.orch_tool_setup import OrchToolSetup
+from prism_core.core.agents import AgentManager, WorkflowManager
 
 from ..core.config import settings
 
@@ -49,11 +46,15 @@ class PrismOrchestrator:
         self.agent_manager = AgentManager()
         self.workflow_manager = WorkflowManager()
         
-        # Initialize LLM service
+        # Initialize Orch tool setup
+        self.orch_tool_setup = OrchToolSetup()
+        self.tool_registry = self.orch_tool_setup.setup_tools()
+        
+        # Initialize LLM service with Orch tool registry
         self.llm = PrismLLMService(
             model_name=settings.VLLM_MODEL,
             simulate_delay=False,
-            tool_registry=ToolRegistry(),
+            tool_registry=self.tool_registry,
             llm_service_url=core_api,
             agent_name=self.agent_name,
             openai_base_url=base_url,
@@ -61,39 +62,17 @@ class PrismOrchestrator:
         )
 
         # Set tool registry for managers
-        self.agent_manager.set_tool_registry(self.llm.tool_registry)
-        self.workflow_manager.set_tool_registry(self.llm.tool_registry)
-
-        # Auto-register default tools for orchestration
-        self.register_default_tools()
+        self.agent_manager.set_tool_registry(self.tool_registry)
+        self.workflow_manager.set_tool_registry(self.tool_registry)
 
         # Local cache for agent object
         self._agent: Optional[Agent] = None
         
         # Memory tool reference for direct access
-        self._memory_tool: Optional[MemorySearchTool] = None
-
-    def register_default_tools(self) -> None:
-        """기본 Tool들을 등록합니다."""
-        try:
-            # RAG Search Tool 등록
-            rag_tool = RAGSearchTool()
-            self.llm.tool_registry.register_tool(rag_tool)
-            print("✅ RAG Search Tool 등록 완료")
-
-            # Compliance Tool 등록
-            compliance_tool = ComplianceTool()
-            self.llm.tool_registry.register_tool(compliance_tool)
-            print("✅ Compliance Tool 등록 완료")
-
-            # Memory Search Tool 등록 (Mem0 지원)
-            memory_tool = MemorySearchTool()
-            self.llm.tool_registry.register_tool(memory_tool)
-            self._memory_tool = memory_tool  # 참조 저장
-            print("✅ Memory Search Tool 등록 완료 (Mem0 지원)")
-
-        except Exception as e:
-            print(f"❌ Tool 등록 실패: {str(e)}")
+        self._memory_tool = self.orch_tool_setup.get_memory_tool()
+        
+        # Print tool setup information
+        self.orch_tool_setup.print_tool_info()
 
     def register_orchestration_agent(self) -> None:
         """오케스트레이션 에이전트를 등록합니다."""

@@ -7,6 +7,8 @@ Weaviate Schema Initialization for PRISM Orchestration
 import weaviate
 import json
 import logging
+import os
+from pathlib import Path
 
 # 로깅 설정
 logging.basicConfig(level=logging.INFO)
@@ -15,8 +17,11 @@ logger = logging.getLogger(__name__)
 def initialize_weaviate_schema():
     """Weaviate 스키마를 초기화합니다."""
     
+    # 환경 변수에서 Weaviate URL 읽기
+    weaviate_url = os.getenv("WEAVIATE_URL", "http://localhost:18080")
+    
     # Weaviate 클라이언트 연결
-    client = weaviate.Client("http://localhost:18080")
+    client = weaviate.Client(weaviate_url)
     
     # 기존 스키마 삭제 (개발 환경에서만)
     try:

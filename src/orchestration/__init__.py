@@ -5,17 +5,12 @@ PRISM-Orch Orchestration Package
 """
 
 from .prism_orchestrator import PrismOrchestrator
-from .tools.rag_search_tool import RAGSearchTool
-from .tools.compliance_tool import ComplianceTool
-from .tools.memory_search_tool import MemorySearchTool
-from .agent_manager import AgentManager
-from .workflow_manager import WorkflowManager
+from .tools.orch_tool_setup import OrchToolSetup
+from prism_core.core.agents import AgentManager, WorkflowManager
 
 __all__ = [
     "PrismOrchestrator",
-    "RAGSearchTool", 
-    "ComplianceTool",
-    "MemorySearchTool",
+    "OrchToolSetup",
     "AgentManager",
     "WorkflowManager"
 ]

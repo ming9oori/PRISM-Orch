@@ -11,8 +11,7 @@ services:
     environment:
       - OPENAI_BASE_URL=${OPENAI_BASE_URL}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - RESEARCH_WEAVIATE_URL=http://weaviate:8080
-      - MEMORY_WEAVIATE_URL=http://weaviate:8080
+      - WEAVIATE_URL=http://weaviate:8080
       - APP_HOST=0.0.0.0
       - APP_PORT=8100
     depends_on:
