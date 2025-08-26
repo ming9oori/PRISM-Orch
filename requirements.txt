@@ -27,6 +27,9 @@ requests
 openai
 httpx
 
+# PDF processing and markdown conversion
+markitdown[pdf,all]
+
 # Development and testing
 pytest==7.4.0
 pytest-asyncio==0.21.1
