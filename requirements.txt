@@ -27,10 +27,13 @@ requests
 openai
 httpx
 
+# PDF processing and markdown conversion
+markitdown[pdf,all]
+
 # Development and testing
 pytest==7.4.0
 pytest-asyncio==0.21.1
 
 # PRISM Core dependency (managed by pyproject.toml)
 mem0ai>=0.1.116
-prism_core @ git+https://github.com/PRISM-System/prism-core.git@v0.2.6
+prism_core @ git+https://github.com/PRISM-System/prism-core.git@v0.2.8

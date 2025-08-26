@@ -7,12 +7,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl git build-essential cmake \
     && rm -rf /var/lib/apt/lists/*
 
-# Install requirements
+# Conditional prism-core installation
+ARG USE_LOCAL_PRISM_CORE=false
+ARG PRISM_CORE_VERSION=main
 COPY requirements.txt ./
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
 
-# prism-core is already installed via requirements.txt
+# Install requirements conditionally
+RUN pip install --no-cache-dir --upgrade pip
+RUN if [ "$USE_LOCAL_PRISM_CORE" = "true" ]; then \
+        # Skip prism-core from requirements.txt and install others
+        grep -v "prism_core" requirements.txt > requirements_no_prism.txt && \
+        pip install --no-cache-dir -r requirements_no_prism.txt; \
+    else \
+        # Install specific version of prism-core from GitHub
+        echo "Installing prism-core from GitHub: $PRISM_CORE_VERSION" && \
+        grep -v "prism_core" requirements.txt > requirements_no_prism.txt && \
+        pip install --no-cache-dir -r requirements_no_prism.txt && \
+        pip install --no-cache-dir "prism_core @ git+https://github.com/PRISM-System/prism-core.git@$PRISM_CORE_VERSION"; \
+    fi
 
 # Copy app
 COPY src ./src

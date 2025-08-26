@@ -12,6 +12,7 @@ from prism_core.core.tools import (
     ToolRegistry
 )
 from ...core.config import settings
+from .agent_interaction_summary_tool import AgentInteractionSummaryTool
 
 
 class OrchToolSetup:
@@ -38,6 +39,7 @@ class OrchToolSetup:
         self.rag_tool = None
         self.compliance_tool = None
         self.memory_tool = None
+        self.interaction_summary_tool = None
         
     def setup_tools(self) -> ToolRegistry:
         """Orch 전용 도구들을 설정하고 등록합니다."""
@@ -76,6 +78,18 @@ class OrchToolSetup:
             self.tool_registry.register_tool(self.memory_tool)
             print(f"✅ Orch Memory Search Tool 등록 완료 (클래스: {self.class_prefix}History)")
             
+            # Agent Interaction Summary Tool 설정
+            self.interaction_summary_tool = AgentInteractionSummaryTool(
+                weaviate_url=self.weaviate_url,
+                openai_base_url=self.openai_base_url,
+                openai_api_key=self.openai_api_key,
+                model_name=settings.VLLM_MODEL,
+                client_id=self.client_id,
+                class_prefix=self.class_prefix
+            )
+            self.tool_registry.register_tool(self.interaction_summary_tool)
+            print(f"✅ Orch Agent Interaction Summary Tool 등록 완료")
+            
             return self.tool_registry
             
         except Exception as e:
@@ -97,6 +111,10 @@ class OrchToolSetup:
     def get_memory_tool(self):
         """Memory Search Tool을 반환합니다."""
         return self.memory_tool
+    
+    def get_interaction_summary_tool(self):
+        """Agent Interaction Summary Tool을 반환합니다."""
+        return self.interaction_summary_tool
     
     def print_tool_info(self):
         """등록된 도구들의 정보를 출력합니다."""

@@ -1,0 +1,288 @@
+{
+  "scenarios": [
+    {
+      "incident_id": "INC-00125",
+      "title": "Etching Equipment Pressure Anomaly Investigation",
+      "description": "사용자가 3번 엣칭 장비의 압력 이상을 문의하여 시작된 멀티 에이전트 워크플로우",
+      "equipment": "Etching_Machine_#3",
+      "parameter": "Pressure",
+      "user_query": "3번 엣칭 장비 압력이 좀 이상한데, 확인해 줄 수 있나요?",
+      "workflow_phases": [
+        {
+          "phase": "Phase 1: User Inquiry",
+          "description": "사용자 문의 접수 및 질의 구조화",
+          "orchestration_action": "질의 분석 및 하위 에이전트 실행 계획 수립"
+        },
+        {
+          "phase": "Phase 2: Data Analysis",
+          "description": "모니터링 에이전트를 통한 현상 분석",
+          "target_agent": "monitoring"
+        },
+        {
+          "phase": "Phase 3: Root Cause Analysis",
+          "description": "예측 에이전트를 통한 원인 분석 및 미래 예측",
+          "target_agent": "prediction"
+        },
+        {
+          "phase": "Phase 4: Solution Simulation",
+          "description": "자율제어 에이전트를 통한 해결방안 시뮬레이션",
+          "target_agent": "autonomous_control"
+        },
+        {
+          "phase": "Phase 5: Final Recommendation",
+          "description": "최종 권고안 생성 및 사용자 전달",
+          "orchestration_action": "종합 분석 결과 기반 최적 해결방안 선정"
+        }
+      ],
+      "agent_interactions": [
+        {
+          "task_id": "Task-1",
+          "requester": "orchestration",
+          "target": "monitoring",
+          "request_type": "REQUEST_ANOMALY_ANALYSIS",
+          "request_message": {
+            "type": "REQUEST_ANOMALY_ANALYSIS",
+            "target_equipment": "Etching_Machine_#3",
+            "parameter": "Pressure",
+            "timestamp": "2024-08-26T07:00:00Z"
+          },
+          "response_message": {
+            "type": "ANOMALY_ANALYSIS_RESULT",
+            "task_id": "Task-1",
+            "status": "Completed",
+            "is_anomaly": true,
+            "anomaly_details": {
+              "current_value": 151,
+              "normal_range": [110, 120],
+              "unit": "Torr",
+              "deviation_percentage": 25.8,
+              "trend": "increasing",
+              "duration": "00:15:32"
+            },
+            "related_data": {
+              "temperature": 82.5,
+              "flow_rate": 45.2,
+              "valve_positions": {
+                "gas_valve_a": "stuck_open",
+                "gas_valve_b": "normal"
+              }
+            },
+            "confidence": 0.97,
+            "timestamp": "2024-08-26T07:00:05Z"
+          },
+          "execution_time_ms": 2340,
+          "summary": "압력 센서 데이터 분석 결과 정상 범위(110-120 Torr) 대비 25.8% 초과된 151 Torr의 이상값 감지됨. Gas Valve A의 stuck_open 상태가 원인으로 추정됨."
+        },
+        {
+          "task_id": "Task-2",
+          "requester": "orchestration",
+          "target": "prediction",
+          "request_type": "REQUEST_ROOT_CAUSE_ANALYSIS",
+          "request_message": {
+            "type": "REQUEST_FORECAST",
+            "incident_id": "INC-00125",
+            "anomaly_data": {
+              "is_anomaly": true,
+              "current_value": 151,
+              "normal_range": [110, 120],
+              "equipment": "Etching_Machine_#3",
+              "parameter": "Pressure"
+            },
+            "context_data": {
+              "valve_status": "gas_valve_a_stuck",
+              "duration": "00:15:32"
+            },
+            "timestamp": "2024-08-26T07:00:10Z"
+          },
+          "response_message": {
+            "type": "PREDICTION_REPORT",
+            "task_id": "Task-2",
+            "incident_id": "INC-00125",
+            "status": "Completed",
+            "root_cause": {
+              "primary_cause": "Gas_Valve_A stuck in open position",
+              "description": "Gas Valve A가 열린 상태에서 고착되어 과도한 가스 유입으로 인한 압력 상승",
+              "confidence_score": 0.95,
+              "contributing_factors": [
+                "valve_mechanical_wear",
+                "insufficient_maintenance"
+              ]
+            },
+            "future_prediction": {
+              "short_term": {
+                "description": "지속적인 압력 상승으로 30분 내 웨이퍼 수율 15% 감소",
+                "timeframe": "00:30:00",
+                "impact_severity": "high"
+              },
+              "long_term": {
+                "description": "장비 손상 및 생산 라인 정지 가능성",
+                "timeframe": "02:00:00",
+                "impact_severity": "critical"
+              }
+            },
+            "risk_assessment": {
+              "risk_level": "High",
+              "probability": 0.89,
+              "business_impact": "production_yield_loss"
+            },
+            "timestamp": "2024-08-26T07:00:18Z"
+          },
+          "execution_time_ms": 5670,
+          "summary": "Gas Valve A의 기계적 고착이 근본 원인으로 분석됨 (신뢰도 95%). 방치 시 30분 내 수율 15% 감소, 2시간 내 생산 라인 정지 위험."
+        },
+        {
+          "task_id": "Task-3",
+          "requester": "orchestration",
+          "target": "autonomous_control",
+          "request_type": "REQUEST_ACTION_SIMULATION",
+          "request_message": {
+            "type": "REQUEST_SOLUTION_SIMULATION",
+            "incident_id": "INC-00125",
+            "root_cause": "Gas_Valve_A stuck in open position",
+            "target_equipment": "Etching_Machine_#3",
+            "actions_to_simulate": [
+              "Recalibrate_Gas_Valve_A",
+              "Replace_Gas_Valve_A",
+              "Decrease_Pressure_Param",
+              "Emergency_Shutdown"
+            ],
+            "constraints": {
+              "max_downtime": "00:10:00",
+              "safety_priority": "high"
+            },
+            "timestamp": "2024-08-26T07:00:25Z"
+          },
+          "response_message": {
+            "type": "SIMULATION_RESULT_REPORT",
+            "task_id": "Task-3",
+            "incident_id": "INC-00125",
+            "status": "Completed",
+            "simulation_results": [
+              {
+                "action": "Recalibrate_Gas_Valve_A",
+                "action_type": "corrective_maintenance",
+                "expected_outcome": "Pressure returns to normal range within 2 minutes",
+                "success_probability": 0.98,
+                "execution_time": "00:02:00",
+                "resource_requirements": ["maintenance_technician"],
+                "side_effects": "None",
+                "safety_impact": "Low",
+                "cost_impact": "Low"
+              },
+              {
+                "action": "Replace_Gas_Valve_A",
+                "action_type": "corrective_maintenance",
+                "expected_outcome": "Permanent solution, 99.9% reliability",
+                "success_probability": 0.99,
+                "execution_time": "00:45:00",
+                "resource_requirements": ["maintenance_technician", "spare_valve"],
+                "side_effects": "Production downtime",
+                "safety_impact": "Low",
+                "cost_impact": "Medium"
+              },
+              {
+                "action": "Decrease_Pressure_Param",
+                "action_type": "parameter_adjustment",
+                "expected_outcome": "Temporary pressure reduction, root cause remains",
+                "success_probability": 0.60,
+                "execution_time": "00:01:00",
+                "resource_requirements": ["operator"],
+                "side_effects": "Process quality degradation, yield reduction",
+                "safety_impact": "Medium",
+                "cost_impact": "High"
+              },
+              {
+                "action": "Emergency_Shutdown",
+                "action_type": "safety_measure",
+                "expected_outcome": "Complete system shutdown for safety",
+                "success_probability": 1.00,
+                "execution_time": "00:01:00",
+                "resource_requirements": ["operator"],
+                "side_effects": "Complete production stop",
+                "safety_impact": "None",
+                "cost_impact": "Very_High"
+              }
+            ],
+            "recommended_action": "Recalibrate_Gas_Valve_A",
+            "recommendation_reason": "Best balance of success probability, execution time, and minimal side effects",
+            "timestamp": "2024-08-26T07:00:37Z"
+          },
+          "execution_time_ms": 8920,
+          "summary": "4가지 해결방안 시뮬레이션 완료. Gas Valve A 재보정이 최적 방안으로 선정됨 (성공률 98%, 실행시간 2분, 부작용 없음)."
+        }
+      ],
+      "final_recommendation": {
+        "selected_action": "Recalibrate_Gas_Valve_A",
+        "rationale": "98% 성공률과 2분의 빠른 실행시간, 부작용 없음으로 최적 해결방안",
+        "implementation_steps": [
+          "1. 유지보수 기술자에게 연락",
+          "2. Gas Valve A 재보정 실행",
+          "3. 압력값 모니터링",
+          "4. 정상 범위 복구 확인"
+        ],
+        "expected_resolution_time": "00:02:00",
+        "confidence_level": 0.95
+      },
+      "workflow_metrics": {
+        "total_phases": 5,
+        "total_tasks": 3,
+        "total_agents_involved": 4,
+        "total_execution_time_ms": 16930,
+        "workflow_success_rate": 1.0,
+        "recommendation_confidence": 0.95
+      }
+    },
+    {
+      "incident_id": "INC-00126",
+      "title": "Temperature Control System Malfunction",
+      "description": "온도 제어 시스템 오작동으로 인한 공정 온도 이상",
+      "equipment": "CVD_Chamber_#2",
+      "parameter": "Temperature",
+      "user_query": "2번 CVD 챔버 온도가 계속 올라가고 있어요. 확인 부탁드립니다.",
+      "workflow_phases": [
+        {
+          "phase": "Phase 1: User Inquiry",
+          "description": "사용자 온도 이상 문의 접수",
+          "orchestration_action": "온도 이상 워크플로우 시작"
+        }
+      ],
+      "agent_interactions": [
+        {
+          "task_id": "Task-1",
+          "requester": "orchestration",
+          "target": "monitoring",
+          "request_type": "REQUEST_TEMPERATURE_ANALYSIS",
+          "request_message": {
+            "type": "REQUEST_ANOMALY_ANALYSIS",
+            "target_equipment": "CVD_Chamber_#2",
+            "parameter": "Temperature",
+            "timestamp": "2024-08-26T08:00:00Z"
+          },
+          "response_message": {
+            "type": "TEMPERATURE_ANALYSIS_RESULT",
+            "task_id": "Task-1",
+            "status": "Completed",
+            "is_anomaly": true,
+            "anomaly_details": {
+              "current_value": 425,
+              "normal_range": [350, 380],
+              "unit": "Celsius",
+              "deviation_percentage": 11.8,
+              "trend": "rapidly_increasing",
+              "rate_of_change": "5C_per_minute"
+            },
+            "safety_alert": true,
+            "timestamp": "2024-08-26T08:00:08Z"
+          },
+          "execution_time_ms": 3200,
+          "summary": "CVD 챔버 온도가 정상 범위(350-380°C)를 초과하여 425°C까지 상승. 분당 5°C 속도로 지속 증가 중."
+        }
+      ],
+      "final_recommendation": {
+        "selected_action": "Emergency_Temperature_Control",
+        "rationale": "안전상 즉시 온도 제어 필요",
+        "confidence_level": 0.99
+      }
+    }
+  ]
+}
