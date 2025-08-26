@@ -11,6 +11,9 @@ services:
       - .env
     ports:
       - "8100:8100"
+    volumes:
+      - ./src:/app/src
+      - ./dev:/app/dev
     environment:
       - OPENAI_BASE_URL=${OPENAI_BASE_URL}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -68,6 +71,9 @@ services:
     container_name: prism-orch-seed
     env_file:
       - .env
+    volumes:
+      - ./src:/app/src
+      - ./dev:/app/dev
     environment:
       - APP_BASE_URL=http://app:8100
     entrypoint: ["python", "dev/seed_vector_dbs.py"]
