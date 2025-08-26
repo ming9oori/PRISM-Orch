@@ -1,4 +1,7 @@
-version: '3.8'
+# Environment variable defaults
+x-env-defaults: &env-defaults
+  USE_LOCAL_PRISM_CORE: ${USE_LOCAL_PRISM_CORE:-true}
+  PRISM_CORE_VERSION: ${PRISM_CORE_VERSION:-main}
 
 services:
   app:
@@ -6,6 +9,8 @@ services:
       context: .
       args:
         GITHUB_TOKEN: ${GITHUB_TOKEN}
+        USE_LOCAL_PRISM_CORE: "${USE_LOCAL_PRISM_CORE:-true}"
+        PRISM_CORE_VERSION: "${PRISM_CORE_VERSION:-main}"
     container_name: prism-orch-app
     env_file:
       - .env
@@ -14,6 +19,7 @@ services:
     volumes:
       - ./src:/app/src
       - ./dev:/app/dev
+      - ../prism-core/prism_core:/app/prism_core
     environment:
       - OPENAI_BASE_URL=${OPENAI_BASE_URL}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -55,6 +61,12 @@ services:
     restart: unless-stopped
     depends_on:
       - t2v-transformers
+    healthcheck:
+      test: ["CMD", "curl", "-s", "http://localhost:8080/v1/.well-known/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
 
   t2v-transformers:
     image: semitechnologies/transformers-inference:sentence-transformers-multi-qa-MiniLM-L6-cos-v1
@@ -68,17 +80,131 @@ services:
       context: .
       args:
         GITHUB_TOKEN: ${GITHUB_TOKEN}
+        USE_LOCAL_PRISM_CORE: "${USE_LOCAL_PRISM_CORE:-true}"
+        PRISM_CORE_VERSION: "${PRISM_CORE_VERSION:-main}"
     container_name: prism-orch-seed
     env_file:
       - .env
     volumes:
       - ./src:/app/src
       - ./dev:/app/dev
+      - ../prism-core/prism_core:/app/prism_core
     environment:
       - APP_BASE_URL=http://app:8100
     entrypoint: ["python", "dev/seed_vector_dbs.py"]
     depends_on:
       - app
+
+  kosha-processor:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM python:3.11-slim
+        WORKDIR /app
+        
+        # Install system dependencies
+        RUN apt-get update && apt-get install -y \
+            curl \
+            git \
+            && rm -rf /var/lib/apt/lists/*
+        
+        # Conditional prism-core installation
+        ARG USE_LOCAL_PRISM_CORE=false
+        ARG PRISM_CORE_VERSION=main
+        RUN if [ "$USE_LOCAL_PRISM_CORE" = "false" ]; then \
+            echo "Installing prism-core from GitHub: $PRISM_CORE_VERSION" && \
+            pip install --no-cache-dir "prism_core @ git+https://github.com/PRISM-System/prism-core.git@$PRISM_CORE_VERSION"; \
+        else \
+            echo "Using local prism-core via volume mount"; \
+        fi
+        
+        # Install minimal dependencies for KOSHA processor
+        RUN pip install --no-cache-dir \
+            requests \
+            markitdown \
+            openai
+        
+        # Copy application files and source code
+        COPY dev/kosha_pdf_processor_rag.py /app/
+        COPY assets/kosha_guidance_download_links.json /app/assets/
+        COPY src/ /app/src/
+        
+        CMD ["python", "kosha_pdf_processor_rag.py"]
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        USE_LOCAL_PRISM_CORE: "${USE_LOCAL_PRISM_CORE:-true}"
+        PRISM_CORE_VERSION: "${PRISM_CORE_VERSION:-main}"
+    container_name: prism-kosha-processor
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./assets:/app/assets
+      - ../prism-core/prism_core:/app/prism_core
+    environment:
+      - WEAVIATE_URL=http://weaviate:8080
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MAX_DOCUMENTS=${MAX_DOCUMENTS:-}
+      - ENCODER_MODEL=${VECTOR_ENCODER_MODEL:-sentence-transformers/paraphrase-multilingual-mpnet-base-v2}
+      - VECTOR_DIM=${VECTOR_DIM:-768}
+      - CLASS_PREFIX=${CLASS_PREFIX:-KOSHA}
+    depends_on:
+      - weaviate
+      - app
+    restart: no
+
+  agent-history-uploader:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM python:3.11-slim
+        WORKDIR /app
+        
+        # Install system dependencies
+        RUN apt-get update && apt-get install -y \
+            curl \
+            && rm -rf /var/lib/apt/lists/*
+        
+        # Conditional prism-core installation
+        ARG USE_LOCAL_PRISM_CORE=false
+        ARG PRISM_CORE_VERSION=main
+        RUN if [ "$USE_LOCAL_PRISM_CORE" = "false" ]; then \
+            echo "Installing prism-core from GitHub: $PRISM_CORE_VERSION" && \
+            pip install --no-cache-dir "prism_core @ git+https://github.com/PRISM-System/prism-core.git@$PRISM_CORE_VERSION"; \
+        else \
+            echo "Using local prism-core via volume mount"; \
+        fi
+        
+        # Install minimal dependencies including OpenAI
+        RUN pip install --no-cache-dir requests openai
+        
+        # Copy application files and source code
+        COPY dev/agent_history_uploader.py /app/
+        COPY assets/agent_interaction_scenarios.json /app/assets/
+        COPY src/ /app/src/
+        
+        CMD ["python", "agent_history_uploader.py"]
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        USE_LOCAL_PRISM_CORE: "${USE_LOCAL_PRISM_CORE:-true}"
+        PRISM_CORE_VERSION: "${PRISM_CORE_VERSION:-main}"
+    container_name: prism-agent-history-uploader
+    env_file:
+      - .env
+    volumes:
+      - ../prism-core/prism_core:/app/prism_core
+    environment:
+      - WEAVIATE_URL=http://weaviate:8080
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - VLLM_MODEL=${VLLM_MODEL:-gpt-3.5-turbo}
+      - CLASS_PREFIX=${CLASS_PREFIX:-ORCH}
+    depends_on:
+      - weaviate
+      - app
+    restart: no
+
 
 volumes:
   weaviate_data:
@@ -86,4 +212,25 @@ volumes:
 # Usage:
 # 1) export GITHUB_TOKEN=...; docker compose up -d --build weaviate app
 # 2) docker compose run --rm seed
-# 3) docker compose down 
+# 3) docker compose run --rm kosha-processor        # Upload KOSHA documents to compliance domain
+# 4) docker compose run --rm agent-history-uploader # Upload agent interaction history to history domain  
+# 5) docker compose down
+#
+# Options:
+# - MAX_DOCUMENTS=10 docker compose run --rm kosha-processor     # Process limited KOSHA documents
+# - CLASS_PREFIX=Custom docker compose run --rm kosha-processor  # Use custom class prefix for KOSHA
+# - CLASS_PREFIX=Custom docker compose run --rm agent-history-uploader  # Use custom prefix for agent history
+#
+# PRISM-Core Version Control:
+# Local Development (Default):
+# - USE_LOCAL_PRISM_CORE=true (default): Uses ../prism-core/prism_core via volume mount
+# - Changes are immediately reflected without rebuild
+#
+# Production/Testing with GitHub versions:
+# - USE_LOCAL_PRISM_CORE=false PRISM_CORE_VERSION=main: Latest from main branch
+# - USE_LOCAL_PRISM_CORE=false PRISM_CORE_VERSION=v0.2.8: Specific tag
+# - USE_LOCAL_PRISM_CORE=false PRISM_CORE_VERSION=feature-branch: Specific branch
+#
+# Examples:
+# docker compose --env-file <(echo "USE_LOCAL_PRISM_CORE=false") --env-file <(echo "PRISM_CORE_VERSION=main") up --build
+# USE_LOCAL_PRISM_CORE=false PRISM_CORE_VERSION=v0.2.9 docker compose up --build 
