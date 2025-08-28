@@ -49,7 +49,7 @@ services:
       QUERY_DEFAULTS_LIMIT: 25
       AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
       PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
-      DEFAULT_VECTORIZER_MODULE: 'none'
+      DEFAULT_VECTORIZER_MODULE: 'text2vec-transformers'
       ENABLE_MODULES: 'text2vec-transformers'
       TRANSFORMERS_INFERENCE_API: 'http://t2v-transformers:8080'
       CLUSTER_HOSTNAME: 'node1'
@@ -71,8 +71,18 @@ services:
   t2v-transformers:
     image: semitechnologies/transformers-inference:sentence-transformers-multi-qa-MiniLM-L6-cos-v1
     container_name: prism-t2v-transformers
+    ports:
+      - "8081:8080"
     environment:
-      ENABLE_CUDA: '0'
+      ENABLE_CUDA: '1'
+      CUDA_VISIBLE_DEVICES: '0'
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     restart: unless-stopped
 
   seed:
@@ -122,7 +132,8 @@ services:
         RUN pip install --no-cache-dir \
             requests \
             markitdown \
-            openai
+            openai \
+            pydantic-settings
         
         # Copy application files and source code
         COPY dev/kosha_pdf_processor_rag.py /app/
@@ -140,6 +151,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./assets:/app/assets
+      - ./dev:/app/dev
       - ../prism-core/prism_core:/app/prism_core
     environment:
       - WEAVIATE_URL=http://weaviate:8080
@@ -205,6 +217,86 @@ services:
       - app
     restart: no
 
+  vector-search-tester:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM python:3.11-slim
+        WORKDIR /app
+        
+        # Install system dependencies
+        RUN apt-get update && apt-get install -y \
+            curl \
+            && rm -rf /var/lib/apt/lists/*
+        
+        # Install Python dependencies based on local/remote prism-core usage
+        ARG GITHUB_TOKEN
+        ARG USE_LOCAL_PRISM_CORE=false
+        ARG PRISM_CORE_VERSION=main
+        RUN if [ "$USE_LOCAL_PRISM_CORE" = "false" ]; then \
+            echo "Installing prism-core from GitHub: $PRISM_CORE_VERSION" && \
+            pip install --no-cache-dir "prism_core @ git+https://github.com/PRISM-System/prism-core.git@$PRISM_CORE_VERSION"; \
+        else \
+            echo "Using local prism-core via volume mount"; \
+        fi
+        
+        # Install minimal dependencies
+        RUN pip install --no-cache-dir requests pydantic
+        
+        # Copy test script
+        COPY dev/vector_search_tester.py /app/
+        COPY src/ /app/src/
+        
+        CMD ["python", "vector_search_tester.py"]
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        USE_LOCAL_PRISM_CORE: "${USE_LOCAL_PRISM_CORE:-true}"
+        PRISM_CORE_VERSION: "${PRISM_CORE_VERSION:-main}"
+    container_name: prism-vector-search-tester
+    env_file:
+      - .env
+    volumes:
+      - ../prism-core/prism_core:/app/prism_core
+    environment:
+      - WEAVIATE_URL=http://weaviate:8080
+      - CLASS_PREFIX=${CLASS_PREFIX:-KOSHA}
+    depends_on:
+      - weaviate
+      - agent-history-uploader
+    restart: no
+
+  vector-search-web:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM python:3.11-slim
+        WORKDIR /app
+        
+        # Install system dependencies
+        RUN apt-get update && apt-get install -y \
+            curl \
+            && rm -rf /var/lib/apt/lists/*
+        
+        # Install web dependencies
+        RUN pip install --no-cache-dir flask requests
+        
+        # Copy web interface
+        COPY dev/vector_search_web.py /app/
+        
+        CMD ["python", "vector_search_web.py"]
+    container_name: prism-vector-search-web
+    env_file:
+      - .env
+    ports:
+      - "8200:8200"
+    environment:
+      - WEAVIATE_URL=http://weaviate:8080
+      - CLASS_PREFIX=${CLASS_PREFIX:-KOSHA}
+    depends_on:
+      - weaviate
+    restart: no
+
+
 
 volumes:
   weaviate_data:
@@ -213,8 +305,18 @@ volumes:
 # 1) export GITHUB_TOKEN=...; docker compose up -d --build weaviate app
 # 2) docker compose run --rm seed
 # 3) docker compose run --rm kosha-processor        # Upload KOSHA documents to compliance domain
-# 4) docker compose run --rm agent-history-uploader # Upload agent interaction history to history domain  
-# 5) docker compose down
+# 4) docker compose run --rm agent-history-uploader # Upload agent interaction history to history domain
+# 5) docker compose run --rm vector-search-tester   # Test vector-based search functionality
+# 6) docker compose up -d vector-search-web          # Start web interface for interactive search
+#
+# Web Interfaces:
+# - Interactive Vector Search UI: http://localhost:8200 (search with custom queries) ✅
+# - View all objects with vectors: http://localhost:18080/v1/objects?include=vector ✅
+# - Browse Weaviate schema: http://localhost:18080/v1/schema ✅
+# - View KOSHA compliance documents: http://localhost:18080/v1/objects?class=KOSHACompliance&include=vector ✅
+# - View agent interaction history: http://localhost:18080/v1/objects?class=KOSHAHistory&include=vector ✅
+# - Direct Weaviate API explorer: http://localhost:18080/v1 ✅
+# 7) docker compose down
 #
 # Options:
 # - MAX_DOCUMENTS=10 docker compose run --rm kosha-processor     # Process limited KOSHA documents
