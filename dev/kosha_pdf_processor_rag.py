@@ -34,10 +34,14 @@ except ImportError:
     # Fallback to direct prism-core import
     try:
         from prism_core.core.tools.rag_search_tool import RAGSearchTool
-        from prism_core.core.config import settings
+        from prism_core.core.tools.schemas import ToolRequest
         PRISM_CORE_AVAILABLE = True
-    except ImportError:
+        logger_msg = "직접 prism-core 사용 (pydantic-settings 포함)"
+    except ImportError as e:
         PRISM_CORE_AVAILABLE = False
+        logger_msg = f"prism-core import 실패: {e}"
+        RAGSearchTool = None
+        ToolRequest = None
 
 # Configure logging
 logging.basicConfig(
@@ -45,7 +49,6 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
 
 class KOSHAPDFProcessorRAG:
     def __init__(self, 
@@ -113,15 +116,8 @@ class KOSHAPDFProcessorRAG:
         # Fallback to direct prism-core RAGSearchTool
         if not self.rag_tool and PRISM_CORE_AVAILABLE:
             try:
-                # Configure settings for RAGSearchTool
-                if not hasattr(settings, 'WEAVIATE_URL'):
-                    settings.WEAVIATE_URL = weaviate_url
-                if not hasattr(settings, 'VECTOR_ENCODER_MODEL'):
-                    settings.VECTOR_ENCODER_MODEL = encoder_model
-                if not hasattr(settings, 'VECTOR_DIM'):
-                    settings.VECTOR_DIM = vector_dim
-                
                 # Initialize RAGSearchTool with KOSHA prefix
+                # The tool will use the provided parameters directly
                 self.rag_tool = RAGSearchTool(
                     weaviate_url=weaviate_url,
                     encoder_model=encoder_model,
@@ -174,28 +170,63 @@ class KOSHAPDFProcessorRAG:
             logger.error(f"Failed to load KOSHA links: {e}")
             raise
     
+    def _validate_pdf(self, file_path: Path) -> bool:
+        """Validate that a file is actually a PDF"""
+        if not file_path.exists() or file_path.stat().st_size < 100:
+            return False
+        
+        try:
+            # Check PDF magic number
+            with open(file_path, 'rb') as f:
+                header = f.read(10)
+                if not header.startswith(b'%PDF-'):
+                    logger.warning(f"File is not a valid PDF (invalid header): {file_path.name}")
+                    return False
+            
+            # Check if it's HTML disguised as PDF
+            with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                content = f.read(500).lower()
+                if any(tag in content for tag in ['<html', '<!doctype', '<head>', '<body>']):
+                    logger.warning(f"File is HTML disguised as PDF: {file_path.name}")
+                    return False
+            
+            return True
+            
+        except Exception as e:
+            logger.warning(f"PDF validation failed for {file_path.name}: {e}")
+            return False
+    
     def _download_pdf(self, url: str, filename: str) -> Optional[str]:
-        """Download PDF from URL"""
+        """Download and validate PDF from URL"""
         file_path = self.pdf_dir / filename
         
+        # Check if file exists and is valid
         if file_path.exists():
-            logger.info(f"PDF already exists: {filename}")
-            return str(file_path)
+            if self._validate_pdf(file_path):
+                logger.info(f"PDF already exists: {filename}")
+                return str(file_path)
+            else:
+                logger.warning(f"Existing PDF is corrupted, re-downloading: {filename}")
+                file_path.unlink()
         
         try:
             logger.info(f"Downloading: {filename}")
             urlretrieve(url, file_path)
             
-            if file_path.exists() and file_path.stat().st_size > 0:
+            # Validate downloaded file
+            if file_path.exists() and self._validate_pdf(file_path):
+                logger.info(f"Successfully downloaded and validated: {filename}")
                 return str(file_path)
             else:
-                logger.error(f"Downloaded file is empty: {filename}")
+                logger.error(f"Downloaded file failed validation: {filename}")
                 if file_path.exists():
                     file_path.unlink()
                 return None
                 
         except (URLError, HTTPError) as e:
             logger.error(f"Download failed {filename}: {e}")
+            if file_path.exists():
+                file_path.unlink()
             return None
     
     def _convert_pdf_to_markdown(self, pdf_path: str, document_number: str) -> Optional[str]:
@@ -282,9 +313,38 @@ class KOSHAPDFProcessorRAG:
             "metadata": metadata  # Pass as dict, will be converted to string in RAGSearchTool
         }
     
+    def cleanup_corrupted_files(self):
+        """Clean up corrupted PDF and markdown files"""
+        logger.info("🧹 Cleaning up corrupted files...")
+        
+        cleaned_pdfs = 0
+        cleaned_markdowns = 0
+        
+        # Clean PDFs
+        for pdf_file in self.pdf_dir.glob("*.pdf"):
+            if not self._validate_pdf(pdf_file):
+                logger.warning(f"Removing corrupted PDF: {pdf_file.name}")
+                pdf_file.unlink()
+                cleaned_pdfs += 1
+                
+                # Also remove corresponding markdown if exists
+                markdown_file = self.markdown_dir / f"{pdf_file.stem}.md"
+                if markdown_file.exists():
+                    markdown_file.unlink()
+                    cleaned_markdowns += 1
+                    logger.info(f"Removed corresponding markdown: {markdown_file.name}")
+        
+        if cleaned_pdfs > 0:
+            logger.info(f"🗑️ Cleaned up {cleaned_pdfs} corrupted PDFs and {cleaned_markdowns} markdown files")
+        else:
+            logger.info("✅ No corrupted files found")
+    
     def process_all_documents(self, max_documents: Optional[int] = None):
         """Process all KOSHA guidance documents"""
         logger.info("Starting KOSHA PDF processing with RAGSearchTool")
+        
+        # Clean up corrupted files first
+        self.cleanup_corrupted_files()
         
         # Load document links
         guidance_list = self._load_kosha_links()
@@ -374,9 +434,8 @@ class KOSHAPDFProcessorRAG:
         logger.info(f"✅ Processing completed. Success: {processed_count}, Failed: {failed_count}")
         
         # Test search in compliance domain
-        if processed_count > 0:
+        if processed_count > 0 and PRISM_CORE_AVAILABLE:
             logger.info("Testing compliance domain search...")
-            from prism_core.core.tools.schemas import ToolRequest
             import asyncio
             
             test_request = ToolRequest(

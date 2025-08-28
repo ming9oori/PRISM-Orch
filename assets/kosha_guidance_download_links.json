@@ -6,19 +6,26 @@
     "new_portal_url": "https://portal.kosha.or.kr/archive/resources/tech-support/search/industry",
     "total_count": 180,
     "created_date": "2025-08-26",
-    "updated_date": "2025-08-26",
+    "updated_date": "2025-08-28",
     "verification_date": "2025-08-26",
     "pages_covered": "1-9",
     "status": "verified_working",
-    "notes": "Links verified as working. New portal (portal.kosha.or.kr) uses dynamic content loading, but original download URLs remain functional."
+    "notes": "Links verified as working. New portal (portal.kosha.or.kr) uses dynamic content loading, but original download URLs remain functional.",
+    "verification_status": {
+      "working_links": 180,
+      "failed_links": 0,
+      "updated_links": 99,
+      "duplicates_removed": 0,
+      "last_check": "2025-08-28 04:41:08"
+    }
   },
   "guidelines": [
     {
-      "document_number": "P-180-2023",
-      "title": "폐합성수지 열분해 공정의 안전관리에 관한 기술지침",
-      "year": 2023,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-180-2023&fileOrdrNo=2",
-      "category": "화학공정안전"
+      "document_number": "P-178-2022",
+      "title": "수소 분리 및 정제를 위한 압력변환흡착(PSA) 시스템의 안전에 관한 기술지침",
+      "year": 2022,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-178-2022&fileOrdrNo=2",
+      "category": "수소안전"
     },
     {
       "document_number": "P-179-2022",
@@ -28,11 +35,11 @@
       "category": "화재폭발"
     },
     {
-      "document_number": "P-178-2022",
-      "title": "수소 분리 및 정제를 위한 압력변환흡착(PSA) 시스템의 안전에 관한 기술지침",
-      "year": 2022,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-178-2022&fileOrdrNo=2",
-      "category": "수소안전"
+      "document_number": "P-180-2023",
+      "title": "폐합성수지 열분해 공정의 안전관리에 관한 기술지침",
+      "year": 2023,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-180-2023&fileOrdrNo=2",
+      "category": "화학공정안전"
     },
     {
       "document_number": "P-177-2022",
@@ -45,36 +52,46 @@
       "document_number": "P-176-2022",
       "title": "수소화 공정의 안전에 관한 기술지침",
       "year": 2022,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-176-2022&fileOrdrNo=2",
-      "category": "수소안전"
-    },
-    {
-      "document_number": "P-175-2022",
-      "title": "공정안전 데이터 관리에 관한 기술지침",
-      "year": 2022,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-175-2022&fileOrdrNo=2",
-      "category": "공정안전관리"
-    },
-    {
-      "document_number": "P-174-2022",
-      "title": "질소 질식사고 예방에 관한 기술지침",
-      "year": 2022,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-174-2022&fileOrdrNo=2",
-      "category": "화학물질안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-176-2022",
+      "category": "수소안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-176-2022&fileOrdrNo=2"
     },
     {
       "document_number": "P-173-2022",
       "title": "수소 자동차 정비업소 안전관리에 관한 기술지침",
       "year": 2022,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-173-2022&fileOrdrNo=2",
-      "category": "수소안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-173-2022",
+      "category": "수소안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-173-2022&fileOrdrNo=2"
+    },
+    {
+      "document_number": "P-174-2022",
+      "title": "질소 질식사고 예방에 관한 기술지침",
+      "year": 2022,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-174-2022",
+      "category": "화학물질안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-174-2022&fileOrdrNo=2"
+    },
+    {
+      "document_number": "P-175-2022",
+      "title": "공정안전 데이터 관리에 관한 기술지침",
+      "year": 2022,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-175-2022",
+      "category": "공정안전관리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-175-2022&fileOrdrNo=2"
     },
     {
       "document_number": "P-172-2022",
       "title": "액화석유가스(LPG) 탱크로리 안전관리에 관한 기술지침",
       "year": 2022,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-172-2022&fileOrdrNo=2",
-      "category": "LPG안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-172-2022",
+      "category": "LPG안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-172-2022&fileOrdrNo=2"
     },
     {
       "document_number": "P-171-2021",
@@ -84,18 +101,22 @@
       "category": "화학물질안전"
     },
     {
-      "document_number": "P-170-2021",
-      "title": "암모니아 냉동설비 안전관리에 관한 기술지침",
+      "document_number": "P-167-2021",
+      "title": "질소산화물(NOx) 제거 공정(SCR, SNCR) 안전관리에 관한 기술지침",
       "year": 2021,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-170-2021&fileOrdrNo=2",
-      "category": "암모니아안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-167-2021",
+      "category": "환경설비안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-167-2021&fileOrdrNo=2"
     },
     {
-      "document_number": "P-169-2021",
-      "title": "수소충전소 안전관리에 관한 기술지침",
+      "document_number": "P-166-2021",
+      "title": "수소 생산시설 안전관리에 관한 기술지침",
       "year": 2021,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-169-2021&fileOrdrNo=2",
-      "category": "수소안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-166-2021",
+      "category": "수소안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-166-2021&fileOrdrNo=2"
     },
     {
       "document_number": "P-168-2021",
@@ -105,200 +126,254 @@
       "category": "배터리안전"
     },
     {
-      "document_number": "P-167-2021",
-      "title": "질소산화물(NOx) 제거 공정(SCR, SNCR) 안전관리에 관한 기술지침",
-      "year": 2021,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-167-2021&fileOrdrNo=2",
-      "category": "환경설비안전"
-    },
-    {
-      "document_number": "P-166-2021",
-      "title": "수소 생산시설 안전관리에 관한 기술지침",
-      "year": 2021,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-166-2021&fileOrdrNo=2",
-      "category": "수소안전"
-    },
-    {
       "document_number": "P-165-2020",
       "title": "화학공장 건설공사의 안전관리에 관한 기술지침",
       "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-165-2020&fileOrdrNo=2",
-      "category": "건설안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-165-2020",
+      "category": "건설안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-165-2020&fileOrdrNo=2"
     },
     {
       "document_number": "P-164-2020",
       "title": "고온용융금속 취급 안전에 관한 기술지침",
       "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-164-2020&fileOrdrNo=2",
-      "category": "금속공업안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-164-2020",
+      "category": "금속공업안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-164-2020&fileOrdrNo=2"
     },
     {
-      "document_number": "P-163-2020",
-      "title": "리튬이온 배터리 제조공정 안전관리에 관한 기술지침",
-      "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-163-2020&fileOrdrNo=2",
-      "category": "배터리안전"
-    },
-    {
-      "document_number": "P-162-2020",
-      "title": "화학공장 시운전 안전관리에 관한 기술지침",
-      "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-162-2020&fileOrdrNo=2",
-      "category": "화학공정안전"
+      "document_number": "P-169-2021",
+      "title": "수소충전소 안전관리에 관한 기술지침",
+      "year": 2021,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-169-2021",
+      "category": "수소안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-169-2021&fileOrdrNo=2"
     },
     {
       "document_number": "P-161-2020",
       "title": "분진폭발 위험성평가에 관한 기술지침",
       "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-161-2020&fileOrdrNo=2",
-      "category": "분진폭발"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-161-2020",
+      "category": "분진폭발",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-161-2020&fileOrdrNo=2"
+    },
+    {
+      "document_number": "P-162-2020",
+      "title": "화학공장 시운전 안전관리에 관한 기술지침",
+      "year": 2020,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-162-2020",
+      "category": "화학공정안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-162-2020&fileOrdrNo=2"
     },
     {
       "document_number": "P-160-2020",
       "title": "화학공정 Shutdown 안전관리에 관한 기술지침",
       "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-160-2020&fileOrdrNo=2",
-      "category": "화학공정안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-160-2020",
+      "category": "화학공정안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-160-2020&fileOrdrNo=2"
+    },
+    {
+      "document_number": "P-170-2021",
+      "title": "암모니아 냉동설비 안전관리에 관한 기술지침",
+      "year": 2021,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-170-2021&fileOrdrNo=2",
+      "category": "암모니아안전"
     },
     {
       "document_number": "P-159-2020",
       "title": "분체도장 설비 안전에 관한 기술지침",
       "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-159-2020&fileOrdrNo=2",
-      "category": "도장설비안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-159-2020",
+      "category": "도장설비안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-159-2020&fileOrdrNo=2"
     },
     {
       "document_number": "P-158-2019",
       "title": "폐기물 고형연료(SRF) 제조시설의 화재폭발 예방에 관한 기술지침",
       "year": 2019,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-158-2019&fileOrdrNo=2",
-      "category": "화재폭발"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-158-2019",
+      "category": "화재폭발",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-158-2019&fileOrdrNo=2"
+    },
+    {
+      "document_number": "P-163-2020",
+      "title": "리튬이온 배터리 제조공정 안전관리에 관한 기술지침",
+      "year": 2020,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-163-2020",
+      "category": "배터리안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-163-2020&fileOrdrNo=2"
     },
     {
       "document_number": "P-157-2019",
       "title": "중대산업사고 시나리오 선정 및 영향범위 산정에 관한 기술지침",
       "year": 2019,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-157-2019&fileOrdrNo=2",
-      "category": "위험성평가"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-157-2019",
+      "category": "위험성평가",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-157-2019&fileOrdrNo=2"
     },
     {
       "document_number": "P-156-2019",
       "title": "3D프린터 안전보건관리에 관한 기술지침",
       "year": 2019,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-156-2019&fileOrdrNo=2",
-      "category": "신기술안전"
-    },
-    {
-      "document_number": "P-155-2019",
-      "title": "드라이아이스 취급 안전에 관한 기술지침",
-      "year": 2019,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-155-2019&fileOrdrNo=2",
-      "category": "화학물질안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-156-2019",
+      "category": "신기술안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-156-2019&fileOrdrNo=2"
     },
     {
       "document_number": "P-154-2019",
       "title": "화학공정 시동(Start-up) 안전관리에 관한 기술지침",
       "year": 2019,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-154-2019&fileOrdrNo=2",
-      "category": "화학공정안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-154-2019",
+      "category": "화학공정안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-154-2019&fileOrdrNo=2"
     },
     {
       "document_number": "P-153-2019",
       "title": "위험물질 누출 대응을 위한 방재시설 설치 및 관리에 관한 기술지침",
       "year": 2019,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-153-2019&fileOrdrNo=2",
-      "category": "방재시설"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-153-2019",
+      "category": "방재시설",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-153-2019&fileOrdrNo=2"
     },
     {
       "document_number": "P-152-2018",
       "title": "화학물질 누출감지장치 설치 및 관리에 관한 기술지침",
       "year": 2018,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-152-2018&fileOrdrNo=2",
-      "category": "감지시스템"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-152-2018",
+      "category": "감지시스템",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-152-2018&fileOrdrNo=2"
+    },
+    {
+      "document_number": "P-155-2019",
+      "title": "드라이아이스 취급 안전에 관한 기술지침",
+      "year": 2019,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-155-2019",
+      "category": "화학물질안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-155-2019&fileOrdrNo=2"
     },
     {
       "document_number": "P-151-2018",
       "title": "바이오가스 제조･이용시설의 안전관리에 관한 기술지침",
       "year": 2018,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-151-2018&fileOrdrNo=2",
-      "category": "바이오에너지"
-    },
-    {
-      "document_number": "P-150-2018",
-      "title": "화학공정 정전기 재해예방에 관한 기술지침",
-      "year": 2018,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-150-2018&fileOrdrNo=2",
-      "category": "정전기안전"
-    },
-    {
-      "document_number": "P-149-2018",
-      "title": "매설배관의 부식방지에 관한 기술지침",
-      "year": 2018,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-149-2018&fileOrdrNo=2",
-      "category": "배관안전"
-    },
-    {
-      "document_number": "P-148-2017",
-      "title": "화학공정에서 질소 사용에 관한 기술지침",
-      "year": 2017,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-148-2017&fileOrdrNo=3",
-      "category": "질소안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-151-2018",
+      "category": "바이오에너지",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-151-2018&fileOrdrNo=2"
     },
     {
       "document_number": "P-147-2017",
       "title": "산소농축설비의 안전에 관한 기술지침",
       "year": 2017,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-147-2017&fileOrdrNo=3",
-      "category": "산소안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-147-2017",
+      "category": "산소안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-147-2017&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-148-2017",
+      "title": "화학공정에서 질소 사용에 관한 기술지침",
+      "year": 2017,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-148-2017",
+      "category": "질소안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-148-2017&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-150-2018",
+      "title": "화학공정 정전기 재해예방에 관한 기술지침",
+      "year": 2018,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-150-2018",
+      "category": "정전기안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-150-2018&fileOrdrNo=2"
+    },
+    {
+      "document_number": "P-149-2018",
+      "title": "매설배관의 부식방지에 관한 기술지침",
+      "year": 2018,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-149-2018",
+      "category": "배관안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-149-2018&fileOrdrNo=2"
     },
     {
       "document_number": "P-146-2017",
       "title": "배출허가 대상 화학물질 취급시설의 설계･설치 및 관리에 관한 기술지침",
       "year": 2017,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-146-2017&fileOrdrNo=3",
-      "category": "환경설비안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-146-2017",
+      "category": "환경설비안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-146-2017&fileOrdrNo=3"
     },
     {
       "document_number": "P-145-2017",
       "title": "폐기물 소각로 안전관리에 관한 기술지침",
       "year": 2017,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-145-2017&fileOrdrNo=3",
-      "category": "소각시설"
-    },
-    {
-      "document_number": "P-144-2016",
-      "title": "폴리머 제조공정에서 반응기 안전관리에 관한 기술지침",
-      "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-144-2016&fileOrdrNo=3",
-      "category": "반응기안전"
-    },
-    {
-      "document_number": "P-143-2016",
-      "title": "자동 제어시설에 관한 기술지침",
-      "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-143-2016&fileOrdrNo=3",
-      "category": "제어시스템"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-145-2017",
+      "category": "소각시설",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-145-2017&fileOrdrNo=3"
     },
     {
       "document_number": "P-142-2016",
       "title": "화학공정에서 안전밸브 설치에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-142-2016&fileOrdrNo=3",
-      "category": "안전밸브"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-142-2016",
+      "category": "안전밸브",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-142-2016&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-144-2016",
+      "title": "폴리머 제조공정에서 반응기 안전관리에 관한 기술지침",
+      "year": 2016,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-144-2016",
+      "category": "반응기안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-144-2016&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-143-2016",
+      "title": "자동 제어시설에 관한 기술지침",
+      "year": 2016,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-143-2016",
+      "category": "제어시스템",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-143-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-141-2014",
       "title": "분진폭발 보호시설에 관한 기술지침",
       "year": 2014,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-141-2014&fileOrdrNo=3",
-      "category": "분진폭발"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-141-2014",
+      "category": "분진폭발",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-141-2014&fileOrdrNo=3"
     },
     {
       "document_number": "P-140-2013",
       "title": "화학물질 유해･위험성 분류에 관한 기술지침",
       "year": 2013,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-140-2013&fileOrdrNo=3",
-      "category": "화학물질분류"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-140-2013",
+      "category": "화학물질분류",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-140-2013&fileOrdrNo=3"
     },
     {
       "document_number": "P-139-2013",
@@ -325,15 +400,19 @@
       "document_number": "P-136-2013",
       "title": "화학공장 폭발 위험장소의 분류에 관한 기술지침",
       "year": 2013,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-136-2013&fileOrdrNo=3",
-      "category": "폭발위험지역"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-136-2013",
+      "category": "폭발위험지역",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-136-2013&fileOrdrNo=3"
     },
     {
       "document_number": "P-135-2013",
       "title": "공정안전관리(PSM) 이행상태 평가에 관한 기술지침",
       "year": 2013,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-135-2013&fileOrdrNo=3",
-      "category": "공정안전관리"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-135-2013",
+      "category": "공정안전관리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-135-2013&fileOrdrNo=3"
     },
     {
       "document_number": "P-134-2013",
@@ -353,22 +432,46 @@
       "document_number": "P-132-2020",
       "title": "화학공정 비상조치계획 수립에 관한 기술지침",
       "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-132-2020&fileOrdrNo=5",
-      "category": "비상대응"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-132-2020",
+      "category": "비상대응",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-132-2020&fileOrdrNo=5"
     },
     {
       "document_number": "P-131-2023",
       "title": "사고시나리오 선정 및 위험도 분석에 관한 기술지침",
       "year": 2023,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-131-2023&fileOrdrNo=2",
-      "category": "위험성평가"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-131-2023",
+      "category": "위험성평가",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-131-2023&fileOrdrNo=2"
     },
     {
       "document_number": "P-130-2018",
       "title": "변경관리에 관한 기술지침",
       "year": 2018,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-130-2018&fileOrdrNo=3",
-      "category": "변경관리"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-130-2018",
+      "category": "변경관리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-130-2018&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-127-2013",
+      "title": "정량적 위험성평가 기법 - HAZOP에 관한 기술지침",
+      "year": 2013,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-127-2013",
+      "category": "위험성평가",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-127-2013&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-128-2020",
+      "title": "정량적 위험성평가 기법 - 결함수목 분석에 관한 기술지침",
+      "year": 2020,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-128-2020",
+      "category": "위험성평가",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-128-2020&fileOrdrNo=5"
     },
     {
       "document_number": "P-129-2013",
@@ -378,74 +481,76 @@
       "category": "위험성평가"
     },
     {
-      "document_number": "P-128-2020",
-      "title": "정량적 위험성평가 기법 - 결함수목 분석에 관한 기술지침",
-      "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-128-2020&fileOrdrNo=5",
-      "category": "위험성평가"
-    },
-    {
-      "document_number": "P-127-2013",
-      "title": "정량적 위험성평가 기법 - HAZOP에 관한 기술지침",
-      "year": 2013,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-127-2013&fileOrdrNo=3",
-      "category": "위험성평가"
-    },
-    {
       "document_number": "P-126-2013",
       "title": "가연성가스 누출 검지설비에 관한 기술지침",
       "year": 2013,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-126-2013&fileOrdrNo=3",
-      "category": "검지시스템"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-126-2013",
+      "category": "검지시스템",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-126-2013&fileOrdrNo=3"
     },
     {
       "document_number": "P-125-2013",
       "title": "중대산업사고 사례조사 및 관련지침 마련을 위한 기술지침",
       "year": 2013,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-125-2013&fileOrdrNo=3",
-      "category": "사고조사"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-125-2013",
+      "category": "사고조사",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-125-2013&fileOrdrNo=3"
     },
     {
       "document_number": "P-124-2013",
       "title": "중간 규모 화학공장에서 공정안전관리에 관한 기술지침",
       "year": 2013,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-124-2013&fileOrdrNo=3",
-      "category": "공정안전관리"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-124-2013",
+      "category": "공정안전관리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-124-2013&fileOrdrNo=3"
     },
     {
       "document_number": "P-123-2020",
       "title": "위험물질 안전보건자료 작성 및 취급에 관한 기술지침",
       "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-123-2020&fileOrdrNo=5",
-      "category": "안전보건자료"
-    },
-    {
-      "document_number": "P-122-2016",
-      "title": "기계설비 결함관리에 관한 기술지침",
-      "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-122-2016&fileOrdrNo=3",
-      "category": "설비관리"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-123-2020",
+      "category": "안전보건자료",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-123-2020&fileOrdrNo=5"
     },
     {
       "document_number": "P-121-2016",
       "title": "화학공장 내진설계에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-121-2016&fileOrdrNo=3",
-      "category": "내진설계"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-121-2016",
+      "category": "내진설계",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-121-2016&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-122-2016",
+      "title": "기계설비 결함관리에 관한 기술지침",
+      "year": 2016,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-122-2016",
+      "category": "설비관리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-122-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-120-2016",
       "title": "공급사 계약업체 관리에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-120-2016&fileOrdrNo=3",
-      "category": "계약업체관리"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-120-2016",
+      "category": "계약업체관리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-120-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-119-2016",
       "title": "사고사례 활용에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-119-2016&fileOrdrNo=3",
-      "category": "사고사례"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-119-2016",
+      "category": "사고사례",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-119-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-118-2012",
@@ -476,18 +581,20 @@
       "category": "소방설비"
     },
     {
-      "document_number": "P-114-2020",
-      "title": "화학설비 및 부속설비에서 정전기의 계측 제어에 관한 기술지침",
-      "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-114-2020&fileOrdrNo=5",
-      "category": "정전기안전"
-    },
-    {
       "document_number": "P-113-2023",
       "title": "방호계층분석(LOPA)기법에 관한 기술지침",
       "year": 2023,
       "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-113-2023&fileOrdrNo=2",
       "category": "위험성평가"
+    },
+    {
+      "document_number": "P-111-2012",
+      "title": "벤젠 계열 물질 취급에 관한 기술지침",
+      "year": 2012,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-111-2012",
+      "category": "화학물질안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-111-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-112-2014",
@@ -497,116 +604,146 @@
       "category": "분진폭발"
     },
     {
-      "document_number": "P-111-2012",
-      "title": "벤젠 계열 물질 취급에 관한 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-111-2012&fileOrdrNo=3",
-      "category": "화학물질안전"
-    },
-    {
       "document_number": "P-110-2016",
       "title": "가압저장탱크 안전관리에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-110-2016&fileOrdrNo=3",
-      "category": "저장탱크"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-110-2016",
+      "category": "저장탱크",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-110-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-109-2015",
       "title": "운전절차서 작성에 관한 기술지침",
       "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-109-2015&fileOrdrNo=3",
-      "category": "운전절차"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-109-2015",
+      "category": "운전절차",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-109-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-108-2015",
       "title": "화학공장 교육·훈련에 관한 기술지침",
       "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-108-2015&fileOrdrNo=3",
-      "category": "교육훈련"
-    },
-    {
-      "document_number": "P-107-2015",
-      "title": "액화질소 공급시설의 안전관리에 관한 기술지침",
-      "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-107-2015&fileOrdrNo=3",
-      "category": "액화가스안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-108-2015",
+      "category": "교육훈련",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-108-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-106-2012",
       "title": "냉매 설비에서 암모니아 취급 안전에 관한 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-106-2012&fileOrdrNo=3",
-      "category": "암모니아안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-106-2012",
+      "category": "암모니아안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-106-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-105-2016",
       "title": "염산 취급시설의 배관재료 선정 및 부식관리에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-105-2016&fileOrdrNo=3",
-      "category": "부식관리"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-105-2016",
+      "category": "부식관리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-105-2016&fileOrdrNo=3"
     },
     {
-      "document_number": "P-104-2016",
-      "title": "화학물질 Risk-based 공정안전관리(RB-PSM)를 위한 위험성 분류에 관한 기술지침",
-      "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-104-2016&fileOrdrNo=3",
-      "category": "공정안전관리"
+      "document_number": "P-107-2015",
+      "title": "액화질소 공급시설의 안전관리에 관한 기술지침",
+      "year": 2015,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-107-2015",
+      "category": "액화가스안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-107-2015&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-114-2020",
+      "title": "화학설비 및 부속설비에서 정전기의 계측 제어에 관한 기술지침",
+      "year": 2020,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-114-2020&fileOrdrNo=5",
+      "category": "정전기안전"
     },
     {
       "document_number": "P-103-2012",
       "title": "플라스틱 성형기 취급 안전에 관한 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-103-2012&fileOrdrNo=3",
-      "category": "기계안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-103-2012",
+      "category": "기계안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-103-2012&fileOrdrNo=3"
     },
     {
-      "document_number": "P-102-2016",
-      "title": "분진폭발 예방을 위한 설비관리에 관한 기술지침",
+      "document_number": "P-104-2016",
+      "title": "화학물질 Risk-based 공정안전관리(RB-PSM)를 위한 위험성 분류에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-102-2016&fileOrdrNo=3",
-      "category": "분진폭발"
-    },
-    {
-      "document_number": "P-101-2016",
-      "title": "유해·위험설비 해체 및 철거 작업에 관한 기술지침",
-      "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-101-2016&fileOrdrNo=3",
-      "category": "해체작업"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-104-2016",
+      "category": "공정안전관리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-104-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-100-2016",
       "title": "음식료품 제조업의 분진폭발 예방에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-100-2016&fileOrdrNo=3",
-      "category": "분진폭발"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-100-2016",
+      "category": "분진폭발",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-100-2016&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-101-2016",
+      "title": "유해·위험설비 해체 및 철거 작업에 관한 기술지침",
+      "year": 2016,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-101-2016",
+      "category": "해체작업",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-101-2016&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-102-2016",
+      "title": "분진폭발 예방을 위한 설비관리에 관한 기술지침",
+      "year": 2016,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-102-2016",
+      "category": "분진폭발",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-102-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-99-2016",
       "title": "위험성평가 제도 시행에 따른 공정안전관리 대상 판단에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-99-2016&fileOrdrNo=3",
-      "category": "위험성평가"
-    },
-    {
-      "document_number": "P-98-2016",
-      "title": "화학물질의 물리적 위험성 평가에 관한 기술지침",
-      "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-98-2016&fileOrdrNo=3",
-      "category": "위험성평가"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-99-2016",
+      "category": "위험성평가",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-99-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-97-2016",
       "title": "화학공장 기계적 결함관리에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-97-2016&fileOrdrNo=3",
-      "category": "설비관리"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-97-2016",
+      "category": "설비관리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-97-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-96-2016",
       "title": "화학공장 저장탱크 기초 하부 배관에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-96-2016&fileOrdrNo=3",
-      "category": "저장탱크"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-96-2016",
+      "category": "저장탱크",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-96-2016&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-98-2016",
+      "title": "화학물질의 물리적 위험성 평가에 관한 기술지침",
+      "year": 2016,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-98-2016",
+      "category": "위험성평가",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-98-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-95-2016",
@@ -623,6 +760,15 @@
       "category": "작업허가"
     },
     {
+      "document_number": "P-92-2020",
+      "title": "유해·위험물질 누출 시 작업중단 범위 설정에 관한 기술지침",
+      "year": 2020,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-92-2020",
+      "category": "비상대응",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-92-2020&fileOrdrNo=5"
+    },
+    {
       "document_number": "P-93-2020",
       "title": "유해 위험설비의 점검 정비 유지관리 지침",
       "year": 2020,
@@ -630,102 +776,112 @@
       "category": "설비관리"
     },
     {
-      "document_number": "P-92-2020",
-      "title": "유해·위험물질 누출 시 작업중단 범위 설정에 관한 기술지침",
-      "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-92-2020&fileOrdrNo=5",
-      "category": "비상대응"
+      "document_number": "P-90-2015",
+      "title": "폐기물 소각시설 안전관리에 관한 기술지침",
+      "year": 2015,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-90-2015",
+      "category": "소각시설",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-90-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-91-2015",
       "title": "화학공장에서 저장탱크 기초 및 하부배관 점검에 관한 기술지침",
       "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-91-2015&fileOrdrNo=3",
-      "category": "저장탱크"
-    },
-    {
-      "document_number": "P-90-2015",
-      "title": "폐기물 소각시설 안전관리에 관한 기술지침",
-      "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-90-2015&fileOrdrNo=3",
-      "category": "소각시설"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-91-2015",
+      "category": "저장탱크",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-91-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-89-2015",
       "title": "밀폐공간에서의 용접·용단 등 화기작업에 관한 기술지침",
       "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-89-2015&fileOrdrNo=3",
-      "category": "밀폐공간"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-89-2015",
+      "category": "밀폐공간",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-89-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-88-2015",
       "title": "폐기물 처리시설(매립·소각시설)에서 가스 발생 및 중독사고 예방에 관한 기술지침",
       "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-88-2015&fileOrdrNo=3",
-      "category": "폐기물처리"
-    },
-    {
-      "document_number": "P-87-2015",
-      "title": "라돈 노출 저감을 위한 기술지침",
-      "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-87-2015&fileOrdrNo=3",
-      "category": "방사성물질"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-88-2015",
+      "category": "폐기물처리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-88-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-86-2015",
       "title": "화학공장 저온저장탱크의 안전관리에 관한 기술지침",
       "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-86-2015&fileOrdrNo=3",
-      "category": "저장탱크"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-86-2015",
+      "category": "저장탱크",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-86-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-85-2013",
       "title": "적외선 열화상 진단기법을 이용한 화학설비 점검에 관한 기술지침",
       "year": 2013,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-85-2013&fileOrdrNo=3",
-      "category": "설비점검"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-85-2013",
+      "category": "설비점검",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-85-2013&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-87-2015",
+      "title": "라돈 노출 저감을 위한 기술지침",
+      "year": 2015,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-87-2015",
+      "category": "방사성물질",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-87-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-84-2014",
       "title": "분말소화설비의 유지관리에 관한 기술지침",
       "year": 2014,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-84-2014&fileOrdrNo=3",
-      "category": "소방설비"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-84-2014",
+      "category": "소방설비",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-84-2014&fileOrdrNo=3"
     },
     {
       "document_number": "P-83-2016",
       "title": "분진폭발 예방을 위한 폭발방지설비에 관한 기술지침",
       "year": 2016,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-83-2016&fileOrdrNo=3",
-      "category": "분진폭발"
-    },
-    {
-      "document_number": "P-82-2013",
-      "title": "경보 및 비상정지시스템의 기능 안전에 관한 기술지침",
-      "year": 2013,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-82-2013&fileOrdrNo=3",
-      "category": "안전시스템"
-    },
-    {
-      "document_number": "P-81-2015",
-      "title": "금속화재 시 진화방법에 관한 기술지침",
-      "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-81-2015&fileOrdrNo=3",
-      "category": "화재진압"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-83-2016",
+      "category": "분진폭발",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-83-2016&fileOrdrNo=3"
     },
     {
       "document_number": "P-80-2015",
       "title": "제철업 고로 조업 중 안전에 관한 기술지침",
       "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-80-2015&fileOrdrNo=3",
-      "category": "제철업안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-80-2015",
+      "category": "제철업안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-80-2015&fileOrdrNo=3"
     },
     {
-      "document_number": "P-79-2015",
-      "title": "제철업 압연공정 안전에 관한 기술지침",
+      "document_number": "P-81-2015",
+      "title": "금속화재 시 진화방법에 관한 기술지침",
       "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-79-2015&fileOrdrNo=3",
-      "category": "제철업안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-81-2015",
+      "category": "화재진압",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-81-2015&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-82-2013",
+      "title": "경보 및 비상정지시스템의 기능 안전에 관한 기술지침",
+      "year": 2013,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-82-2013",
+      "category": "안전시스템",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-82-2013&fileOrdrNo=3"
     },
     {
       "document_number": "P-78-2011",
@@ -735,18 +891,22 @@
       "category": "압력용기"
     },
     {
-      "document_number": "P-77-2015",
-      "title": "과산화수소 취급 안전에 관한 기술지침",
+      "document_number": "P-79-2015",
+      "title": "제철업 압연공정 안전에 관한 기술지침",
       "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-77-2015&fileOrdrNo=3",
-      "category": "화학물질안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-79-2015",
+      "category": "제철업안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-79-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-76-2013",
       "title": "화학물질의 혼촉위험에 관한 기술지침",
       "year": 2013,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-76-2013&fileOrdrNo=3",
-      "category": "화학물질안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-76-2013",
+      "category": "화학물질안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-76-2013&fileOrdrNo=3"
     },
     {
       "document_number": "P-75-2011",
@@ -756,6 +916,13 @@
       "category": "인화성물질"
     },
     {
+      "document_number": "P-73-2011",
+      "title": "사업장 소방대의 안전활동 기준에 관한 기술지침",
+      "year": 2011,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-73-2011&fileOrdrNo=3",
+      "category": "소방활동"
+    },
+    {
       "document_number": "P-74-2011",
       "title": "포장된 위험물의 창고저장에 관한 기술지침",
       "year": 2011,
@@ -763,11 +930,13 @@
       "category": "저장관리"
     },
     {
-      "document_number": "P-73-2011",
-      "title": "사업장 소방대의 안전활동 기준에 관한 기술지침",
-      "year": 2011,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-73-2011&fileOrdrNo=3",
-      "category": "소방활동"
+      "document_number": "P-77-2015",
+      "title": "과산화수소 취급 안전에 관한 기술지침",
+      "year": 2015,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-77-2015",
+      "category": "화학물질안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-77-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-72-2011",
@@ -784,11 +953,22 @@
       "category": "건조설비"
     },
     {
+      "document_number": "P-68-2012",
+      "title": "수처리시설에서 염소가스 누출사고 예방 기술지침",
+      "year": 2012,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-68-2012",
+      "category": "염소안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-68-2012&fileOrdrNo=3"
+    },
+    {
       "document_number": "P-70-2012",
       "title": "감전사고 예방을 위한 정전기 소산 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-70-2012&fileOrdrNo=3",
-      "category": "정전기안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-70-2012",
+      "category": "정전기안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-70-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-69-2012",
@@ -798,13 +978,6 @@
       "category": "건설안전"
     },
     {
-      "document_number": "P-68-2012",
-      "title": "수처리시설에서 염소가스 누출사고 예방 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-68-2012&fileOrdrNo=3",
-      "category": "염소안전"
-    },
-    {
       "document_number": "P-67-2012",
       "title": "파쇄기 등 분쇄설비의 분진폭발 예방 기술지침",
       "year": 2012,
@@ -812,18 +985,11 @@
       "category": "분진폭발"
     },
     {
-      "document_number": "P-66-2012",
-      "title": "화학공정 누출사고 예방에 관한 기술지침",
+      "document_number": "P-63-2012",
+      "title": "액체 탱크로리 하역작업의 안전에 관한 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-66-2012&fileOrdrNo=3",
-      "category": "누출방지"
-    },
-    {
-      "document_number": "P-65-2020",
-      "title": "불용성 액체용 저장탱크 안전관리에 관한 기술지침",
-      "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-65-2020&fileOrdrNo=5",
-      "category": "저장탱크"
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-63-2012&fileOrdrNo=3",
+      "category": "하역작업"
     },
     {
       "document_number": "P-64-2012",
@@ -833,11 +999,22 @@
       "category": "분진폭발"
     },
     {
-      "document_number": "P-63-2012",
-      "title": "액체 탱크로리 하역작업의 안전에 관한 기술지침",
+      "document_number": "P-66-2012",
+      "title": "화학공정 누출사고 예방에 관한 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-63-2012&fileOrdrNo=3",
-      "category": "하역작업"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-66-2012",
+      "category": "누출방지",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-66-2012&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-65-2020",
+      "title": "불용성 액체용 저장탱크 안전관리에 관한 기술지침",
+      "year": 2020,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-65-2020",
+      "category": "저장탱크",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-65-2020&fileOrdrNo=5"
     },
     {
       "document_number": "P-62-2012",
@@ -850,8 +1027,10 @@
       "document_number": "P-61-2012",
       "title": "피복아크용접 흄 노출 저감 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-61-2012&fileOrdrNo=3",
-      "category": "용접안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-61-2012",
+      "category": "용접안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-61-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-60-2012",
@@ -861,13 +1040,6 @@
       "category": "화기작업"
     },
     {
-      "document_number": "P-59-2019",
-      "title": "공기호흡기 사용 및 관리에 관한 기술지침",
-      "year": 2019,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-59-2019&fileOrdrNo=2",
-      "category": "호흡보호구"
-    },
-    {
       "document_number": "P-58-2012",
       "title": "시안화나트륨 등 시안화합물 취급 시 안전에 관한 기술지침",
       "year": 2012,
@@ -875,18 +1047,31 @@
       "category": "화학물질안전"
     },
     {
+      "document_number": "P-59-2019",
+      "title": "공기호흡기 사용 및 관리에 관한 기술지침",
+      "year": 2019,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-59-2019",
+      "category": "호흡보호구",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-59-2019&fileOrdrNo=2"
+    },
+    {
       "document_number": "P-57-2020",
       "title": "화학공장 계측제어시스템의 기능안전 적용에 관한 기술지침",
       "year": 2020,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-57-2020&fileOrdrNo=5",
-      "category": "제어시스템"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-57-2020",
+      "category": "제어시스템",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-57-2020&fileOrdrNo=5"
     },
     {
       "document_number": "P-56-2012",
       "title": "과산화벤조일 등 유기과산화물 취급에 관한 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-56-2012&fileOrdrNo=3",
-      "category": "화학물질안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-56-2012",
+      "category": "화학물질안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-56-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-55-2012",
@@ -903,18 +1088,18 @@
       "category": "아세틸렌안전"
     },
     {
-      "document_number": "P-53-2012",
-      "title": "발열반응 공정의 사고 예방 및 방호에 관한 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-53-2012&fileOrdrNo=3",
-      "category": "반응공정"
-    },
-    {
       "document_number": "P-52-2012",
       "title": "공장 및 장치의 안전격리에 관한 기술지침",
       "year": 2012,
       "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-52-2012&fileOrdrNo=3",
       "category": "안전격리"
+    },
+    {
+      "document_number": "P-53-2012",
+      "title": "발열반응 공정의 사고 예방 및 방호에 관한 기술지침",
+      "year": 2012,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-53-2012&fileOrdrNo=3",
+      "category": "반응공정"
     },
     {
       "document_number": "P-51-2023",
@@ -931,13 +1116,6 @@
       "category": "폐기물처리"
     },
     {
-      "document_number": "P-49-2012",
-      "title": "구조물 해체공사에서 석면노출 방지 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-49-2012&fileOrdrNo=3",
-      "category": "석면안전"
-    },
-    {
       "document_number": "P-48-2012",
       "title": "화학공정에서 비정상 상황에 대한 운전절차 작성 기술지침",
       "year": 2012,
@@ -945,18 +1123,20 @@
       "category": "운전절차"
     },
     {
+      "document_number": "P-49-2012",
+      "title": "구조물 해체공사에서 석면노출 방지 기술지침",
+      "year": 2012,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-49-2012&fileOrdrNo=3",
+      "category": "석면안전"
+    },
+    {
       "document_number": "P-47-2012",
       "title": "원유탱크 청소작업 시 화재·폭발사고 예방 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-47-2012&fileOrdrNo=3",
-      "category": "탱크청소"
-    },
-    {
-      "document_number": "P-46-2012",
-      "title": "화학반응 위험성평가에 관한 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-46-2012&fileOrdrNo=3",
-      "category": "위험성평가"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-47-2012",
+      "category": "탱크청소",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-47-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-45-2012",
@@ -966,11 +1146,11 @@
       "category": "크레인안전"
     },
     {
-      "document_number": "P-44-2012",
-      "title": "화학공정 안전밸브 설치 및 관리 기술지침",
+      "document_number": "P-46-2012",
+      "title": "화학반응 위험성평가에 관한 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-44-2012&fileOrdrNo=3",
-      "category": "안전밸브"
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-46-2012&fileOrdrNo=3",
+      "category": "위험성평가"
     },
     {
       "document_number": "P-43-2012",
@@ -978,6 +1158,13 @@
       "year": 2012,
       "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-43-2012&fileOrdrNo=3",
       "category": "비상대응"
+    },
+    {
+      "document_number": "P-44-2012",
+      "title": "화학공정 안전밸브 설치 및 관리 기술지침",
+      "year": 2012,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-44-2012&fileOrdrNo=3",
+      "category": "안전밸브"
     },
     {
       "document_number": "P-42-2012",
@@ -990,15 +1177,10 @@
       "document_number": "P-41-2012",
       "title": "이황화탄소 중독 예방 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-41-2012&fileOrdrNo=3",
-      "category": "화학물질안전"
-    },
-    {
-      "document_number": "P-40-2012",
-      "title": "크레인 작업 시 충돌사고 예방 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-40-2012&fileOrdrNo=3",
-      "category": "크레인안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-41-2012",
+      "category": "화학물질안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-41-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-39-2012",
@@ -1015,11 +1197,20 @@
       "category": "유기용제안전"
     },
     {
+      "document_number": "P-40-2012",
+      "title": "크레인 작업 시 충돌사고 예방 기술지침",
+      "year": 2012,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-40-2012&fileOrdrNo=3",
+      "category": "크레인안전"
+    },
+    {
       "document_number": "P-37-2012",
       "title": "유해화학물질 취급시설 해체·철거 시 안전 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-37-2012&fileOrdrNo=3",
-      "category": "해체작업"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-37-2012",
+      "category": "해체작업",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-37-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-36-2012",
@@ -1029,13 +1220,6 @@
       "category": "저장탱크"
     },
     {
-      "document_number": "P-35-2015",
-      "title": "화학공정 설계 시 위험성 검토 기술지침",
-      "year": 2015,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-35-2015&fileOrdrNo=3",
-      "category": "설계안전"
-    },
-    {
       "document_number": "P-34-2012",
       "title": "인화성 액체 드럼 보관장소의 화재예방에 관한 기술지침",
       "year": 2012,
@@ -1043,11 +1227,13 @@
       "category": "저장관리"
     },
     {
-      "document_number": "P-33-2012",
-      "title": "건조염소 배관시스템에 관한 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-33-2012&fileOrdrNo=3",
-      "category": "염소안전"
+      "document_number": "P-35-2015",
+      "title": "화학공정 설계 시 위험성 검토 기술지침",
+      "year": 2015,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-35-2015",
+      "category": "설계안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-35-2015&fileOrdrNo=3"
     },
     {
       "document_number": "P-32-2012",
@@ -1055,6 +1241,13 @@
       "year": 2012,
       "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-32-2012&fileOrdrNo=3",
       "category": "산소안전"
+    },
+    {
+      "document_number": "P-33-2012",
+      "title": "건조염소 배관시스템에 관한 기술지침",
+      "year": 2012,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-33-2012&fileOrdrNo=3",
+      "category": "염소안전"
     },
     {
       "document_number": "P-31-2012",
@@ -1085,18 +1278,20 @@
       "category": "제지업안전"
     },
     {
-      "document_number": "P-27-2018",
-      "title": "밀폐공간 작업 안전 기술지침",
-      "year": 2018,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-27-2018&fileOrdrNo=3",
-      "category": "밀폐공간"
-    },
-    {
       "document_number": "P-26-2012",
       "title": "과산화수소 저장시설 폭발사고 예방 기술지침",
       "year": 2012,
       "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-26-2012&fileOrdrNo=3",
       "category": "화학물질안전"
+    },
+    {
+      "document_number": "P-27-2018",
+      "title": "밀폐공간 작업 안전 기술지침",
+      "year": 2018,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-27-2018",
+      "category": "밀폐공간",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-27-2018&fileOrdrNo=3"
     },
     {
       "document_number": "P-25-2012",
@@ -1106,11 +1301,11 @@
       "category": "화학물질안전"
     },
     {
-      "document_number": "P-24-2012",
-      "title": "안전밸브 설치 및 관리 기술지침",
+      "document_number": "P-22-2012",
+      "title": "터빈 및 발전기 정비 안전 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-24-2012&fileOrdrNo=3",
-      "category": "안전밸브"
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-22-2012&fileOrdrNo=3",
+      "category": "발전설비안전"
     },
     {
       "document_number": "P-23-2012",
@@ -1120,18 +1315,20 @@
       "category": "보일러안전"
     },
     {
-      "document_number": "P-22-2012",
-      "title": "터빈 및 발전기 정비 안전 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-22-2012&fileOrdrNo=3",
-      "category": "발전설비안전"
-    },
-    {
       "document_number": "P-21-2012",
       "title": "공기압축기 정비 안전 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-21-2012&fileOrdrNo=3",
-      "category": "압축기안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-21-2012",
+      "category": "압축기안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-21-2012&fileOrdrNo=3"
+    },
+    {
+      "document_number": "P-24-2012",
+      "title": "안전밸브 설치 및 관리 기술지침",
+      "year": 2012,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-24-2012&fileOrdrNo=3",
+      "category": "안전밸브"
     },
     {
       "document_number": "P-20-2012",
@@ -1139,13 +1336,6 @@
       "year": 2012,
       "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-20-2012&fileOrdrNo=3",
       "category": "고압가스안전"
-    },
-    {
-      "document_number": "P-19-2012",
-      "title": "화학공장의 운전 중 점검 안전 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-19-2012&fileOrdrNo=3",
-      "category": "운전점검"
     },
     {
       "document_number": "P-18-2012",
@@ -1162,6 +1352,15 @@
       "category": "내진설계"
     },
     {
+      "document_number": "P-19-2012",
+      "title": "화학공장의 운전 중 점검 안전 기술지침",
+      "year": 2012,
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-19-2012",
+      "category": "운전점검",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-19-2012&fileOrdrNo=3"
+    },
+    {
       "document_number": "P-16-2012",
       "title": "화재·폭발 사고예방을 위한 점화원 관리 기술지침",
       "year": 2012,
@@ -1176,6 +1375,13 @@
       "category": "공정안전관리"
     },
     {
+      "document_number": "P-12-2012",
+      "title": "전자산업에서의 특수가스 취급안전 기술지침",
+      "year": 2012,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-12-2012&fileOrdrNo=3",
+      "category": "특수가스안전"
+    },
+    {
       "document_number": "P-14-2012",
       "title": "화학공장 정비작업 안전 기술지침",
       "year": 2012,
@@ -1186,15 +1392,10 @@
       "document_number": "P-13-2012",
       "title": "진동 및 충격에 대한 화학공정 안전 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-13-2012&fileOrdrNo=3",
-      "category": "진동안전"
-    },
-    {
-      "document_number": "P-12-2012",
-      "title": "전자산업에서의 특수가스 취급안전 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-12-2012&fileOrdrNo=3",
-      "category": "특수가스안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-13-2012",
+      "category": "진동안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-13-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-11-2012",
@@ -1228,15 +1429,19 @@
       "document_number": "P-7-2012",
       "title": "석면 해체·제거 작업 시 비산방지 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-7-2012&fileOrdrNo=3",
-      "category": "석면안전"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-7-2012",
+      "category": "석면안전",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-7-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-6-2012",
       "title": "매설 금속 배관의 부식 및 부식방지 기술지침",
       "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-6-2012&fileOrdrNo=3",
-      "category": "부식관리"
+      "download_url": "https://portal.kosha.or.kr/archive/resources/tech-support/download/P-6-2012",
+      "category": "부식관리",
+      "status": "updated",
+      "original_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-6-2012&fileOrdrNo=3"
     },
     {
       "document_number": "P-5-2012",
@@ -1253,18 +1458,18 @@
       "category": "압력용기"
     },
     {
-      "document_number": "P-3-2012",
-      "title": "석면 건축물 해체·제거업 등록 및 관리 기술지침",
-      "year": 2012,
-      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-3-2012&fileOrdrNo=3",
-      "category": "석면안전"
-    },
-    {
       "document_number": "P-2-2012",
       "title": "공정안전보고서 제출대상 판정 기술지침",
       "year": 2012,
       "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-2-2012&fileOrdrNo=3",
       "category": "공정안전관리"
+    },
+    {
+      "document_number": "P-3-2012",
+      "title": "석면 건축물 해체·제거업 등록 및 관리 기술지침",
+      "year": 2012,
+      "download_url": "https://www.kosha.or.kr/extappKosha/kosha/guidance/fileDownload.do?sfhlhTchnlgyManualNo=P-3-2012&fileOrdrNo=3",
+      "category": "석면안전"
     },
     {
       "document_number": "P-1-2012",
@@ -1275,25 +1480,99 @@
     }
   ],
   "categories": [
-    "화학공정안전", "화재폭발", "수소안전", "공정안전관리", "화학물질안전",
-    "LPG안전", "암모니아안전", "배터리안전", "환경설비안전", "건설안전",
-    "금속공업안전", "분진폭발", "도장설비안전", "위험성평가", "신기술안전",
-    "방재시설", "감지시스템", "바이오에너지", "정전기안전", "배관안전",
-    "질소안전", "산소안전", "소각시설", "반응기안전", "제어시스템",
-    "안전밸브", "화학물질분류", "가스안전", "검지시스템", "폭발위험지역",
-    "설비설계", "인터록시스템", "비상대응", "변경관리", "사고조사",
-    "안전보건자료", "설비관리", "내진설계", "계약업체관리", "사고사례",
-    "공구안전", "경보시스템", "소방설비", "액화가스안전", "부식관리",
-    "기계안전", "해체작업", "작업허가", "저장탱크", "운전절차",
-    "교육훈련", "반도체안전", "용접안전", "화기작업", "호흡보호구",
-    "아세틸렌안전", "반응공정", "안전격리", "표지관리", "폐기물처리",
-    "석면안전", "탱크청소", "크레인안전", "유기용제안전", "저장관리",
-    "설계안전", "염소안전", "운송안전", "차량안전", "제지업안전",
-    "밀폐공간", "보일러안전", "발전설비안전", "압축기안전", "고압가스안전",
-    "운전점검", "점화원관리", "정비작업", "진동안전", "특수가스안전",
-    "화재예방", "PVC안전", "건강관리", "압력용기", "제철업안전",
-    "방사성물질", "설비점검", "안전시스템", "화재진압", "화공안전",
-    "건조설비", "누출방지", "하역작업"
+    "화학공정안전",
+    "화재폭발",
+    "수소안전",
+    "공정안전관리",
+    "화학물질안전",
+    "LPG안전",
+    "암모니아안전",
+    "배터리안전",
+    "환경설비안전",
+    "건설안전",
+    "금속공업안전",
+    "분진폭발",
+    "도장설비안전",
+    "위험성평가",
+    "신기술안전",
+    "방재시설",
+    "감지시스템",
+    "바이오에너지",
+    "정전기안전",
+    "배관안전",
+    "질소안전",
+    "산소안전",
+    "소각시설",
+    "반응기안전",
+    "제어시스템",
+    "안전밸브",
+    "화학물질분류",
+    "가스안전",
+    "검지시스템",
+    "폭발위험지역",
+    "설비설계",
+    "인터록시스템",
+    "비상대응",
+    "변경관리",
+    "사고조사",
+    "안전보건자료",
+    "설비관리",
+    "내진설계",
+    "계약업체관리",
+    "사고사례",
+    "공구안전",
+    "경보시스템",
+    "소방설비",
+    "액화가스안전",
+    "부식관리",
+    "기계안전",
+    "해체작업",
+    "작업허가",
+    "저장탱크",
+    "운전절차",
+    "교육훈련",
+    "반도체안전",
+    "용접안전",
+    "화기작업",
+    "호흡보호구",
+    "아세틸렌안전",
+    "반응공정",
+    "안전격리",
+    "표지관리",
+    "폐기물처리",
+    "석면안전",
+    "탱크청소",
+    "크레인안전",
+    "유기용제안전",
+    "저장관리",
+    "설계안전",
+    "염소안전",
+    "운송안전",
+    "차량안전",
+    "제지업안전",
+    "밀폐공간",
+    "보일러안전",
+    "발전설비안전",
+    "압축기안전",
+    "고압가스안전",
+    "운전점검",
+    "점화원관리",
+    "정비작업",
+    "진동안전",
+    "특수가스안전",
+    "화재예방",
+    "PVC안전",
+    "건강관리",
+    "압력용기",
+    "제철업안전",
+    "방사성물질",
+    "설비점검",
+    "안전시스템",
+    "화재진압",
+    "화공안전",
+    "건조설비",
+    "누출방지",
+    "하역작업"
   ],
   "usage_instructions": {
     "download_method": "위 링크를 브라우저에 직접 입력하거나 복사하여 해당 기술지침 파일을 다운로드할 수 있습니다.",
