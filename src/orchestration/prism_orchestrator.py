@@ -181,6 +181,7 @@ class PrismOrchestrator:
                 temperature=temperature,
                 stop=stop,
                 use_tools=use_tools,
+                tool_for_use=self.tool_registry.list_tools(),
                 max_tool_calls=max_tool_calls,
                 extra_body=extra_body
             )
@@ -200,6 +201,9 @@ class PrismOrchestrator:
             return response
 
         except Exception as e:
+            # find out which line of code is causing the error
+            import traceback
+            traceback.print_exc()
             # Create error response with proper AgentResponse structure
             return AgentResponse(
                 text=f"오케스트레이션 중 오류가 발생했습니다: {str(e)}",
