@@ -131,7 +131,7 @@ services:
         # Install minimal dependencies for KOSHA processor
         RUN pip install --no-cache-dir \
             requests \
-            markitdown \
+            markitdown[pdf] \
             openai \
             pydantic-settings
         

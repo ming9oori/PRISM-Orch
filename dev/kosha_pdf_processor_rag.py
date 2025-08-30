@@ -454,7 +454,7 @@ class KOSHAPDFProcessorRAG:
                 asyncio.set_event_loop(loop)
             
             result = loop.run_until_complete(self.rag_tool.execute(test_request))
-            logger.info(f"Search test result: {result.success}, found {result.data.get('count', 0)} results")
+            logger.info(f"Search test result: {result.success}, found {result.count} results")
 
 
 def main():
