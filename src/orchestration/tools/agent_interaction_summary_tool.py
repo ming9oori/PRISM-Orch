@@ -93,7 +93,8 @@ class AgentInteractionSummaryTool(BaseTool):
                     "user_id": {"type": "string", "description": "사용자 ID (선택사항)"}
                 },
                 "required": ["agent_interactions"]
-            }
+            },
+            tool_type="api"
         )
         
         # 설정 값들 - prism-core가 있으면 사용하고, 없으면 기본값 사용

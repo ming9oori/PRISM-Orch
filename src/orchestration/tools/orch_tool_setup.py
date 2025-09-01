@@ -72,6 +72,8 @@ class OrchToolSetup:
                 weaviate_url=self.weaviate_url,
                 openai_base_url=self.openai_base_url,
                 openai_api_key=self.openai_api_key,
+                model_name=settings.VLLM_MODEL,
+                embedder_model_name=settings.VECTOR_ENCODER_MODEL,
                 client_id=self.client_id,
                 class_prefix=self.class_prefix
             )
