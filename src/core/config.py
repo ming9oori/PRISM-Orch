@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     APP_BASE_URL: str = "http://localhost:8100"
     APP_HOST: str = "0.0.0.0"
     APP_PORT: int = 8100
-    RELOAD: bool = True
+    RELOAD: bool = False
 
     # vLLM (OpenAI-Compatible) Configuration
     OPENAI_BASE_URL: str = "http://localhost:8001/v1"

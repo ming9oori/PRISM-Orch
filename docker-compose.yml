@@ -21,6 +21,7 @@ services:
       - ./dev:/app/dev
       - ../prism-core/prism_core:/app/prism_core
     environment:
+      - PRISM_CORE_BASE_URL=${PRISM_CORE_BASE_URL}
       - OPENAI_BASE_URL=${OPENAI_BASE_URL}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - WEAVIATE_URL=http://weaviate:8080
@@ -36,6 +37,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 12
+    networks:
+      - prism-shared-network
 
   weaviate:
     image: semitechnologies/weaviate:1.24.1
@@ -62,11 +65,13 @@ services:
     depends_on:
       - t2v-transformers
     healthcheck:
-      test: ["CMD", "curl", "-s", "http://localhost:8080/v1/.well-known/ready"]
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8080/v1/.well-known/ready || exit 1"]
       interval: 10s
       timeout: 5s
-      retries: 30
-      start_period: 30s
+      retries: 5
+      start_period: 40s
+    networks:
+      - prism-shared-network
 
   t2v-transformers:
     image: semitechnologies/transformers-inference:sentence-transformers-multi-qa-MiniLM-L6-cos-v1
@@ -84,6 +89,8 @@ services:
               count: 1
               capabilities: [gpu]
     restart: unless-stopped
+    networks:
+      - prism-shared-network
 
   seed:
     build:
@@ -104,6 +111,8 @@ services:
     entrypoint: ["python", "dev/seed_vector_dbs.py"]
     depends_on:
       - app
+    networks:
+      - prism-shared-network
 
   kosha-processor:
     build:
@@ -165,6 +174,8 @@ services:
       - weaviate
       - app
     restart: no
+    networks: 
+      - prism-shared-network
 
   agent-history-uploader:
     build:
@@ -216,6 +227,8 @@ services:
       - weaviate
       - app
     restart: no
+    networks:
+      - prism-shared-network
 
   vector-search-tester:
     build:
@@ -264,6 +277,8 @@ services:
       - weaviate
       - agent-history-uploader
     restart: no
+    networks:
+      - prism-shared-network
 
   vector-search-web:
     build:
@@ -295,11 +310,16 @@ services:
     depends_on:
       - weaviate
     restart: no
-
+    networks:
+      - prism-shared-network
 
 
 volumes:
   weaviate_data:
+
+networks:
+  prism-shared-network:
+    external: true
 
 # Usage:
 # 1) export GITHUB_TOKEN=...; docker compose up -d --build weaviate app
