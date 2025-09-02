@@ -35,25 +35,34 @@ class PrismOrchestrator:
                  openai_base_url: Optional[str] = None,
                  api_key: Optional[str] = None,
                  prism_core_api_base: Optional[str] = None) -> None:
+        import sys
+        print("🔧 [STEP 1] Starting PrismOrchestrator initialization...", file=sys.stderr, flush=True)
+        
         # Resolve endpoints from Orch settings or args
         self.agent_name = agent_name
+        print("🔧 [STEP 2] Agent name set", file=sys.stderr, flush=True)
 
         base_url = openai_base_url or settings.OPENAI_BASE_URL or "http://localhost:8001/v1"
         api_key = api_key or settings.OPENAI_API_KEY
         core_api = (prism_core_api_base or settings.PRISM_CORE_BASE_URL).rstrip('/')
-        print(f"🔧 Core API: {core_api}")
-        print(f"🔧 Base URL: {base_url}")
-        print(f"🔧 API Key: {api_key}")
+        print(f"🔧 [STEP 3] Endpoints resolved - Core API: {core_api}, Base URL: {base_url}", file=sys.stderr, flush=True)
 
         # Initialize managers
+        print("🔧 [STEP 4] Initializing managers...", file=sys.stderr, flush=True)
         self.agent_manager = AgentManager()
+        print("🔧 [STEP 4.1] AgentManager initialized", file=sys.stderr, flush=True)
         self.workflow_manager = WorkflowManager()
+        print("🔧 [STEP 4.2] WorkflowManager initialized", file=sys.stderr, flush=True)
         
         # Initialize Orch tool setup
+        print("🔧 [STEP 5] Starting OrchToolSetup...", file=sys.stderr, flush=True)
         self.orch_tool_setup = OrchToolSetup()
+        print("🔧 [STEP 5.1] OrchToolSetup object created", file=sys.stderr, flush=True)
         self.tool_registry = self.orch_tool_setup.setup_tools()
+        print("🔧 [STEP 5.2] Tool registry setup completed", file=sys.stderr, flush=True)
 
         # Initialize LLM service with Orch tool registry
+        print("🔧 [STEP 6] Initializing PrismLLMService...", file=sys.stderr, flush=True)
         self.llm = PrismLLMService(
             model_name=settings.VLLM_MODEL,
             simulate_delay=False,
@@ -63,75 +72,111 @@ class PrismOrchestrator:
             openai_base_url=base_url,
             api_key=api_key,
         )
+        print("🔧 [STEP 6.1] PrismLLMService initialized", file=sys.stderr, flush=True)
 
         # register tools to llm service
-        for tool in self.tool_registry.list_tools():
-            try:
-                print(f"✅ 도구 '{tool.name}' 등록 시도")
-                self.llm.register_tool(tool)
-            except Exception as e:
-                print(f"❌ 도구 '{tool.name}' 등록 실패: {str(e)}")
+        print("🔧 [STEP 7] Registering tools to LLM service...", file=sys.stderr, flush=True)
+        try:
+            tool_list = self.tool_registry.list_tools()
+            print(f"🔧 [STEP 7.1] Found {len(tool_list)} tools to register", file=sys.stderr, flush=True)
+            
+            for i, tool in enumerate(tool_list):
+                try:
+                    print(f"🔧 [STEP 7.{i+2}] Registering tool '{tool.name}'...", file=sys.stderr, flush=True)
+                    self.llm.register_tool(tool)
+                    print(f"✅ Tool '{tool.name}' registered successfully", file=sys.stderr, flush=True)
+                except Exception as e:
+                    print(f"❌ Tool '{tool.name}' registration failed: {str(e)}", file=sys.stderr, flush=True)
+        except Exception as e:
+            print(f"❌ [STEP 7] Tool registration process failed: {str(e)}", file=sys.stderr, flush=True)
         
-
+        print("🔧 [STEP 8] Setting tool registry for managers...")
         # Set tool registry for managers
         self.agent_manager.set_tool_registry(self.tool_registry)
+        print("🔧 [STEP 8.1] Agent manager tool registry set")
         self.workflow_manager.set_tool_registry(self.tool_registry)
+        print("🔧 [STEP 8.2] Workflow manager tool registry set")
         
         # Set LLM service and agent manager for workflow manager
+        print("🔧 [STEP 9] Setting LLM service and agent manager for workflow...")
         self.workflow_manager.set_llm_service(self.llm)
+        print("🔧 [STEP 9.1] LLM service set for workflow manager")
         self.workflow_manager.set_agent_manager(self.agent_manager)
+        print("🔧 [STEP 9.2] Agent manager set for workflow manager")
 
         # Local cache for agent object
+        print("🔧 [STEP 10] Initializing local cache and memory tool...")
         self._agent: Optional[Agent] = None
         
         # Memory tool reference for direct access
         self._memory_tool = self.orch_tool_setup.get_memory_tool()
+        print("🔧 [STEP 10.1] Memory tool reference obtained")
         
         # Print tool setup information
+        print("🔧 [STEP 11] Printing tool setup information...")
         self.orch_tool_setup.print_tool_info()
+        print("🔧 [STEP 11.1] Tool info printed")
         
         # Print API configuration
+        print("🔧 [STEP 12] Printing API configuration...")
         print(f"🔧 API 설정:")
         print(f"   - Prism-Core API: {core_api}")
         print(f"   - vLLM API: {base_url}")
         
         # Initialize orchestration pipeline
+        print("🔧 [STEP 13] Starting orchestration pipeline setup...")
         self._setup_orchestration_pipeline()
+        print("🔧 [STEP 13.1] Orchestration pipeline setup completed")
+        
+        print("🔧 [FINAL] PrismOrchestrator initialization completed successfully!")
 
     def _setup_orchestration_pipeline(self) -> None:
         """오케스트레이션 파이프라인을 설정합니다."""
+        import sys
         try:
-            
+            print("🔧 [STEP 13-1] Starting sub-agents initialization...", file=sys.stderr, flush=True)
             # 2. 하위 에이전트 초기화
             self._initialize_sub_agents()
+            print("🔧 [STEP 13-2] Sub-agents initialization completed", file=sys.stderr, flush=True)
             
+            print("🔧 [STEP 13-3] Starting orchestration agent registration...", file=sys.stderr, flush=True)
             # 1. 메인 오케스트레이션 에이전트 등록
             self.register_orchestration_agent()
+            print("🔧 [STEP 13-4] Orchestration agent registration completed", file=sys.stderr, flush=True)
 
+            print("🔧 [STEP 13-5] Starting orchestration workflow definition...", file=sys.stderr, flush=True)
             # 3. 오케스트레이션 워크플로우 정의
             self._define_orchestration_workflow()
+            print("🔧 [STEP 13-6] Orchestration workflow definition completed", file=sys.stderr, flush=True)
             
             print("✅ 오케스트레이션 파이프라인 설정 완료")
             
         except Exception as e:
-            print(f"❌ 오케스트레이션 파이프라인 설정 실패: {str(e)}")
+            print(f"❌ 오케스트레이션 파이프라인 설정 실패: {str(e)}", file=sys.stderr, flush=True)
 
     def _initialize_sub_agents(self) -> None:
         """3가지 하위 에이전트를 초기화합니다."""
+        import sys
         try:
+            print("🔧 [STEP 13-1-1] Initializing monitoring agent...", file=sys.stderr, flush=True)
             # 모니터링 에이전트 초기화
             self._initialize_monitoring_agent()
+            print("🔧 [STEP 13-1-2] Monitoring agent initialized", file=sys.stderr, flush=True)
             
+            print("🔧 [STEP 13-1-3] Initializing prediction agent...", file=sys.stderr, flush=True)
             # 예측 에이전트 초기화
             self._initialize_prediction_agent()
+            print("🔧 [STEP 13-1-4] Prediction agent initialized", file=sys.stderr, flush=True)
             
+            print("🔧 [STEP 13-1-5] Initializing autonomous control agent...", file=sys.stderr, flush=True)
             # 자율제어 에이전트 초기화
             self._initialize_autonomous_control_agent()
+            print("🔧 [STEP 13-1-6] Autonomous control agent initialized", file=sys.stderr, flush=True)
             
             print("✅ 하위 에이전트 초기화 완료")
             
         except Exception as e:
-            print(f"❌ 하위 에이전트 초기화 실패: {str(e)}")
+            print(f"❌ 하위 에이전트 초기화 실패: {str(e)}", file=sys.stderr, flush=True)
 
 
 
@@ -1033,7 +1078,11 @@ class PrismOrchestrator:
             }
 
             # Execute orchestration workflow
+            import sys
+            print("🔧 [ORCHESTRATE-1] Starting workflow execution...", file=sys.stderr, flush=True)
+            print(f"🔧 [ORCHESTRATE-2] Context: user_query='{prompt[:50]}...', user_id={user_id}", file=sys.stderr, flush=True)
             workflow_result = await self.workflow_manager.execute_workflow("orchestration_pipeline", context)
+            print(f"🔧 [ORCHESTRATE-3] Workflow result status: {workflow_result.get('status', 'unknown')}", file=sys.stderr, flush=True)
             
             if workflow_result["status"] == "completed":
                 # Extract final output from workflow result

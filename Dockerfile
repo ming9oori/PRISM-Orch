@@ -31,11 +31,11 @@ COPY src ./src
 COPY dev ./dev
 
 # Expose
-EXPOSE 8000
+EXPOSE 8100
 
 # Env passthrough (optional defaults)
 ENV APP_HOST=0.0.0.0
-ENV APP_PORT=8000
+ENV APP_PORT=8100
 
 # Run
 CMD ["python", "-m", "src.main"] 

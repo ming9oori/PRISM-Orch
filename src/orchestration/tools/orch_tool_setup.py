@@ -43,8 +43,10 @@ class OrchToolSetup:
         
     def setup_tools(self) -> ToolRegistry:
         """Orch 전용 도구들을 설정하고 등록합니다."""
+        import sys
         try:
             # RAG Search Tool 설정
+            print("🔧 [TOOL] Creating RAG search tool...", file=sys.stderr, flush=True)
             self.rag_tool = create_rag_search_tool(
                 weaviate_url=self.weaviate_url,
                 encoder_model=self.encoder_model,
@@ -52,10 +54,12 @@ class OrchToolSetup:
                 client_id=self.client_id,
                 class_prefix=self.class_prefix
             )
+            print("🔧 [TOOL] RAG search tool created, registering...", file=sys.stderr, flush=True)
             self.tool_registry.register_tool(self.rag_tool)
-            print(f"✅ Orch RAG Search Tool 등록 완료 (클래스: {self.class_prefix}Research)")
+            print(f"✅ Orch RAG Search Tool 등록 완료 (클래스: {self.class_prefix}Research)", file=sys.stderr, flush=True)
             
             # Compliance Tool 설정
+            print("🔧 [TOOL] Creating compliance tool...", file=sys.stderr, flush=True)
             self.compliance_tool = create_compliance_tool(
                 weaviate_url=self.weaviate_url,
                 openai_base_url=self.openai_base_url,
@@ -64,8 +68,9 @@ class OrchToolSetup:
                 client_id=self.client_id,
                 class_prefix=self.class_prefix
             )
+            print("🔧 [TOOL] Compliance tool created, registering...", file=sys.stderr, flush=True)
             self.tool_registry.register_tool(self.compliance_tool)
-            print(f"✅ Orch Compliance Tool 등록 완료 (클래스: {self.class_prefix}Compliance)")
+            print(f"✅ Orch Compliance Tool 등록 완료 (클래스: {self.class_prefix}Compliance)", file=sys.stderr, flush=True)
             
             # Memory Search Tool 설정
             self.memory_tool = create_memory_search_tool(

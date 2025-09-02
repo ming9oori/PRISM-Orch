@@ -1,12 +1,12 @@
 import uuid
-from fastapi import APIRouter, Body
+from fastapi import APIRouter, Body, HTTPException
 from typing import Dict, Any, List
 
 from ..schemas import UserQueryInput, OrchestrationResponse
 from ...orchestration.prism_orchestrator import PrismOrchestrator
 
 router = APIRouter()
-orchestrator = PrismOrchestrator()
+orchestrator = None  # Lazy initialization
 
 @router.post(
     "/",
@@ -26,6 +26,23 @@ async def run_orchestration(
         },
     )
 ) -> OrchestrationResponse:
+    import sys
+    print("🚀 [API] ============= POST REQUEST RECEIVED =============", file=sys.stderr)
+    print("🚀 [API] POST request received in run_orchestration", file=sys.stderr)
+    global orchestrator
+    
+    print("🚀 [API] Checking orchestrator state...", file=sys.stderr)
+    # Lazy initialization of orchestrator
+    if orchestrator is None:
+        print("🚀 [API] Orchestrator is None, starting initialization...", file=sys.stderr)
+        try:
+            print("🔧 Initializing orchestrator...", file=sys.stderr, flush=True)
+            orchestrator = PrismOrchestrator()
+            print("✅ Orchestrator initialized successfully", file=sys.stderr, flush=True)
+        except Exception as e:
+            print(f"❌ Orchestrator initialization failed: {str(e)}", file=sys.stderr, flush=True)
+            raise HTTPException(status_code=500, detail=f"Orchestrator initialization failed: {str(e)}")
+    
     session_id = query.session_id or f"session_{uuid.uuid4()}"
 
     # Invoke high-level orchestrator (includes LLM-based decomposition, tool calls, RAG + compliance)
