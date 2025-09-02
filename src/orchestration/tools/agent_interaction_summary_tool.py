@@ -32,10 +32,11 @@ except ImportError:
 # Fallback base classes when prism-core is not available
 if not PRISM_CORE_AVAILABLE:
     class BaseTool:
-        def __init__(self, name: str, description: str, parameters_schema: Dict[str, Any]):
+        def __init__(self, name: str, description: str, parameters_schema: Dict[str, Any], tool_type: str = "api"):
             self.name = name
             self.description = description
             self.parameters_schema = parameters_schema
+            self.tool_type = tool_type
     
     class ToolRequest:
         def __init__(self, parameters: Dict[str, Any]):
