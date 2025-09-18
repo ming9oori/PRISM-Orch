@@ -10,92 +10,108 @@
 9,챔버 내부 온도 센서가 오작동하는 것 같아요,ANOMALY_CHECK,HIGH
 10,가스 유량계 수치가 불안정해요,ANOMALY_CHECK,MEDIUM
 11,RF 파워 공급이 간헐적으로 끊어져요,ANOMALY_CHECK,HIGH
-12,로드락 시스템에 문제가 있는 것 같습니다,ANOMALY_CHECK,MEDIUM
-13,전체 장비 상태를 점검해주세요,ANOMALY_CHECK,MEDIUM
-14,냉각수 온도가 설정값을 벗어났어요,ANOMALY_CHECK,HIGH
-15,진공 펌프에서 이상 진동이 감지됩니다,ANOMALY_CHECK,HIGH
-16,웨이퍼 이송 로봇이 제대로 작동하지 않아요,ANOMALY_CHECK,HIGH
-17,플라즈마 점화가 불안정합니다,ANOMALY_CHECK,HIGH
-18,마스크 정렬 시스템 오차가 커요,ANOMALY_CHECK,HIGH
-19,화학 기상 증착 중 가스 누출이 의심됩니다,ANOMALY_CHECK,HIGH
-20,스퍼터링 타겟 상태를 확인해주세요,ANOMALY_CHECK,MEDIUM
-21,이온 주입 장비 빔 전류가 불안정해요,ANOMALY_CHECK,HIGH
-22,포토리소그래피 노광 강도가 이상해요,ANOMALY_CHECK,HIGH
-23,CMP 장비 패드 압력이 불균등합니다,ANOMALY_CHECK,MEDIUM
-24,배기 시스템 효율이 떨어진 것 같아요,ANOMALY_CHECK,MEDIUM
-25,웨이퍼 카세트 로딩에 문제가 있어요,ANOMALY_CHECK,MEDIUM
-26,플라즈마 밀도 분포가 불균일해요,ANOMALY_CHECK,HIGH
-27,반응성 이온 식각 속도가 느려졌어요,ANOMALY_CHECK,HIGH
-28,열처리로 온도 프로파일이 이상합니다,ANOMALY_CHECK,HIGH
-29,클린룸 입자 농도가 기준치를 초과했어요,ANOMALY_CHECK,HIGH
-30,장비 알람이 계속 울리고 있어요,ANOMALY_CHECK,HIGH
-31,생산 수율을 개선하고 싶어요,OPTIMIZATION,MEDIUM
-32,에너지 효율성을 높이는 방법을 알려주세요,OPTIMIZATION,MEDIUM
-33,공정 시간을 단축할 수 있을까요?,OPTIMIZATION,MEDIUM
-34,웨이퍼 처리량을 증가시키고 싶습니다,OPTIMIZATION,MEDIUM
-35,불량률을 줄이는 최적화 방안을 제안해주세요,OPTIMIZATION,MEDIUM
-36,챔버 청소 주기를 최적화하고 싶어요,OPTIMIZATION,MEDIUM
-37,가스 사용량을 효율적으로 관리하려면?,OPTIMIZATION,MEDIUM
-38,장비 가동률을 높이는 방법을 찾아주세요,OPTIMIZATION,MEDIUM
-39,식각 균일도를 개선할 수 있나요?,OPTIMIZATION,MEDIUM
-40,전력 소비를 최소화하면서 성능은 유지하고 싶어요,OPTIMIZATION,MEDIUM
-41,레시피 파라미터를 최적화해주세요,OPTIMIZATION,MEDIUM
-42,장비 활용도를 극대화하려면 어떻게 해야 하나요?,OPTIMIZATION,MEDIUM
-43,공정 안정성을 향상시키고 싶어요,OPTIMIZATION,MEDIUM
-44,웨이퍼 품질 일관성을 높이려면?,OPTIMIZATION,MEDIUM
-45,반도체 제조 비용을 절감하고 싶습니다,OPTIMIZATION,MEDIUM
-46,공급망 효율성을 개선할 방법은?,OPTIMIZATION,MEDIUM
-47,장비 예방 보전 계획을 최적화해주세요,OPTIMIZATION,MEDIUM
-48,생산 스케줄링을 개선하고 싶어요,OPTIMIZATION,MEDIUM
-49,원자재 재고를 최적화하려면?,OPTIMIZATION,MEDIUM
-50,인력 배치를 효율적으로 하고 싶어요,OPTIMIZATION,MEDIUM
-51,설비 투자 우선순위를 정하고 싶어요,OPTIMIZATION,MEDIUM
-52,제품 품질 관리 프로세스를 개선해주세요,OPTIMIZATION,MEDIUM
-53,생산 라인 밸런싱을 최적화하려면?,OPTIMIZATION,MEDIUM
-54,환경 영향을 최소화하면서 생산성을 높이려면?,OPTIMIZATION,MEDIUM
-55,스마트 팩토리 구현을 위한 개선 방안은?,OPTIMIZATION,MEDIUM
-56,CVD 온도를 350도로 설정해주세요,CONTROL,MEDIUM
-57,압력을 100mTorr로 조정해주세요,CONTROL,MEDIUM
-58,가스 플로우를 50sccm으로 변경해주세요,CONTROL,MEDIUM
-59,장비를 긴급 정지시켜주세요,CONTROL,HIGH
-60,RF 파워를 2000W로 올려주세요,CONTROL,MEDIUM
-61,펌프를 시작해주세요,CONTROL,MEDIUM
-62,자동 모드로 전환해주세요,CONTROL,MEDIUM
-63,레시피 A를 로드해주세요,CONTROL,MEDIUM
-64,웨이퍼 처리를 시작해주세요,CONTROL,MEDIUM
-65,챔버 퍼지를 실행해주세요,CONTROL,MEDIUM
-66,진공 배기를 중지해주세요,CONTROL,MEDIUM
-67,히터를 켜주세요,CONTROL,MEDIUM
-68,공정을 일시정지해주세요,CONTROL,MEDIUM
-69,안전 모드로 전환해주세요,CONTROL,HIGH
-70,시스템을 리셋해주세요,CONTROL,MEDIUM
-71,다음 주 생산량을 예측해주세요,PREDICTION,MEDIUM
-72,장비 교체 시기가 언제쯤 될까요?,PREDICTION,MEDIUM
-73,수율 트렌드 분석 결과를 알고 싶어요,PREDICTION,MEDIUM
-74,향후 6개월간 유지보수 비용은?,PREDICTION,MEDIUM
-75,이 설정으로 웨이퍼 품질이 어떻게 될까요?,PREDICTION,MEDIUM
-76,연말까지 장비 가동률 전망은?,PREDICTION,MEDIUM
-77,공정 변경 시 수율 변화를 예측해주세요,PREDICTION,MEDIUM
-78,내일 생산 계획에 맞는 처리량 예상은?,PREDICTION,MEDIUM
-79,장비 고장 위험도를 분석해주세요,PREDICTION,MEDIUM
-80,다음 분기 에너지 사용량 예측이 필요해요,PREDICTION,MEDIUM
-81,웨이퍼 불량률 추이를 분석해주세요,PREDICTION,MEDIUM
-82,신규 레시피 적용 시 결과 예상치는?,PREDICTION,MEDIUM
-83,장비 성능 저하 시점을 예측해주세요,PREDICTION,MEDIUM
-84,공급망 차질이 생산에 미칠 영향은?,PREDICTION,MEDIUM
-85,시장 수요에 따른 생산량 조정 분석,PREDICTION,MEDIUM
-86,현재 생산량이 얼마나 되나요?,INFORMATION,LOW
-87,오늘 수율 현황을 알려주세요,INFORMATION,LOW
-88,장비 가동률 통계를 보여주세요,INFORMATION,LOW
-89,현재 웨이퍼 재고량은 얼마인가요?,INFORMATION,LOW
-90,이번 주 생산 실적을 알려주세요,INFORMATION,LOW
-91,장비별 처리량 데이터를 보여주세요,INFORMATION,LOW
-92,품질 검사 결과를 확인하고 싶어요,INFORMATION,LOW
-93,공정 파라미터 설정값을 알려주세요,INFORMATION,LOW
-94,유지보수 기록을 조회해주세요,INFORMATION,LOW
-95,에너지 사용량 현황은 어떻게 되나요?,INFORMATION,LOW
-96,현재 가동 중인 장비 목록을 알려주세요,INFORMATION,LOW
-97,공정별 소요시간 데이터를 보여주세요,INFORMATION,LOW
-98,원자재 소모량 통계가 궁금해요,INFORMATION,LOW
-99,불량품 발생 현황을 알려주세요,INFORMATION,LOW
-100,현재 시스템 상태를 확인하고 싶어요,INFORMATION,LOW
+12,2024년 1월 공정 상태 정리해줘,STATUS_SUMMARY,MEDIUM
+13,2024년 1월~2월 공정 상태 보여줘,STATUS_SUMMARY,MEDIUM
+14,지난달 전체 장비 가동률은 어떻게 됐나요,STATUS_SUMMARY,LOW
+15,1월 첫째 주 이상 발생 건수 확인해주세요,STATUS_SUMMARY,MEDIUM
+16,2월 CVD 라인 전체 상태 리포트 생성해줘,STATUS_SUMMARY,MEDIUM
+17,올해 1분기 공정 트렌드 분석해주세요,STATUS_SUMMARY,LOW
+18,작년 같은 기간 대비 장비 성능 비교해줘,STATUS_SUMMARY,LOW
+19,2024년 2월 3주차 주간 리포트 보여줘,STATUS_SUMMARY,MEDIUM
+20,1~3월 장비별 가동 시간 통계 정리해줘,STATUS_SUMMARY,MEDIUM
+21,2월 말 전체 라인 상태 요약해주세요,STATUS_SUMMARY,MEDIUM
+22,최근 한 달간 주요 이벤트 timeline 만들어줘,STATUS_SUMMARY,LOW
+23,Q1 분기별 KPI 달성률 확인해주세요,STATUS_SUMMARY,LOW
+24,2024년 상반기 예정된 점검 일정 보여줘,SCHEDULE_CHECK,LOW
+25,다음 주 예방 정비 계획 확인해줘,SCHEDULE_CHECK,MEDIUM
+26,이번 달 남은 점검 항목 리스트 보여줘,SCHEDULE_CHECK,MEDIUM
+27,연간 정기 점검 스케줄 업데이트해줘,SCHEDULE_CHECK,LOW
+28,로드락 시스템에 문제가 있는 것 같습니다,ANOMALY_CHECK,MEDIUM
+29,전체 장비 상태를 점검해주세요,ANOMALY_CHECK,MEDIUM
+30,냉각수 온도가 설정값을 벗어났어요,ANOMALY_CHECK,HIGH
+31,진공 펌프에서 이상 진동이 감지됩니다,ANOMALY_CHECK,HIGH
+32,웨이퍼 이송 로봇이 제대로 작동하지 않아요,ANOMALY_CHECK,HIGH
+33,플라즈마 점화가 불안정합니다,ANOMALY_CHECK,HIGH
+34,마스크 정렬 시스템 오차가 커요,ANOMALY_CHECK,HIGH
+35,화학 기상 증착 중 가스 누출이 의심됩니다,ANOMALY_CHECK,HIGH
+36,스퍼터링 타겟 상태를 확인해주세요,ANOMALY_CHECK,MEDIUM
+37,이온 주입 장비 빔 전류가 불안정해요,ANOMALY_CHECK,HIGH
+38,포토리소그래피 노광 강도가 이상해요,ANOMALY_CHECK,HIGH
+39,CMP 장비 패드 압력이 불균등합니다,ANOMALY_CHECK,MEDIUM
+40,배기 시스템 효율이 떨어진 것 같아요,ANOMALY_CHECK,MEDIUM
+41,웨이퍼 카세트 로딩에 문제가 있어요,ANOMALY_CHECK,MEDIUM
+42,플라즈마 밀도 분포가 불균일해요,ANOMALY_CHECK,HIGH
+43,반응성 이온 식각 속도가 느려졌어요,ANOMALY_CHECK,HIGH
+44,열처리로 온도 프로파일이 이상합니다,ANOMALY_CHECK,HIGH
+45,클린룸 입자 농도가 기준치를 초과했어요,ANOMALY_CHECK,HIGH
+46,장비 알람이 계속 울리고 있어요,ANOMALY_CHECK,HIGH
+47,생산 수율을 개선하고 싶어요,OPTIMIZATION,MEDIUM
+48,에너지 효율성을 높이는 방법을 알려주세요,OPTIMIZATION,MEDIUM
+49,공정 시간을 단축할 수 있을까요?,OPTIMIZATION,MEDIUM
+50,웨이퍼 처리량을 증가시키고 싶습니다,OPTIMIZATION,MEDIUM
+51,불량률을 줄이는 최적화 방안을 제안해주세요,OPTIMIZATION,MEDIUM
+52,챔버 청소 주기를 최적화하고 싶어요,OPTIMIZATION,MEDIUM
+53,가스 사용량을 효율적으로 관리하려면?,OPTIMIZATION,MEDIUM
+54,장비 가동률을 높이는 방법을 찾아주세요,OPTIMIZATION,MEDIUM
+55,식각 균일도를 개선할 수 있나요?,OPTIMIZATION,MEDIUM
+56,전력 소비를 최소화하면서 성능은 유지하고 싶어요,OPTIMIZATION,MEDIUM
+57,레시피 파라미터를 최적화해주세요,OPTIMIZATION,MEDIUM
+58,장비 활용도를 극대화하려면 어떻게 해야 하나요?,OPTIMIZATION,MEDIUM
+59,공정 안정성을 향상시키고 싶어요,OPTIMIZATION,MEDIUM
+60,웨이퍼 품질 일관성을 높이려면?,OPTIMIZATION,MEDIUM
+61,반도체 제조 비용을 절감하고 싶습니다,OPTIMIZATION,MEDIUM
+62,공급망 효율성을 개선할 방법은?,OPTIMIZATION,MEDIUM
+63,장비 예방 보전 계획을 최적화해주세요,OPTIMIZATION,MEDIUM
+64,생산 스케줄링을 개선하고 싶어요,OPTIMIZATION,MEDIUM
+65,원자재 재고를 최적화하려면?,OPTIMIZATION,MEDIUM
+66,인력 배치를 효율적으로 하고 싶어요,OPTIMIZATION,MEDIUM
+67,설비 투자 우선순위를 정하고 싶어요,OPTIMIZATION,MEDIUM
+68,제품 품질 관리 프로세스를 개선해주세요,OPTIMIZATION,MEDIUM
+69,생산 라인 밸런싱을 최적화하려면?,OPTIMIZATION,MEDIUM
+70,환경 영향을 최소화하면서 생산성을 높이려면?,OPTIMIZATION,MEDIUM
+71,스마트 팩토리 구현을 위한 개선 방안은?,OPTIMIZATION,MEDIUM
+72,CVD 온도를 350도로 설정해주세요,CONTROL,MEDIUM
+73,압력을 100mTorr로 조정해주세요,CONTROL,MEDIUM
+74,가스 플로우를 50sccm으로 변경해주세요,CONTROL,MEDIUM
+75,장비를 긴급 정지시켜주세요,CONTROL,HIGH
+76,RF 파워를 2000W로 올려주세요,CONTROL,MEDIUM
+77,펌프를 시작해주세요,CONTROL,MEDIUM
+78,자동 모드로 전환해주세요,CONTROL,MEDIUM
+79,레시피 A를 로드해주세요,CONTROL,MEDIUM
+80,웨이퍼 처리를 시작해주세요,CONTROL,MEDIUM
+81,챔버 퍼지를 실행해주세요,CONTROL,MEDIUM
+82,진공 배기를 중지해주세요,CONTROL,MEDIUM
+83,히터를 켜주세요,CONTROL,MEDIUM
+84,공정을 일시정지해주세요,CONTROL,MEDIUM
+85,안전 모드로 전환해주세요,CONTROL,HIGH
+86,시스템을 리셋해주세요,CONTROL,MEDIUM
+87,다음 주 생산량을 예측해주세요,PREDICTION,MEDIUM
+88,장비 교체 시기가 언제쯤 될까요?,PREDICTION,MEDIUM
+89,수율 트렌드 분석 결과를 알고 싶어요,PREDICTION,MEDIUM
+90,향후 6개월간 유지보수 비용은?,PREDICTION,MEDIUM
+91,이 설정으로 웨이퍼 품질이 어떻게 될까요?,PREDICTION,MEDIUM
+92,연말까지 장비 가동률 전망은?,PREDICTION,MEDIUM
+93,공정 변경 시 수율 변화를 예측해주세요,PREDICTION,MEDIUM
+94,내일 생산 계획에 맞는 처리량 예상은?,PREDICTION,MEDIUM
+95,장비 고장 위험도를 분석해주세요,PREDICTION,MEDIUM
+96,다음 분기 에너지 사용량 예측이 필요해요,PREDICTION,MEDIUM
+97,웨이퍼 불량률 추이를 분석해주세요,PREDICTION,MEDIUM
+98,신규 레시피 적용 시 결과 예상치는?,PREDICTION,MEDIUM
+99,장비 성능 저하 시점을 예측해주세요,PREDICTION,MEDIUM
+100,공급망 차질이 생산에 미칠 영향은?,PREDICTION,MEDIUM
+101,시장 수요에 따른 생산량 조정 분석,PREDICTION,MEDIUM
+102,현재 생산량이 얼마나 되나요?,INFORMATION,LOW
+103,오늘 수율 현황을 알려주세요,INFORMATION,LOW
+104,장비 가동률 통계를 보여주세요,INFORMATION,LOW
+105,현재 웨이퍼 재고량은 얼마인가요?,INFORMATION,LOW
+106,이번 주 생산 실적을 알려주세요,INFORMATION,LOW
+107,장비별 처리량 데이터를 보여주세요,INFORMATION,LOW
+108,품질 검사 결과를 확인하고 싶어요,INFORMATION,LOW
+109,공정 파라미터 설정값을 알려주세요,INFORMATION,LOW
+110,유지보수 기록을 조회해주세요,INFORMATION,LOW
+111,에너지 사용량 현황은 어떻게 되나요?,INFORMATION,LOW
+112,현재 가동 중인 장비 목록을 알려주세요,INFORMATION,LOW
+113,공정별 소요시간 데이터를 보여주세요,INFORMATION,LOW
+114,원자재 소모량 통계가 궁금해요,INFORMATION,LOW
+115,불량품 발생 현황을 알려주세요,INFORMATION,LOW
+116,현재 시스템 상태를 확인하고 싶어요,INFORMATION,LOW
