@@ -1,7 +1,6 @@
 # instruction_rf_client.py
 import json
 import uuid
-import os
 from typing import Dict, List, Any
 from datetime import datetime
 import requests
@@ -15,10 +14,16 @@ class InstructionRefinementClient:
     - _call_llm_api() 는 POST /v1/completions 로 호출합니다. (prompt 기반)
     """
 
-    def __init__(self, server_url: str, timeout: int = 60):
+    def __init__(
+        self,
+        server_url: str,
+        timeout: int = 60,
+        model: str = "meta-llama/Meta-Llama-3.1-8B-Instruct",  # ← 기본 모델 + 외부 주입 허용
+    ):
         self.base = server_url.rstrip('/')        # 예: http://127.0.0.1:8000/v1
         self.server_url = self.base               # 하위 호환(기존 코드가 참조하는 경우 대비)
         self.timeout = timeout
+        self.model = model                        # ← 전달받은 모델 사용
         # (선택) prompt_manager 연동이 필요하면 외부에서 주입하거나 이 위치에서 초기화하세요.
         self.prompt_manager = getattr(self, 'prompt_manager', None)
 
@@ -56,7 +61,7 @@ class InstructionRefinementClient:
         - POST /v1/completions
         """
         payload = {
-            "model": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+            "model": self.model,          # ← 하드코딩 제거, 생성자에서 받은 모델 사용
             "prompt": prompt,
             "max_tokens": 2000,
             "temperature": 0.1
@@ -255,7 +260,8 @@ Respond with valid JSON only:"""
         return True
 
 
+# 불필요한 실행 예제 호출 제거 (NameError 방지)
 if __name__ == "__main__":
-    InstructionRFExample.example_usage()
-    print("\n" + "=" * 50 + "\n")
-    InstructionRFExample.example_json_output()
+    # 간단한 자체 헬스체크만 수행 (선택)
+    client = InstructionRefinementClient(server_url="http://127.0.0.1:8000/v1")
+    print(client.test_api_connection())

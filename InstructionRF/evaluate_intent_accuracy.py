@@ -9,6 +9,7 @@ VALID_INTENTS = ["ANOMALY_CHECK","PREDICTION","CONTROL","INFORMATION","OPTIMIZAT
 
 DEFAULT_CSV = "/home/minjoo/Github/PRISM-Orch/InstructionRF/data/Semiconductor_intent_dataset__preview_.csv"
 DEFAULT_BASE_URL = "http://127.0.0.1:8000/v1"
+DEFAULT_MODEL = "meta-llama/Meta-Llama-3.1-8B-Instruct"  # 기본값(옵션으로 변경 가능) # 예: unsloth/Qwen3-4B-Instruct-2507-bnb-4bit
 
 def safe_intent(x):
     return x if isinstance(x, str) and x in VALID_INTENTS else None
@@ -21,12 +22,15 @@ def main():
     ap.add_argument("--sleep", type=float, default=0.0, help="Optional delay between requests")
     ap.add_argument("--limit", type=int, default=0, help="Evaluate only the first N rows (0 = all)")
     ap.add_argument("--out", default="predictions.jsonl", help="Where to save detailed predictions")
+    ap.add_argument("--model", default=DEFAULT_MODEL, help="Model ID served by vLLM (e.g., unsloth/Qwen3-4B-Instruct-2507-bnb-4bit)")
     args = ap.parse_args()
 
     print(f"[info] Using dataset: {args.csv}")
     print(f"[info] Using base_url: {args.base_url}")
+    print(f"[info] Using model:    {args.model}")
 
-    client = InstructionRefinementClient(server_url=args.base_url, timeout=args.timeout)
+    # 모델명을 클라이언트에 전달
+    client = InstructionRefinementClient(server_url=args.base_url, timeout=args.timeout, model=args.model)
     health = client.test_api_connection()
     if health.get("status") != "success":
         raise RuntimeError(f"Server not healthy: {health}")
